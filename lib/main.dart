@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:ok_ok/screens/login.dart';
+import 'package:ok_ok/screens/new_password.dart';
 
 class AppColors {
   static const primary = Color(0xFF6843E6);
@@ -29,7 +30,10 @@ void main() {
             primary: AppColors.primary,
             surface: AppColors.surface,
           ),
-          textTheme: GoogleFonts.latoTextTheme(),
+          textTheme: GoogleFonts.latoTextTheme().apply(
+            bodyColor: AppColors.primaryDark,
+            displayColor: AppColors.primaryDark,
+          ),
           elevatedButtonTheme: ElevatedButtonThemeData(
             style: ElevatedButton.styleFrom(
               backgroundColor: AppColors.primary,
@@ -57,7 +61,7 @@ void main() {
             ),
           ),
         ),
-        home: const Login(),
+        home: const NewPasswordScreen(),
       ),
     );
   });
