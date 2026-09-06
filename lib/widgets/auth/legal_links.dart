@@ -1,10 +1,12 @@
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:ok_ok/main.dart';
+import 'package:ok_ok/providers/language_provider.dart';
 import 'package:ok_ok/screens/legal.dart';
 
-class FormLoginLegal extends StatelessWidget {
-  const FormLoginLegal({super.key});
+class FormLigalLinks extends ConsumerWidget {
+  const FormLigalLinks({super.key});
 
   void _selectLegalLink(BuildContext context) {
     Navigator.of(
@@ -13,7 +15,8 @@ class FormLoginLegal extends StatelessWidget {
   }
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
+    final lang = ref.watch(languageProvider.notifier);
     return Align(
       child: RichText(
         textAlign: TextAlign.center,
@@ -24,9 +27,9 @@ class FormLoginLegal extends StatelessWidget {
             height: 1.5,
           ),
           children: [
-            const TextSpan(text: 'Nastavkom, prihvatate naše '),
+            TextSpan(text: '${lang.translate("byContinue")} '),
             TextSpan(
-              text: 'Uslove korišćenja',
+              text: lang.translate("privacy"),
               style: const TextStyle(
                 color: AppColors.primary,
                 fontWeight: FontWeight.bold,
@@ -37,9 +40,9 @@ class FormLoginLegal extends StatelessWidget {
                   _selectLegalLink(context);
                 },
             ),
-            const TextSpan(text: ' i '),
+            TextSpan(text: ' ${lang.translate('and')} '),
             TextSpan(
-              text: 'Politiku privatnosti',
+              text: lang.translate('terms'),
               style: const TextStyle(
                 color: AppColors.primary,
                 fontWeight: FontWeight.bold,

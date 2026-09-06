@@ -1,17 +1,21 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:ok_ok/providers/language_provider.dart';
+import 'package:ok_ok/widgets/common/screen_padding.dart';
 import 'package:url_launcher/url_launcher.dart';
 
-class LegalScreen extends StatefulWidget {
+class LegalScreen extends ConsumerStatefulWidget {
   const LegalScreen({super.key});
 
   @override
-  State<LegalScreen> createState() => _LegalScreenState();
+  ConsumerState<LegalScreen> createState() => _LegalScreenState();
 }
 
-class _LegalScreenState extends State<LegalScreen> {
+class _LegalScreenState extends ConsumerState<LegalScreen> {
   bool _isLoading = false;
 
-  void _openUrl(BuildContext context, String url) async {
+  void _openUrl(String url) async {
+    final lang = ref.read(languageProvider.notifier);
     setState(() => _isLoading = true);
     final uri = Uri.parse(url);
     try {
@@ -19,16 +23,16 @@ class _LegalScreenState extends State<LegalScreen> {
         uri,
         mode: LaunchMode.externalApplication,
       );
-      if (!success && context.mounted) {
+      if (!success && mounted) {
         ScaffoldMessenger.of(
           context,
-        ).showSnackBar(SnackBar(content: Text('Ne mogu da otvorim link')));
+        ).showSnackBar(SnackBar(content: Text(lang.translate('cantOpenLink'))));
       }
     } catch (e) {
-      if (context.mounted) {
+      if (mounted) {
         ScaffoldMessenger.of(
           context,
-        ).showSnackBar(SnackBar(content: Text('Greška: $e')));
+        ).showSnackBar(SnackBar(content: Text('$e')));
       }
     } finally {
       setState(() => _isLoading = false);
@@ -37,10 +41,10 @@ class _LegalScreenState extends State<LegalScreen> {
 
   @override
   Widget build(BuildContext context) {
+    final lang = ref.watch(languageProvider.notifier);
     return Scaffold(
       appBar: AppBar(title: Image.asset('assets/images/logo.png', width: 100)),
-      body: Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 20),
+      body: ScreenPadding(
         child: Column(
           children: [
             Row(
@@ -50,7 +54,7 @@ class _LegalScreenState extends State<LegalScreen> {
                   onPressed: _isLoading
                       ? null
                       : () {
-                          _openUrl(context, "https://www.google.com/");
+                          _openUrl("https://www.google.com/");
                         },
                   child: _isLoading
                       ? const SizedBox(
@@ -58,7 +62,7 @@ class _LegalScreenState extends State<LegalScreen> {
                           width: 16,
                           child: CircularProgressIndicator(),
                         )
-                      : Text('Uslovi koriscenja'),
+                      : Text(lang.translate("terms")),
                 ),
               ],
             ),
@@ -69,7 +73,7 @@ class _LegalScreenState extends State<LegalScreen> {
                   onPressed: _isLoading
                       ? null
                       : () {
-                          _openUrl(context, "https://www.google.com/");
+                          _openUrl("https://www.google.com/");
                         },
                   child: _isLoading
                       ? const SizedBox(
@@ -77,7 +81,7 @@ class _LegalScreenState extends State<LegalScreen> {
                           width: 16,
                           child: CircularProgressIndicator(),
                         )
-                      : Text('Politika privatnosti'),
+                      : Text(lang.translate('privacy')),
                 ),
               ],
             ),

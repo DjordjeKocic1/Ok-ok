@@ -1,20 +1,30 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:ok_ok/providers/language_provider.dart';
+import 'package:ok_ok/screens/login.dart';
+import 'package:ok_ok/widgets/common/screen_padding.dart';
 
-class NewPasswordScreen extends StatefulWidget {
+class NewPasswordScreen extends ConsumerStatefulWidget {
   const NewPasswordScreen({super.key});
 
   @override
-  State<NewPasswordScreen> createState() => _NewPasswordScreenState();
+  ConsumerState<NewPasswordScreen> createState() => _NewPasswordScreenState();
 }
 
-class _NewPasswordScreenState extends State<NewPasswordScreen> {
+class _NewPasswordScreenState extends ConsumerState<NewPasswordScreen> {
   final _formKey = GlobalKey<FormState>();
+
+  void _selectConfirmPassword() {
+    Navigator.of(
+      context,
+    ).pushReplacement(MaterialPageRoute(builder: (ctx) => LoginScreen()));
+  }
 
   @override
   Widget build(BuildContext context) {
+    final lang = ref.watch(languageProvider.notifier);
     return Scaffold(
-      body: Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 20),
+      body: ScreenPadding(
         child: Form(
           key: _formKey,
           child: Column(
@@ -25,10 +35,13 @@ class _NewPasswordScreenState extends State<NewPasswordScreen> {
                 padding: EdgeInsets.symmetric(horizontal: 25),
                 child: Column(
                   children: [
-                    Text('Nova lozinka', style: TextStyle(fontSize: 20)),
+                    Text(
+                      lang.translate('newPassword'),
+                      style: TextStyle(fontSize: 20),
+                    ),
                     const SizedBox(height: 5),
                     Text(
-                      'Unesite i potvrdite svoju novu lozinku kako biste osigurali svoj nalog',
+                      lang.translate('newPasswordDescription'),
                       textAlign: TextAlign.center,
                     ),
                   ],
@@ -38,7 +51,7 @@ class _NewPasswordScreenState extends State<NewPasswordScreen> {
               TextFormField(
                 keyboardType: TextInputType.visiblePassword,
                 decoration: InputDecoration(
-                  label: const Text('Nova lozinka'),
+                  label: Text(lang.translate("newPassword")),
                   prefixIcon: const Icon(Icons.lock_outline),
                 ),
               ),
@@ -46,14 +59,14 @@ class _NewPasswordScreenState extends State<NewPasswordScreen> {
               TextFormField(
                 keyboardType: TextInputType.visiblePassword,
                 decoration: InputDecoration(
-                  label: const Text('Ponovi novu lozinku'),
+                  label: Text(lang.translate('repeatenewPasswordInput')),
                   prefixIcon: const Icon(Icons.lock_outline),
                 ),
               ),
               const SizedBox(height: 20),
               ElevatedButton(
-                onPressed: () {},
-                child: const Text('Sacuvaj lozinku'),
+                onPressed: _selectConfirmPassword,
+                child: Text(lang.translate('saveNewPassword')),
               ),
             ],
           ),

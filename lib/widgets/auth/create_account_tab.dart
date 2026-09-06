@@ -1,18 +1,22 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:ok_ok/providers/language_provider.dart';
 import 'package:ok_ok/widgets/auth/google_button.dart';
 import 'package:ok_ok/widgets/auth/legal_links.dart';
 
-class CreateAccountTab extends StatefulWidget {
+class CreateAccountTab extends ConsumerStatefulWidget {
   const CreateAccountTab({super.key});
 
   @override
-  State<CreateAccountTab> createState() => _CreateAccountTabState();
+  ConsumerState<CreateAccountTab> createState() => _CreateAccountTabState();
 }
 
-class _CreateAccountTabState extends State<CreateAccountTab> {
+class _CreateAccountTabState extends ConsumerState<CreateAccountTab> {
   final _formKey = GlobalKey<FormState>();
   @override
   Widget build(BuildContext context) {
+    final lang = ref.watch(languageProvider.notifier);
+
     return SingleChildScrollView(
       child: Form(
         key: _formKey,
@@ -20,39 +24,39 @@ class _CreateAccountTabState extends State<CreateAccountTab> {
           children: [
             const SizedBox(height: 10),
             TextFormField(
-              decoration: const InputDecoration(
-                label: Text('Ime i prezime'),
+              decoration: InputDecoration(
+                label: Text(lang.translate('firstLastName')),
                 prefixIcon: Icon(Icons.person),
               ),
             ),
             const SizedBox(height: 20),
             TextFormField(
               keyboardType: TextInputType.emailAddress,
-              decoration: const InputDecoration(
-                label: Text('Adresa e-poste'),
+              decoration: InputDecoration(
+                label: Text(lang.translate('loginEmailInput')),
                 prefixIcon: Icon(Icons.email_outlined),
               ),
             ),
             const SizedBox(height: 20),
             TextFormField(
               keyboardType: TextInputType.visiblePassword,
-              decoration: const InputDecoration(
-                label: Text('Lozinka'),
+              decoration: InputDecoration(
+                label: Text(lang.translate('loginPasswordInput')),
                 prefixIcon: Icon(Icons.lock_outline),
               ),
             ),
             const SizedBox(height: 20),
             TextFormField(
               keyboardType: TextInputType.visiblePassword,
-              decoration: const InputDecoration(
-                label: Text('Potvrdi lozinku'),
+              decoration: InputDecoration(
+                label: Text(lang.translate('confirmPasswrod')),
                 prefixIcon: Icon(Icons.lock_outline),
               ),
             ),
             const SizedBox(height: 10),
             ElevatedButton(
               onPressed: () {},
-              child: const Text('Napravi nalog'),
+              child: Text(lang.translate('createAccount')),
             ),
             const SizedBox(height: 10),
             Row(
@@ -63,7 +67,7 @@ class _CreateAccountTabState extends State<CreateAccountTab> {
                 Padding(
                   padding: const EdgeInsets.symmetric(horizontal: 12),
                   child: Text(
-                    'ili',
+                    lang.translate('or'),
                     style: TextStyle(color: Colors.grey.shade600, fontSize: 13),
                   ),
                 ),
@@ -75,7 +79,7 @@ class _CreateAccountTabState extends State<CreateAccountTab> {
             const SizedBox(height: 10),
             FormGoogle(),
             const SizedBox(height: 10),
-            FormLoginLegal(),
+            FormLigalLinks(),
           ],
         ),
       ),

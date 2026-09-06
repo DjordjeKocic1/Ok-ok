@@ -1,14 +1,18 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:ok_ok/providers/language_provider.dart';
 import 'package:ok_ok/widgets/auth/password_reset_info.dart';
+import 'package:ok_ok/widgets/common/screen_padding.dart';
 
-class ForgotPasswordScreen extends StatefulWidget {
+class ForgotPasswordScreen extends ConsumerStatefulWidget {
   const ForgotPasswordScreen({super.key});
 
   @override
-  State<ForgotPasswordScreen> createState() => _ForgotPasswordScreenState();
+  ConsumerState<ForgotPasswordScreen> createState() =>
+      _ForgotPasswordScreenState();
 }
 
-class _ForgotPasswordScreenState extends State<ForgotPasswordScreen> {
+class _ForgotPasswordScreenState extends ConsumerState<ForgotPasswordScreen> {
   final _formKey = GlobalKey<FormState>();
 
   bool _isEmailSent = false;
@@ -21,6 +25,7 @@ class _ForgotPasswordScreenState extends State<ForgotPasswordScreen> {
 
   @override
   Widget build(BuildContext context) {
+    final lang = ref.watch(languageProvider.notifier);
     Widget content = Form(
       key: _formKey,
       child: Column(
@@ -30,10 +35,13 @@ class _ForgotPasswordScreenState extends State<ForgotPasswordScreen> {
             padding: EdgeInsets.symmetric(horizontal: 25),
             child: Column(
               children: [
-                Text('Zaboravio si lozinku?', style: TextStyle(fontSize: 20)),
+                Text(
+                  lang.translate("forgotPassword"),
+                  style: TextStyle(fontSize: 20),
+                ),
                 const SizedBox(height: 10),
                 Text(
-                  'Upisi svoju adresu e-poste i mi cemo ti poslati instrukcije kako da obnovite lozinku',
+                  lang.translate("writeEmailForgotPassword"),
                   textAlign: TextAlign.center,
                 ),
               ],
@@ -43,12 +51,15 @@ class _ForgotPasswordScreenState extends State<ForgotPasswordScreen> {
           TextFormField(
             keyboardType: TextInputType.emailAddress,
             decoration: InputDecoration(
-              label: const Text('Upisi svoju adresu e-poste'),
+              label: Text(lang.translate('writeEmailInputForgotPassword')),
               prefixIcon: const Icon(Icons.email_outlined),
             ),
           ),
           const SizedBox(height: 20),
-          ElevatedButton(onPressed: _submitEmail, child: const Text('Nastavi')),
+          ElevatedButton(
+            onPressed: _submitEmail,
+            child: Text(lang.translate("continue")),
+          ),
         ],
       ),
     );
@@ -57,10 +68,7 @@ class _ForgotPasswordScreenState extends State<ForgotPasswordScreen> {
     }
     return Scaffold(
       appBar: AppBar(title: Image.asset('assets/images/logo.png', width: 100)),
-      body: Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 20),
-        child: content,
-      ),
+      body: ScreenPadding(child: content),
     );
   }
 }

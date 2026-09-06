@@ -1,11 +1,14 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:ok_ok/main.dart';
+import 'package:ok_ok/providers/language_provider.dart';
 
-class FormGoogle extends StatelessWidget {
+class FormGoogle extends ConsumerWidget {
   const FormGoogle({super.key});
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
+    final lang = ref.watch(languageProvider.notifier);
     return Column(
       children: [
         ElevatedButton(
@@ -24,8 +27,8 @@ class FormGoogle extends StatelessWidget {
             children: [
               Image.asset(width: 30, 'assets/images/google-icon.png'),
               const SizedBox(width: 8),
-              const Text(
-                'Nastavi sa google nalogom',
+              Text(
+                lang.translate("continueWithGoogle"),
                 style: TextStyle(color: AppColors.primaryDark),
               ),
             ],

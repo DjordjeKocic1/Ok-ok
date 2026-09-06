@@ -1,20 +1,20 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:ok_ok/providers/language_provider.dart';
 
-class PasswordResetInfo extends StatelessWidget {
+class PasswordResetInfo extends ConsumerWidget {
   const PasswordResetInfo({super.key});
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
+    final lang = ref.watch(languageProvider.notifier);
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 20),
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
           Image.asset('assets/images/email-sent.png', width: 200),
-          Text(
-            'Posali smo Vam link na vasoj adresi e-poste sa instrukcijama kako da obnovite lozinku.',
-            textAlign: TextAlign.center,
-          ),
+          Text(lang.translate("linkSentToEmail"), textAlign: TextAlign.center),
         ],
       ),
     );
