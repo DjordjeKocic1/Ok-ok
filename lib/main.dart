@@ -3,7 +3,6 @@ import 'package:flutter/services.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:ok_ok/screens/login.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:ok_ok/screens/new_password.dart';
 
 class AppColors {
   static const primary = Color(0xFF6843E6);
@@ -64,7 +63,7 @@ void main() {
               ),
             ),
           ),
-          home: const NewPasswordScreen(),
+          home: const LoginScreen(),
         ),
       ),
     );
