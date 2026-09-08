@@ -12,8 +12,8 @@ class Responsive {
 
   Responsive(this.context) {
     screenSize = MediaQuery.of(context).size;
-    scaleWidth = screenSize.width / _designWidth;
-    scaleHeight = screenSize.height / _designHeight;
+    scaleWidth = (screenSize.width / _designWidth).clamp(0.8, 1.3);
+    scaleHeight = (screenSize.height / _designHeight).clamp(0.8, 1.3);
     scaleText = scaleWidth.clamp(0.75, 1.15);
   }
 
