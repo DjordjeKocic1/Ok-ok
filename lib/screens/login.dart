@@ -4,6 +4,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:ok_ok/data/translations.dart';
 import 'package:ok_ok/main.dart';
 import 'package:ok_ok/providers/language_provider.dart';
+import 'package:ok_ok/utils/responsive.dart';
 import 'package:ok_ok/widgets/auth/create_account_tab.dart';
 import 'package:ok_ok/widgets/auth/login_tab.dart';
 import 'package:ok_ok/widgets/common/screen_padding.dart';
@@ -34,85 +35,93 @@ class LoginScreen extends ConsumerWidget {
                 stops: [0.0, 0.4, 1.0],
               ),
             ),
-            child: ScreenPadding(
-              extra: const EdgeInsets.only(top: 40),
-              child: Column(
-                children: [
-                  Container(
-                    height: 250,
-                    alignment: Alignment.center,
-                    decoration: const BoxDecoration(
-                      image: DecorationImage(
-                        image: AssetImage('assets/images/login_background.png'),
-                        fit: BoxFit.contain,
+            child: SafeArea(
+              child: ScreenPadding(
+                extra: const EdgeInsets.only(top: 20, bottom: 10),
+                child: Column(
+                  children: [
+                    Container(
+                      height: context.h(250),
+                      alignment: Alignment.center,
+                      decoration: const BoxDecoration(
+                        image: DecorationImage(
+                          image: AssetImage(
+                            'assets/images/login_background.png',
+                          ),
+                        ),
                       ),
-                    ),
-                    child: Column(
-                      mainAxisSize: MainAxisSize.min,
-                      children: [
-                        const SizedBox(height: 24),
-                        Image.asset('assets/images/logo.png', width: 250),
-                        Text(
-                          lang.translate("peopleHelps"),
-                          style: TextStyle(
-                            fontWeight: FontWeight.bold,
-                            fontSize: 15,
-                          ),
-                        ),
-                        Text(
-                          lang.translate("peopleService"),
-                          style: TextStyle(fontSize: 13),
-                        ),
-                      ],
-                    ),
-                  ),
-                  Expanded(
-                    child: DefaultTabController(
-                      length: 2,
                       child: Column(
+                        mainAxisSize: MainAxisSize.min,
                         children: [
-                          TabBar(
-                            tabAlignment: TabAlignment.center,
-                            labelColor: AppColors.primaryDark,
-                            unselectedLabelColor: AppColors.textSecondary,
-                            labelPadding: const EdgeInsets.symmetric(
-                              horizontal: 50,
-                            ),
-                            labelStyle: const TextStyle(
-                              fontSize: 16,
-                              fontWeight: FontWeight.bold,
-                            ),
-                            indicatorColor: AppColors.primary,
-                            indicator: UnderlineTabIndicator(
-                              borderSide: const BorderSide(
-                                color: AppColors.primary,
-                                width: 2,
-                              ),
-                              insets: const EdgeInsets.symmetric(
-                                horizontal: -50,
-                              ),
-                            ),
-                            tabs: [
-                              Tab(text: lang.translate("signIn")),
-                              Tab(text: lang.translate("createAccount")),
-                            ],
+                          SizedBox(height: context.h(24)),
+                          Image.asset(
+                            'assets/images/logo.png',
+                            width: context.w(250),
                           ),
-                          const SizedBox(height: 20),
-                          Expanded(
-                            child: TabBarView(
-                              children: [LoginTab(), CreateAccountTab()],
+                          Text(
+                            lang.translate("peopleHelps"),
+                            style: TextStyle(
+                              fontWeight: FontWeight.bold,
+                              fontSize: context.sp(15),
                             ),
+                          ),
+                          Text(
+                            lang.translate("peopleService"),
+                            style: TextStyle(fontSize: context.sp(12)),
                           ),
                         ],
                       ),
                     ),
-                  ),
-                ],
+                    Expanded(
+                      child: DefaultTabController(
+                        length: 2,
+                        child: Column(
+                          children: [
+                            TabBar(
+                              tabAlignment: TabAlignment.fill,
+                              labelColor: AppColors.primaryDark,
+                              unselectedLabelColor: AppColors.textSecondary,
+                              labelStyle: TextStyle(
+                                fontSize: context.sp(16),
+                                fontWeight: FontWeight.bold,
+                              ),
+                              indicatorColor: AppColors.primary,
+                              indicatorSize: TabBarIndicatorSize.tab,
+                              tabs: [
+                                Tab(
+                                  child: FittedBox(
+                                    fit: BoxFit.scaleDown,
+                                    child: Text(lang.translate("signIn")),
+                                  ),
+                                ),
+                                Tab(
+                                  child: FittedBox(
+                                    fit: BoxFit.scaleDown,
+                                    child: Text(
+                                      lang.translate("createAccount"),
+                                    ),
+                                  ),
+                                ),
+                              ],
+                            ),
+                            SizedBox(height: context.h(20)),
+                            Expanded(
+                              child: TabBarView(
+                                physics: const NeverScrollableScrollPhysics(),
+                                children: [LoginTab(), CreateAccountTab()],
+                              ),
+                            ),
+                          ],
+                        ),
+                      ),
+                    ),
+                  ],
+                ),
               ),
             ),
           ),
           Positioned(
-            top: 15,
+            top: 25,
             right: 20,
             child: DropdownButtonHideUnderline(
               child: DropdownButton<String>(
@@ -121,10 +130,10 @@ class LoginScreen extends ConsumerWidget {
                   Icons.keyboard_arrow_down,
                   color: AppColors.primaryDark,
                 ),
-                style: const TextStyle(
+                style: TextStyle(
                   color: AppColors.primaryDark,
                   fontWeight: FontWeight.w600,
-                  fontSize: 15,
+                  fontSize: context.sp(15),
                 ),
                 items: [
                   for (final countryCode in translationData.keys)
@@ -139,14 +148,17 @@ class LoginScreen extends ConsumerWidget {
                               borderRadius: BorderRadius.circular(3),
                               child: CountryFlag.fromLanguageCode(
                                 countryCode,
-                                theme: ImageTheme(width: 28, height: 18),
+                                theme: ImageTheme(
+                                  width: context.w(30),
+                                  height: context.h(20),
+                                ),
                               ),
                             ),
                             const SizedBox(width: 8),
                             Text(
                               countryCode.toUpperCase(),
-                              style: const TextStyle(
-                                fontSize: 14,
+                              style: TextStyle(
+                                fontSize: context.sp(14),
                                 fontWeight: FontWeight.w500,
                                 color: AppColors.primaryDark,
                               ),

@@ -3,6 +3,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:ok_ok/main.dart';
 import 'package:ok_ok/providers/language_provider.dart';
 import 'package:ok_ok/screens/forgot_password.dart';
+import 'package:ok_ok/utils/responsive.dart';
 import 'package:ok_ok/widgets/auth/google_button.dart';
 import 'package:ok_ok/widgets/auth/legal_links.dart';
 
@@ -34,16 +35,22 @@ class _LoginTabState extends ConsumerState<LoginTab> {
             TextFormField(
               keyboardType: TextInputType.emailAddress,
               decoration: InputDecoration(
-                label: Text(lang.translate('loginEmailInput')),
-                prefixIcon: Icon(Icons.email_outlined),
+                label: Text(
+                  lang.translate('loginEmailInput'),
+                  style: TextStyle(fontSize: context.sp(16)),
+                ),
+                prefixIcon: const Icon(Icons.email_outlined),
               ),
             ),
             const SizedBox(height: 20),
             TextFormField(
               keyboardType: TextInputType.visiblePassword,
               decoration: InputDecoration(
-                label: Text(lang.translate('loginPasswordInput')),
-                prefixIcon: Icon(Icons.lock_outline),
+                label: Text(
+                  lang.translate('loginPasswordInput'),
+                  style: TextStyle(fontSize: context.sp(16)),
+                ),
+                prefixIcon: const Icon(Icons.lock_outline),
               ),
             ),
             Align(
@@ -52,11 +59,20 @@ class _LoginTabState extends ConsumerState<LoginTab> {
                 onPressed: _selectForgotPassword,
                 child: Text(
                   lang.translate('forgotPassword'),
-                  style: TextStyle(color: AppColors.primary),
+                  style: TextStyle(
+                    color: AppColors.primary,
+                    fontSize: context.sp(14),
+                  ),
                 ),
               ),
             ),
-            ElevatedButton(onPressed: () {}, child: const Text('Prijavi se')),
+            ElevatedButton(
+              onPressed: () {},
+              child: Text(
+                'Prijavi se',
+                style: TextStyle(fontSize: context.sp(14)),
+              ),
+            ),
             const SizedBox(height: 10),
             Row(
               children: [
@@ -67,7 +83,7 @@ class _LoginTabState extends ConsumerState<LoginTab> {
                   padding: const EdgeInsets.symmetric(horizontal: 12),
                   child: Text(
                     lang.translate('or'),
-                    style: TextStyle(color: Colors.grey.shade600, fontSize: 13),
+                    style: TextStyle(color: Colors.grey.shade600, fontSize: 14),
                   ),
                 ),
                 Expanded(

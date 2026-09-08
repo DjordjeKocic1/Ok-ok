@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:ok_ok/main.dart';
 import 'package:ok_ok/providers/language_provider.dart';
+import 'package:ok_ok/utils/responsive.dart';
 
 class FormGoogle extends ConsumerWidget {
   const FormGoogle({super.key});
@@ -25,11 +26,17 @@ class FormGoogle extends ConsumerWidget {
           child: Row(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              Image.asset(width: 30, 'assets/images/google-icon.png'),
+              Image.asset(
+                width: context.w(30),
+                'assets/images/google-icon.png',
+              ),
               const SizedBox(width: 8),
               Text(
                 lang.translate("continueWithGoogle"),
-                style: TextStyle(color: AppColors.primaryDark),
+                style: TextStyle(
+                  color: AppColors.primaryDark,
+                  fontSize: context.sp(14),
+                ),
               ),
             ],
           ),

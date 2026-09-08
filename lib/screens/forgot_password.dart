@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:ok_ok/providers/language_provider.dart';
+import 'package:ok_ok/utils/responsive.dart';
 import 'package:ok_ok/widgets/auth/password_reset_info.dart';
 import 'package:ok_ok/widgets/common/screen_padding.dart';
 
@@ -37,12 +38,13 @@ class _ForgotPasswordScreenState extends ConsumerState<ForgotPasswordScreen> {
               children: [
                 Text(
                   lang.translate("forgotPassword"),
-                  style: TextStyle(fontSize: 20),
+                  style: TextStyle(fontSize: context.sp(20)),
                 ),
                 const SizedBox(height: 10),
                 Text(
                   lang.translate("writeEmailForgotPassword"),
                   textAlign: TextAlign.center,
+                  style: TextStyle(fontSize: context.sp(14)),
                 ),
               ],
             ),
@@ -51,14 +53,20 @@ class _ForgotPasswordScreenState extends ConsumerState<ForgotPasswordScreen> {
           TextFormField(
             keyboardType: TextInputType.emailAddress,
             decoration: InputDecoration(
-              label: Text(lang.translate('writeEmailInputForgotPassword')),
+              label: Text(
+                lang.translate('writeEmailInputForgotPassword'),
+                style: TextStyle(fontSize: context.sp(16)),
+              ),
               prefixIcon: const Icon(Icons.email_outlined),
             ),
           ),
           const SizedBox(height: 20),
           ElevatedButton(
             onPressed: _submitEmail,
-            child: Text(lang.translate("continue")),
+            child: Text(
+              lang.translate("continue"),
+              style: TextStyle(fontSize: context.sp(14)),
+            ),
           ),
         ],
       ),

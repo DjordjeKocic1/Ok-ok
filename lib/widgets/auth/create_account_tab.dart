@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:ok_ok/providers/language_provider.dart';
+import 'package:ok_ok/utils/responsive.dart';
 import 'package:ok_ok/widgets/auth/google_button.dart';
 import 'package:ok_ok/widgets/auth/legal_links.dart';
 
@@ -25,7 +26,10 @@ class _CreateAccountTabState extends ConsumerState<CreateAccountTab> {
             const SizedBox(height: 10),
             TextFormField(
               decoration: InputDecoration(
-                label: Text(lang.translate('firstLastName')),
+                label: Text(
+                  lang.translate('firstLastName'),
+                  style: TextStyle(fontSize: context.sp(16)),
+                ),
                 prefixIcon: Icon(Icons.person),
               ),
             ),
@@ -33,7 +37,10 @@ class _CreateAccountTabState extends ConsumerState<CreateAccountTab> {
             TextFormField(
               keyboardType: TextInputType.emailAddress,
               decoration: InputDecoration(
-                label: Text(lang.translate('loginEmailInput')),
+                label: Text(
+                  lang.translate('loginEmailInput'),
+                  style: TextStyle(fontSize: context.sp(16)),
+                ),
                 prefixIcon: Icon(Icons.email_outlined),
               ),
             ),
@@ -41,7 +48,10 @@ class _CreateAccountTabState extends ConsumerState<CreateAccountTab> {
             TextFormField(
               keyboardType: TextInputType.visiblePassword,
               decoration: InputDecoration(
-                label: Text(lang.translate('loginPasswordInput')),
+                label: Text(
+                  lang.translate('loginPasswordInput'),
+                  style: TextStyle(fontSize: context.sp(16)),
+                ),
                 prefixIcon: Icon(Icons.lock_outline),
               ),
             ),
@@ -49,14 +59,20 @@ class _CreateAccountTabState extends ConsumerState<CreateAccountTab> {
             TextFormField(
               keyboardType: TextInputType.visiblePassword,
               decoration: InputDecoration(
-                label: Text(lang.translate('confirmPasswrod')),
+                label: Text(
+                  lang.translate('confirmPasswrod'),
+                  style: TextStyle(fontSize: context.sp(16)),
+                ),
                 prefixIcon: Icon(Icons.lock_outline),
               ),
             ),
             const SizedBox(height: 10),
             ElevatedButton(
               onPressed: () {},
-              child: Text(lang.translate('createAccount')),
+              child: Text(
+                lang.translate('createAccount'),
+                style: TextStyle(fontSize: context.sp(14)),
+              ),
             ),
             const SizedBox(height: 10),
             Row(

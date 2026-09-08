@@ -4,6 +4,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:ok_ok/main.dart';
 import 'package:ok_ok/providers/language_provider.dart';
 import 'package:ok_ok/screens/legal.dart';
+import 'package:ok_ok/utils/responsive.dart';
 
 class FormLigalLinks extends ConsumerWidget {
   const FormLigalLinks({super.key});
@@ -23,7 +24,7 @@ class FormLigalLinks extends ConsumerWidget {
         text: TextSpan(
           style: TextStyle(
             color: AppColors.primaryDark,
-            fontSize: 16,
+            fontSize: context.sp(14),
             height: 1.5,
           ),
           children: [

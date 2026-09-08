@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:ok_ok/providers/language_provider.dart';
 import 'package:ok_ok/screens/login.dart';
+import 'package:ok_ok/utils/responsive.dart';
 import 'package:ok_ok/widgets/common/screen_padding.dart';
 
 class NewPasswordScreen extends ConsumerStatefulWidget {
@@ -30,19 +31,23 @@ class _NewPasswordScreenState extends ConsumerState<NewPasswordScreen> {
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              Image.asset('assets/images/new-password.png', width: 200),
+              Image.asset(
+                'assets/images/new-password.png',
+                width: context.w(200),
+              ),
               Padding(
                 padding: EdgeInsets.symmetric(horizontal: 25),
                 child: Column(
                   children: [
                     Text(
                       lang.translate('newPassword'),
-                      style: TextStyle(fontSize: 20),
+                      style: TextStyle(fontSize: context.sp(20)),
                     ),
                     const SizedBox(height: 5),
                     Text(
                       lang.translate('newPasswordDescription'),
                       textAlign: TextAlign.center,
+                      style: TextStyle(fontSize: context.sp(14)),
                     ),
                   ],
                 ),
@@ -51,7 +56,10 @@ class _NewPasswordScreenState extends ConsumerState<NewPasswordScreen> {
               TextFormField(
                 keyboardType: TextInputType.visiblePassword,
                 decoration: InputDecoration(
-                  label: Text(lang.translate("newPassword")),
+                  label: Text(
+                    lang.translate("newPassword"),
+                    style: TextStyle(fontSize: context.sp(16)),
+                  ),
                   prefixIcon: const Icon(Icons.lock_outline),
                 ),
               ),
@@ -59,14 +67,20 @@ class _NewPasswordScreenState extends ConsumerState<NewPasswordScreen> {
               TextFormField(
                 keyboardType: TextInputType.visiblePassword,
                 decoration: InputDecoration(
-                  label: Text(lang.translate('repeatenewPasswordInput')),
+                  label: Text(
+                    lang.translate('repeatenewPasswordInput'),
+                    style: TextStyle(fontSize: context.sp(16)),
+                  ),
                   prefixIcon: const Icon(Icons.lock_outline),
                 ),
               ),
               const SizedBox(height: 20),
               ElevatedButton(
                 onPressed: _selectConfirmPassword,
-                child: Text(lang.translate('saveNewPassword')),
+                child: Text(
+                  lang.translate('saveNewPassword'),
+                  style: TextStyle(fontSize: context.sp(14)),
+                ),
               ),
             ],
           ),
