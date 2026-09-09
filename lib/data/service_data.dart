@@ -1,0 +1,51 @@
+import 'package:ok_ok/modal/service_item.dart';
+
+const serviceData = [
+  ServiceItem(
+    firstName: 'Djorde Kocic',
+    avatarImage: '',
+    tripNote:
+        "Putujem iz Novog Sada za Amsterdam. Imam 1 slobodno mesto za pakete, Mogu preuzeti paket u Novom Sadu, dogovor oko lokacije",
+    ratingHistory: ['4.8', '4.7', '4.6'],
+    reviewCount: 3,
+    destinationStart: "Belgrade",
+    destinationEnd: "Rotterdam",
+    departureTime: "2026-03-24T08:00:00",
+    cost: 20,
+    maxWeight: 10,
+    restrictedItems: ["pets", "breakingGlass"],
+    spotsAvailable: 2,
+    transportMode: "Car",
+  ),
+  ServiceItem(
+    firstName: 'Kristina Kocic',
+    avatarImage: '',
+    tripNote:
+        "Putujem iz Novog Sada za Amsterdam. Imam 1 slobodno mesto za pakete, Mogu preuzeti paket u Novom Sadu, dogovor oko lokacije",
+    ratingHistory: ['4.5', '4.4', '4.9'],
+    reviewCount: 5,
+    destinationStart: "Novi Sad",
+    destinationEnd: "Amsterdam",
+    departureTime: "2026-05-12T10:00:00",
+    cost: 25,
+    maxWeight: 5,
+    restrictedItems: ["pets", "breakingGlass"],
+    spotsAvailable: 1,
+    transportMode: "Car",
+  ),
+  ServiceItem(
+    firstName: 'Suki Sukic',
+    avatarImage: '',
+    tripNote: "Putujem iz dzamiju",
+    ratingHistory: ['4.8', '5.0', '4.9'],
+    reviewCount: 3,
+    destinationStart: "Nis",
+    destinationEnd: "Beograd",
+    departureTime: "2026-05-12T10:00:00",
+    cost: 10,
+    maxWeight: 5,
+    restrictedItems: ["pets", "breakingGlass"],
+    spotsAvailable: 1,
+    transportMode: "Airplan",
+  ),
+];

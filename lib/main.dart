@@ -5,6 +5,7 @@ import 'package:ok_ok/screens/login.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 class AppColors {
+  static const mainColor = Color(0xFFECE8FE);
   static const primary = Color(0xFF6843E6);
   static const primaryDark = Color(0xFF1E1B4B);
   static const background = Color(0xFFFAF9FF);
@@ -12,6 +13,8 @@ class AppColors {
   static const border = Color(0xFFE5E3F0);
   static const textSecondary = Color(0xFF6B7280);
   static const success = Color(0xFF10B981);
+  static const fadeSuccess = Color(0xFFD4FFD5);
+  static const successPrimary = Color(0xFF318334);
 }
 
 void main() {
@@ -41,6 +44,13 @@ void main() {
                 backgroundColor: AppColors.primary,
                 foregroundColor: Colors.white,
                 minimumSize: const Size(double.infinity, 52),
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(15),
+                ),
+              ),
+            ),
+            textButtonTheme: TextButtonThemeData(
+              style: ElevatedButton.styleFrom(
                 shape: RoundedRectangleBorder(
                   borderRadius: BorderRadius.circular(15),
                 ),

@@ -3,6 +3,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:ok_ok/main.dart';
 import 'package:ok_ok/providers/language_provider.dart';
 import 'package:ok_ok/screens/forgot_password.dart';
+import 'package:ok_ok/screens/tabs.dart';
 import 'package:ok_ok/utils/responsive.dart';
 import 'package:ok_ok/widgets/auth/google_button.dart';
 import 'package:ok_ok/widgets/auth/legal_links.dart';
@@ -21,6 +22,12 @@ class _LoginTabState extends ConsumerState<LoginTab> {
     Navigator.of(
       context,
     ).push(MaterialPageRoute(builder: (ctx) => ForgotPasswordScreen()));
+  }
+
+  void _submit() {
+    Navigator.of(
+      context,
+    ).pushReplacement(MaterialPageRoute(builder: (ctx) => TabsScreen()));
   }
 
   @override
@@ -67,9 +74,9 @@ class _LoginTabState extends ConsumerState<LoginTab> {
               ),
             ),
             ElevatedButton(
-              onPressed: () {},
+              onPressed: _submit,
               child: Text(
-                'Prijavi se',
+                lang.translate('signIn'),
                 style: TextStyle(fontSize: context.sp(14)),
               ),
             ),
