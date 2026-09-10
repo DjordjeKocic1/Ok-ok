@@ -4,7 +4,6 @@ class ServiceItem {
     required this.avatarImage,
     required this.tripNote,
     required this.ratingHistory,
-    required this.reviewCount,
     required this.destinationStart,
     required this.destinationEnd,
     required this.departureTime,
@@ -19,7 +18,6 @@ class ServiceItem {
   final String avatarImage;
   final String tripNote;
   final List<String> ratingHistory;
-  final int reviewCount;
   final String destinationStart;
   final String destinationEnd;
   final String departureTime;
