@@ -2,7 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:ok_ok/data/service_data.dart';
 import 'package:ok_ok/main.dart';
 import 'package:ok_ok/modal/service_item.dart';
+import 'package:ok_ok/utils/formatters.dart';
 import 'package:ok_ok/utils/responsive.dart';
+import 'package:ok_ok/widgets/modals/filter_modal.dart';
 import 'package:ok_ok/widgets/services_list.dart';
 
 class HomeScreen extends StatefulWidget {
@@ -13,7 +15,7 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
-  final _formKey = GlobalKey<FormState>();
+  bool _hasActiveFilters = false;
   final TextEditingController _searchController = TextEditingController();
   List<ServiceItem> filteredServices = [];
 
@@ -29,11 +31,13 @@ class _HomeScreenState extends State<HomeScreen> {
     super.dispose();
   }
 
-  void _filterServices(String query) {
+  void _quickfilterByDestinationEnd(String query) {
     setState(() {
       if (query.isEmpty) {
+        _hasActiveFilters = false;
         filteredServices = serviceData;
       } else {
+        _hasActiveFilters = true;
         filteredServices = serviceData
             .where(
               (item) => item.destinationEnd.toLowerCase().contains(
@@ -42,6 +46,56 @@ class _HomeScreenState extends State<HomeScreen> {
             )
             .toList();
       }
+    });
+  }
+
+  Future<void> _showFilters() async {
+    final result = await showModalBottomSheet<Map<String, dynamic>>(
+      context: context,
+      isScrollControlled: true,
+      builder: (ctx) {
+        return const FilterModal();
+      },
+    );
+
+    final String destinationStart =
+        (result?['destinationStart'] as String?) ?? '';
+    final String destinationEnd = (result?['destinationEnd'] as String?) ?? '';
+    final String maxCostText = (result?['maxCost'] as String?) ?? '';
+    final int? maxCost = int.tryParse(maxCostText);
+    final double? minRating = result?['minRating'] as double?;
+
+    if (destinationStart.isEmpty &&
+        destinationEnd.isEmpty &&
+        maxCostText.isEmpty &&
+        minRating == null) {
+      return;
+    }
+
+    setState(() {
+      _hasActiveFilters = true;
+      filteredServices = serviceData.where((item) {
+        final matchesStart =
+            destinationStart.isEmpty ||
+            item.destinationStart.toLowerCase().contains(
+              destinationStart.toLowerCase(),
+            );
+
+        final matchesEnd =
+            destinationEnd.isEmpty ||
+            item.destinationEnd.toLowerCase().contains(
+              destinationEnd.toLowerCase(),
+            );
+
+        final findAverageRating = getAverageRating(item.ratingHistory);
+
+        final matchesRating =
+            minRating == null || minRating <= findAverageRating;
+
+        final matchesCost = maxCost == null || item.cost <= maxCost;
+
+        return matchesStart && matchesEnd && matchesCost && matchesRating;
+      }).toList();
     });
   }
 
@@ -75,66 +129,102 @@ class _HomeScreenState extends State<HomeScreen> {
             ),
           ),
           const SizedBox(height: 15),
-          Form(
-            key: _formKey,
-            child: Row(
-              children: [
-                Expanded(
-                  flex: 3,
-                  child: TextFormField(
-                    controller: _searchController,
-                    decoration: InputDecoration(
-                      label: Text(
-                        'Pretraga destinacija',
-                        style: TextStyle(fontSize: context.sp(14)),
-                      ),
-                      prefixIcon: const Icon(Icons.search),
-                      contentPadding: EdgeInsets.symmetric(
-                        horizontal: 12,
-                        vertical: 10,
-                      ),
+          Row(
+            children: [
+              Expanded(
+                flex: 3,
+                child: TextFormField(
+                  controller: _searchController,
+                  decoration: InputDecoration(
+                    label: Text(
+                      'Pretraga destinacija',
+                      style: TextStyle(fontSize: context.sp(14)),
                     ),
-                    onChanged: _filterServices,
+                    prefixIcon: const Icon(Icons.search),
+                    contentPadding: EdgeInsets.symmetric(
+                      horizontal: 12,
+                      vertical: 10,
+                    ),
+                  ),
+                  onChanged: _quickfilterByDestinationEnd,
+                ),
+              ),
+              const SizedBox(width: 8),
+              Expanded(
+                flex: 1,
+                child: TextButton(
+                  style: TextButton.styleFrom(
+                    backgroundColor: AppColors.mainColor,
+                    padding: EdgeInsets.symmetric(horizontal: 12, vertical: 10),
+                  ),
+                  onPressed: _showFilters,
+                  child: const Icon(
+                    Icons.display_settings,
+                    color: AppColors.primaryDark,
+                    size: 25,
                   ),
                 ),
-                const SizedBox(width: 8),
-                Expanded(
-                  flex: 1,
-                  child: TextButton(
-                    style: TextButton.styleFrom(
-                      backgroundColor: AppColors.mainColor,
-                      padding: EdgeInsets.symmetric(
-                        horizontal: 12,
-                        vertical: 10,
+              ),
+            ],
+          ),
+          if (_hasActiveFilters)
+            Padding(
+              padding: const EdgeInsets.only(top: 8),
+              child: GestureDetector(
+                onTap: () {
+                  setState(() {
+                    _hasActiveFilters = false;
+                    filteredServices = serviceData;
+                  });
+                },
+                child: Row(
+                  children: [
+                    Icon(Icons.close, size: 16),
+                    const SizedBox(width: 4),
+                    Text(
+                      'Ukloni filtere',
+                      style: TextStyle(fontSize: context.sp(12)),
+                    ),
+                  ],
+                ),
+              ),
+            ),
+          const SizedBox(height: 20),
+          Expanded(
+            child: filteredServices.isEmpty
+                ? const Center(child: Text('Nema dostupnih destinacija'))
+                : ServicesList(filteredData: filteredServices),
+          ),
+          ElevatedButton(
+            onPressed: () {},
+            style: ElevatedButton.styleFrom(
+              padding: const EdgeInsets.symmetric(vertical: 10),
+            ),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                const Icon(Icons.add_circle_outline, size: 30),
+                const SizedBox(width: 10),
+                Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(
+                      'Dodaj uslugu',
+                      style: TextStyle(
+                        fontWeight: FontWeight.bold,
+                        fontSize: context.sp(16),
                       ),
                     ),
-                    onPressed: () {
-                      showModalBottomSheet(
-                        context: context,
-                        isScrollControlled: true,
-                        builder: (ctx) {
-                          return Padding(
-                            padding: EdgeInsets.all(20),
-                            child: Column(
-                              mainAxisSize: MainAxisSize.min,
-                              children: const [Text('Filter services')],
-                            ),
-                          );
-                        },
-                      );
-                    },
-                    child: Icon(
-                      Icons.display_settings,
-                      color: AppColors.primaryDark,
-                      size: 25,
+                    const SizedBox(height: 2),
+                    Text(
+                      'Pruzi uslugu drugima',
+                      style: TextStyle(fontSize: context.sp(12)),
                     ),
-                  ),
+                  ],
                 ),
               ],
             ),
           ),
-          const SizedBox(height: 20),
-          ServicesList(filteredData: filteredServices),
         ],
       ),
     );
