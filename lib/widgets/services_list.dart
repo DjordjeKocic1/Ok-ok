@@ -51,45 +51,85 @@ class ServicesList extends StatelessWidget {
                   child: Column(
                     children: [
                       Row(
+                        crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          Icon(Icons.person, size: 40),
-                          Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              Text(
-                                filteredData[index].firstName,
-                                style: TextStyle(
-                                  fontSize: context.sp(16),
-                                  fontWeight: FontWeight.bold,
+                          Expanded(
+                            child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                Text(
+                                  filteredData[index].firstName,
+                                  overflow: TextOverflow.ellipsis,
+                                  maxLines: 1,
+                                  style: TextStyle(
+                                    fontSize: context.sp(15),
+                                    fontWeight: FontWeight.bold,
+                                  ),
                                 ),
+                                Row(
+                                  children: [
+                                    Icon(
+                                      Icons.star,
+                                      color: Colors.amber,
+                                      size: 15,
+                                    ),
+                                    const SizedBox(width: 2),
+                                    Text(
+                                      ratingText,
+                                      style: TextStyle(
+                                        fontSize: context.sp(12),
+                                      ),
+                                    ),
+                                    const SizedBox(width: 2),
+                                    Text(
+                                      '(${filteredData[index].ratingHistory.length.toString()})',
+                                      style: TextStyle(
+                                        fontSize: context.sp(12),
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                              ],
+                            ),
+                          ),
+                          const SizedBox(width: 10),
+                          TextButton(
+                            onPressed: () {},
+                            style: TextButton.styleFrom(
+                              minimumSize: Size.zero,
+                              padding: const EdgeInsets.symmetric(
+                                vertical: 5,
+                                horizontal: 10,
                               ),
-                              Row(
-                                children: [
-                                  Icon(
-                                    Icons.star,
-                                    color: Colors.amber,
-                                    size: 15,
-                                  ),
-                                  const SizedBox(width: 2),
-                                  Text(ratingText),
-                                  const SizedBox(width: 2),
-                                  Text(
-                                    '(${filteredData[index].ratingHistory.length.toString()})',
-                                  ),
-                                ],
+                              backgroundColor: AppColors.fadeSuccess,
+                              shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(10),
                               ),
-                            ],
+                              side: const BorderSide(
+                                color: AppColors.successPrimary,
+                              ),
+                            ),
+                            child: Text(
+                              badgeText,
+                              style: TextStyle(
+                                color: const Color.fromARGB(255, 49, 131, 52),
+                                fontWeight: FontWeight.bold,
+                                fontSize: context.sp(10),
+                              ),
+                            ),
                           ),
                         ],
                       ),
-                      const SizedBox(height: 10),
                       Row(
                         children: [
-                          Text(
-                            filteredData[index].destinationStart,
-                            style: TextStyle(
-                              fontSize: context.sp(16),
-                              fontWeight: FontWeight.bold,
+                          Flexible(
+                            child: Text(
+                              filteredData[index].destinationStart,
+                              overflow: TextOverflow.ellipsis,
+                              style: TextStyle(
+                                fontSize: context.sp(16),
+                                fontWeight: FontWeight.bold,
+                              ),
                             ),
                           ),
                           const SizedBox(width: 5),
@@ -99,11 +139,14 @@ class ServicesList extends StatelessWidget {
                             color: AppColors.primary,
                           ),
                           const SizedBox(width: 5),
-                          Text(
-                            filteredData[index].destinationEnd,
-                            style: TextStyle(
-                              fontSize: context.sp(16),
-                              fontWeight: FontWeight.bold,
+                          Flexible(
+                            child: Text(
+                              filteredData[index].destinationEnd,
+                              overflow: TextOverflow.ellipsis,
+                              style: TextStyle(
+                                fontSize: context.sp(16),
+                                fontWeight: FontWeight.bold,
+                              ),
                             ),
                           ),
                         ],
@@ -113,7 +156,10 @@ class ServicesList extends StatelessWidget {
                         children: [
                           Icon(Icons.calendar_today, size: 15),
                           const SizedBox(width: 5),
-                          Text('$departureDate - $departureTime'),
+                          Text(
+                            '$departureDate - $departureTime',
+                            style: TextStyle(fontSize: context.sp(12)),
+                          ),
                         ],
                       ),
                       const SizedBox(height: 10),
@@ -121,37 +167,11 @@ class ServicesList extends StatelessWidget {
                         children: [
                           Text(
                             'Slobodna mesta za paket(e): ${filteredData[index].spotsAvailable}',
+                            style: TextStyle(fontSize: context.sp(12)),
                           ),
                         ],
                       ),
                     ],
-                  ),
-                ),
-                Positioned(
-                  top: 10,
-                  right: 20,
-                  child: TextButton(
-                    onPressed: () {},
-                    style: TextButton.styleFrom(
-                      minimumSize: Size.zero,
-                      padding: const EdgeInsets.symmetric(
-                        vertical: 5,
-                        horizontal: 10,
-                      ),
-                      backgroundColor: AppColors.fadeSuccess,
-                      shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(10),
-                      ),
-                      side: const BorderSide(color: AppColors.successPrimary),
-                    ),
-                    child: Text(
-                      badgeText,
-                      style: TextStyle(
-                        color: const Color.fromARGB(255, 49, 131, 52),
-                        fontWeight: FontWeight.bold,
-                        fontSize: context.sp(12),
-                      ),
-                    ),
                   ),
                 ),
                 Positioned(

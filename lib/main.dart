@@ -59,6 +59,11 @@ void main() {
             inputDecorationTheme: InputDecorationTheme(
               filled: true,
               fillColor: AppColors.surface,
+              isDense: true,
+              prefixIconConstraints: const BoxConstraints(
+                minWidth: 32,
+                minHeight: 32,
+              ),
               border: OutlineInputBorder(
                 borderRadius: BorderRadius.circular(15),
                 borderSide: BorderSide(color: AppColors.border),

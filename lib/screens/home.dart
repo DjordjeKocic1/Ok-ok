@@ -104,10 +104,7 @@ class _HomeScreenState extends State<HomeScreen> {
     return Scaffold(
       appBar: AppBar(
         scrolledUnderElevation: 0,
-        title: Padding(
-          padding: const EdgeInsets.only(left: 0),
-          child: Image.asset('assets/images/logo.png', width: 100),
-        ),
+        title: Image.asset('assets/images/logo.png', width: 100),
       ),
       body: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -142,8 +139,8 @@ class _HomeScreenState extends State<HomeScreen> {
                     ),
                     prefixIcon: const Icon(Icons.search),
                     contentPadding: EdgeInsets.symmetric(
-                      horizontal: 12,
-                      vertical: 10,
+                      horizontal: context.w(12),
+                      vertical: context.h(10),
                     ),
                   ),
                   onChanged: _quickfilterByDestinationEnd,
@@ -158,10 +155,10 @@ class _HomeScreenState extends State<HomeScreen> {
                     padding: EdgeInsets.symmetric(horizontal: 12, vertical: 10),
                   ),
                   onPressed: _showFilters,
-                  child: const Icon(
+                  child: Icon(
                     Icons.display_settings,
                     color: AppColors.primaryDark,
-                    size: 25,
+                    size: context.w(25),
                   ),
                 ),
               ),

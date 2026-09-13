@@ -1,19 +1,22 @@
 import 'package:intl/intl.dart';
 
-({String dayMonth, String time, bool isTomorrow}) getDateTime(String date) {
+({String dayMonth, String time, bool isTomorrow, String year}) getDateTime(
+  String date,
+) {
   final dt = DateTime.parse(date);
 
   final month = DateFormat('MMMM').format(dt).toLowerCase();
+  final year = DateFormat('yyyy').format(dt);
   final dayMonth = '${dt.day}. $month';
 
-  final time = DateFormat('h:mm a').format(dt);
+  final time = DateFormat('HH:mm').format(dt);
 
   final now = DateTime.now();
   final tomorrow = DateTime(now.year, now.month, now.day + 1);
   final dtDateOnly = DateTime(dt.year, dt.month, dt.day);
   final isTomorrow = dtDateOnly == tomorrow;
 
-  return (dayMonth: dayMonth, time: time, isTomorrow: isTomorrow);
+  return (dayMonth: dayMonth, time: time, isTomorrow: isTomorrow, year: year);
 }
 
 double getAverageRating(List<String> ratingHistory) {
