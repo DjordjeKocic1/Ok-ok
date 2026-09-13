@@ -43,16 +43,16 @@ class ServiceDetailScreen extends StatelessWidget {
                     const SizedBox(width: 4),
                     Text(
                       ratingText,
-                      style: TextStyle(fontSize: context.sp(12)),
+                      style: TextStyle(fontSize: context.sp(14)),
                     ),
-                    const SizedBox(width: 6),
+                    const SizedBox(width: 3),
                     Text(
                       '(${serviceItem.ratingHistory.length.toString()})',
-                      style: TextStyle(fontSize: context.sp(12)),
+                      style: TextStyle(fontSize: context.sp(14)),
                     ),
                   ],
                 ),
-                const SizedBox(height: 10),
+                const SizedBox(height: 15),
                 Row(
                   children: [
                     Flexible(
@@ -84,10 +84,10 @@ class ServiceDetailScreen extends StatelessWidget {
                     ),
                   ],
                 ),
-                const SizedBox(height: 5),
+                const SizedBox(height: 10),
                 Row(
                   children: [
-                    Icon(Icons.calendar_today, size: 20),
+                    Icon(Icons.calendar_today, size: context.w(20)),
                     const SizedBox(width: 5),
                     Text(
                       '$departureDate $departureYear',
@@ -96,7 +96,7 @@ class ServiceDetailScreen extends StatelessWidget {
                     const SizedBox(width: 20),
                     Icon(
                       Icons.timer_outlined,
-                      size: 20,
+                      size: context.w(20),
                       color: AppColors.primary,
                     ),
                     const SizedBox(width: 5),
@@ -124,7 +124,7 @@ class ServiceDetailScreen extends StatelessWidget {
                 const SizedBox(height: 20),
                 Row(
                   children: [
-                    Icon(Icons.card_travel, size: 20),
+                    Icon(Icons.card_travel, size: context.w(20)),
                     const SizedBox(width: 10),
                     Text(
                       'Slobodna mesta za paket(e): ${serviceItem.spotsAvailable}',
@@ -135,7 +135,7 @@ class ServiceDetailScreen extends StatelessWidget {
                 const SizedBox(height: 5),
                 Row(
                   children: [
-                    Icon(Icons.monitor_weight, size: 20),
+                    Icon(Icons.monitor_weight, size: context.w(20)),
                     const SizedBox(width: 10),
                     Text(
                       'Maksimalna tezina po paketu: ${serviceItem.maxWeight} kg',
@@ -146,7 +146,7 @@ class ServiceDetailScreen extends StatelessWidget {
                 const SizedBox(height: 5),
                 Row(
                   children: [
-                    Icon(Icons.local_atm, size: 20),
+                    Icon(Icons.local_atm, size: context.w(20)),
                     const SizedBox(width: 10),
                     Text(
                       'Cena po paketu: ${serviceItem.cost}',

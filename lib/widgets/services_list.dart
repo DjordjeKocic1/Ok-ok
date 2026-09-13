@@ -77,14 +77,14 @@ class ServicesList extends StatelessWidget {
                                     Text(
                                       ratingText,
                                       style: TextStyle(
-                                        fontSize: context.sp(12),
+                                        fontSize: context.sp(14),
                                       ),
                                     ),
                                     const SizedBox(width: 2),
                                     Text(
                                       '(${filteredData[index].ratingHistory.length.toString()})',
                                       style: TextStyle(
-                                        fontSize: context.sp(12),
+                                        fontSize: context.sp(14),
                                       ),
                                     ),
                                   ],
@@ -122,14 +122,11 @@ class ServicesList extends StatelessWidget {
                       ),
                       Row(
                         children: [
-                          Flexible(
-                            child: Text(
-                              filteredData[index].destinationStart,
-                              overflow: TextOverflow.ellipsis,
-                              style: TextStyle(
-                                fontSize: context.sp(16),
-                                fontWeight: FontWeight.bold,
-                              ),
+                          Text(
+                            filteredData[index].destinationStart,
+                            style: TextStyle(
+                              fontSize: context.sp(16),
+                              fontWeight: FontWeight.bold,
                             ),
                           ),
                           const SizedBox(width: 5),
@@ -143,6 +140,7 @@ class ServicesList extends StatelessWidget {
                             child: Text(
                               filteredData[index].destinationEnd,
                               overflow: TextOverflow.ellipsis,
+                              maxLines: 2,
                               style: TextStyle(
                                 fontSize: context.sp(16),
                                 fontWeight: FontWeight.bold,
