@@ -12,7 +12,12 @@ const serviceData = [
     departureTime: "2026-10-24T08:00:00",
     cost: 20,
     maxWeight: 10,
-    restrictedItems: ["pets", "breaking glass"],
+    restrictedItems: [
+      "Pets",
+      "Breaking Glass",
+      "Flammable materials",
+      "Alcohol and cigarettes",
+    ],
     spotsAvailable: 2,
     transportMode: "Car",
   ),

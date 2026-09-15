@@ -10,11 +10,14 @@ class ScreenPadding extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Padding(
-      padding: EdgeInsets.symmetric(
-        horizontal: horizontal,
-      ).add(extra ?? EdgeInsets.zero),
-      child: child,
+    return SafeArea(
+      top: false,
+      child: Padding(
+        padding: EdgeInsets.symmetric(
+          horizontal: horizontal,
+        ).add(extra ?? EdgeInsets.zero),
+        child: child,
+      ),
     );
   }
 }
