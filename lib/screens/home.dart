@@ -140,7 +140,7 @@ class _HomeScreenState extends State<HomeScreen> {
                     prefixIcon: const Icon(Icons.search),
                     contentPadding: EdgeInsets.symmetric(
                       horizontal: context.w(12),
-                      vertical: context.h(10),
+                      vertical: context.h(12),
                     ),
                   ),
                   onChanged: _quickfilterByDestinationEnd,
@@ -186,7 +186,7 @@ class _HomeScreenState extends State<HomeScreen> {
                 ),
               ),
             ),
-          const SizedBox(height: 20),
+          const SizedBox(height: 10),
           Expanded(
             child: filteredServices.isEmpty
                 ? const Center(child: Text('Nema dostupnih destinacija'))

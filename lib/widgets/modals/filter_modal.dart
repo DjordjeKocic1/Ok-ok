@@ -56,70 +56,52 @@ class _FilterModalState extends State<FilterModal> {
             children: [
               Text('Filteri', style: TextStyle(fontSize: context.sp(16))),
               const SizedBox(height: 20),
-              Text(
-                'Polazna lokacija:',
-                style: TextStyle(
-                  fontSize: context.sp(14),
-                  color: AppColors.textSecondary,
-                ),
-              ),
-              const SizedBox(height: 8),
               TextFormField(
                 controller: _destinationStartController,
                 decoration: InputDecoration(
+                  label: Text(
+                    'Polazna lokacija',
+                    style: TextStyle(fontSize: context.sp(14)),
+                  ),
                   prefixIcon: Icon(Icons.location_pin, size: context.w(20)),
-                  hintText: 'Belgrade, Serbia',
-                  hintStyle: TextStyle(color: AppColors.border),
                   contentPadding: EdgeInsets.symmetric(
                     horizontal: context.w(12),
-                    vertical: context.h(10),
+                    vertical: context.h(12),
                   ),
                 ),
               ),
               const SizedBox(height: 15),
-              Text(
-                'Odrediste:',
-                style: TextStyle(
-                  fontSize: context.sp(14),
-                  color: AppColors.textSecondary,
-                ),
-              ),
-              const SizedBox(height: 8),
               TextFormField(
                 controller: _destinationEndController,
                 decoration: InputDecoration(
+                  label: Text(
+                    'Odrediste',
+                    style: TextStyle(fontSize: context.sp(14)),
+                  ),
                   prefixIcon: Icon(Icons.location_pin, size: context.w(20)),
-                  hintText: 'Rotterdam, Netherlands',
-                  hintStyle: TextStyle(color: AppColors.border),
                   contentPadding: EdgeInsets.symmetric(
                     horizontal: context.w(12),
-                    vertical: context.h(10),
+                    vertical: context.h(12),
                   ),
                 ),
               ),
               const SizedBox(height: 15),
-              Text(
-                'Maksimalna cena po paketu:',
-                style: TextStyle(
-                  fontSize: context.sp(14),
-                  color: AppColors.textSecondary,
-                ),
-              ),
-              const SizedBox(height: 8),
               TextFormField(
                 controller: _maxCostController,
                 keyboardType: TextInputType.number,
                 inputFormatters: [FilteringTextInputFormatter.digitsOnly],
                 decoration: InputDecoration(
+                  label: Text(
+                    'Maksimalna cena po paketu',
+                    style: TextStyle(fontSize: context.sp(14)),
+                  ),
                   prefixIcon: Icon(
                     Icons.attach_money_outlined,
                     size: context.w(20),
                   ),
-                  hintText: '€5',
-                  hintStyle: TextStyle(color: AppColors.border),
                   contentPadding: EdgeInsets.symmetric(
                     horizontal: context.w(12),
-                    vertical: context.h(10),
+                    vertical: context.h(12),
                   ),
                 ),
               ),

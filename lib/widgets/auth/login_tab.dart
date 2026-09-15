@@ -42,6 +42,10 @@ class _LoginTabState extends ConsumerState<LoginTab> {
             TextFormField(
               keyboardType: TextInputType.emailAddress,
               decoration: InputDecoration(
+                contentPadding: EdgeInsets.symmetric(
+                  horizontal: context.w(12),
+                  vertical: context.h(15),
+                ),
                 label: Text(
                   lang.translate('loginEmailInput'),
                   style: TextStyle(fontSize: context.sp(16)),
@@ -53,6 +57,10 @@ class _LoginTabState extends ConsumerState<LoginTab> {
             TextFormField(
               keyboardType: TextInputType.visiblePassword,
               decoration: InputDecoration(
+                contentPadding: EdgeInsets.symmetric(
+                  horizontal: context.w(12),
+                  vertical: context.h(15),
+                ),
                 label: Text(
                   lang.translate('loginPasswordInput'),
                   style: TextStyle(fontSize: context.sp(16)),
