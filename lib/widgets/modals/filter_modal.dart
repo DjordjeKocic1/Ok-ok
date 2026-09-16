@@ -52,9 +52,27 @@ class _FilterModalState extends State<FilterModal> {
         padding: EdgeInsets.all(30),
         child: SingleChildScrollView(
           child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
+            crossAxisAlignment: CrossAxisAlignment.stretch,
             children: [
-              Text('Filteri', style: TextStyle(fontSize: context.sp(16))),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Text(
+                    'Filteri',
+                    style: TextStyle(
+                      fontSize: context.sp(16),
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ),
+                  GestureDetector(
+                    onTap: () {
+                      _resetFilters();
+                      Navigator.pop(context);
+                    },
+                    child: Icon(Icons.cancel_outlined),
+                  ),
+                ],
+              ),
               const SizedBox(height: 20),
               TextFormField(
                 controller: _destinationStartController,
