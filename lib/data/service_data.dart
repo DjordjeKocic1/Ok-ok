@@ -7,8 +7,18 @@ const serviceData = [
     tripNote:
         "Putujem iz Novog Sada za Amsterdam. Imam 1 slobodno mesto za pakete, Mogu preuzeti paket u Novom Sadu, dogovor oko lokacije",
     ratingHistory: ['3.8', '4.0', '3.6', '4.2'],
-    destinationStart: "Beograd",
-    destinationEnd: "Rotterdam",
+    destinationStart: Location(country: 'Srbija', city: 'Nis'),
+    destinationEnd: Location(country: 'Srbija', city: 'Beograd'),
+    historyDestinations: [
+      HistoryDestinations(
+        destinationStart: Location(country: 'Srbija', city: 'Nis'),
+        destinationEnd: Location(country: 'Srbija', city: 'Cacak'),
+      ),
+      HistoryDestinations(
+        destinationStart: Location(country: 'Srbija', city: 'Nis'),
+        destinationEnd: Location(country: 'Srbija', city: 'Beograd'),
+      ),
+    ],
     departureTime: "2026-10-24T08:00:00",
     cost: 20,
     maxWeight: 10,
@@ -27,8 +37,14 @@ const serviceData = [
     tripNote:
         "Putujem iz Novog Sada za Amsterdam. Imam 1 slobodno mesto za pakete, Mogu preuzeti paket u Novom Sadu, dogovor oko lokacije",
     ratingHistory: ['3.8', '4.0', '3.6', '4.2'],
-    destinationStart: "Novi Sad",
-    destinationEnd: "Amsterdam",
+    destinationStart: Location(country: 'Srbija', city: 'Novi Sad'),
+    destinationEnd: Location(country: 'Netherlands', city: 'Amsterdam'),
+    historyDestinations: [
+      HistoryDestinations(
+        destinationStart: Location(country: 'Srbija', city: 'Novi Sad'),
+        destinationEnd: Location(country: 'Srbija', city: 'Nis'),
+      ),
+    ],
     departureTime: "2026-09-11T10:00:00",
     cost: 25,
     maxWeight: 5,
@@ -41,8 +57,14 @@ const serviceData = [
     avatarImage: '',
     tripNote: "Putujem iz dzamiju",
     ratingHistory: ['4.8', '5.0', '4.9'],
-    destinationStart: "Nis",
-    destinationEnd: "Beograd",
+    destinationStart: Location(country: 'Srbija', city: 'Beograd'),
+    destinationEnd: Location(country: 'Srbija', city: 'Kragujevac'),
+    historyDestinations: [
+      HistoryDestinations(
+        destinationStart: Location(country: 'Srbija', city: 'Nis'),
+        destinationEnd: Location(country: 'Srbija', city: 'Beograd'),
+      ),
+    ],
     departureTime: "2026-11-01T10:00:00",
     cost: 10,
     maxWeight: 3,
@@ -55,8 +77,14 @@ const serviceData = [
     avatarImage: '',
     tripNote: "Putujem iz crveni pevac i idem u Beograd centar",
     ratingHistory: ['4.8', '5.0', '4.9'],
-    destinationStart: "Nis",
-    destinationEnd: "Beograd",
+    destinationStart: Location(country: 'Srbija', city: 'Nis'),
+    destinationEnd: Location(country: 'Srbija', city: 'Nozrina'),
+    historyDestinations: [
+      HistoryDestinations(
+        destinationStart: Location(country: 'Srbija', city: 'Nis'),
+        destinationEnd: Location(country: 'Srbija', city: 'Zitkovac'),
+      ),
+    ],
     departureTime: "2026-10-22T13:00:00",
     cost: 10,
     maxWeight: 5,
@@ -69,8 +97,14 @@ const serviceData = [
     avatarImage: '',
     tripNote: "Putujem iz crveni pevac i idem u Beograd centar",
     ratingHistory: ['4.4', '4.2', '4.3'],
-    destinationStart: "Nis",
-    destinationEnd: "Gaborovacka Reka",
+    destinationStart: Location(country: 'Srbija', city: 'Nis'),
+    destinationEnd: Location(country: 'Srbija', city: 'Cukurevac'),
+    historyDestinations: [
+      HistoryDestinations(
+        destinationStart: Location(country: 'Srbija', city: 'Nis'),
+        destinationEnd: Location(country: 'Srbija', city: 'Gabrovacka Reka'),
+      ),
+    ],
     departureTime: "2026-09-12T13:00:00",
     cost: 40,
     maxWeight: 5,

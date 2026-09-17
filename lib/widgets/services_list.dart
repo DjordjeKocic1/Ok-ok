@@ -123,7 +123,7 @@ class ServicesList extends StatelessWidget {
                       Row(
                         children: [
                           Text(
-                            filteredData[index].destinationStart,
+                            filteredData[index].destinationStart.city,
                             style: TextStyle(
                               fontSize: context.sp(16),
                               fontWeight: FontWeight.bold,
@@ -138,7 +138,7 @@ class ServicesList extends StatelessWidget {
                           const SizedBox(width: 5),
                           Flexible(
                             child: Text(
-                              filteredData[index].destinationEnd,
+                              filteredData[index].destinationEnd.city,
                               overflow: TextOverflow.ellipsis,
                               maxLines: 2,
                               style: TextStyle(

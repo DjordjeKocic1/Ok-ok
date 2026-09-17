@@ -6,6 +6,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 class AppColors {
   static const mainColor = Color(0xFFECE8FE);
+  static const secondaryMainColor = Color(0xFFE0DAFF);
   static const primary = Color(0xFF6843E6);
   static const primaryDark = Color(0xFF1E1B4B);
   static const background = Color(0xFFFAF9FF);

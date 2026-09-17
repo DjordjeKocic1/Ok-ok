@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:ok_ok/main.dart';
-import 'package:ok_ok/screens/home.dart';
 import 'package:ok_ok/screens/message.dart';
 import 'package:ok_ok/screens/my_services.dart';
 import 'package:ok_ok/screens/profile.dart';
+import 'package:ok_ok/screens/search.dart';
 import 'package:ok_ok/utils/responsive.dart';
 import 'package:ok_ok/widgets/common/screen_padding.dart';
 
@@ -18,7 +18,7 @@ class _TabsScreenState extends State<TabsScreen> {
   int _selectedIndex = 0;
 
   final List<Widget> _screens = const [
-    HomeScreen(),
+    SearchScreen(),
     MessageScreen(),
     MyServicesScreen(),
     ProfileScreen(),
@@ -33,6 +33,10 @@ class _TabsScreenState extends State<TabsScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar: AppBar(
+        scrolledUnderElevation: 0,
+        title: Image.asset('assets/images/logo.png', width: 100),
+      ),
       body: ScreenPadding(
         child: IndexedStack(index: _selectedIndex, children: _screens),
       ),

@@ -75,7 +75,7 @@ class ServiceDetailScreen extends StatelessWidget {
             Row(
               children: [
                 Text(
-                  serviceItem.destinationStart,
+                  serviceItem.destinationStart.city,
                   style: TextStyle(
                     fontSize: context.sp(16),
                     fontWeight: FontWeight.bold,
@@ -90,7 +90,7 @@ class ServiceDetailScreen extends StatelessWidget {
                 const SizedBox(width: 5),
                 Flexible(
                   child: Text(
-                    serviceItem.destinationEnd,
+                    serviceItem.destinationEnd.city,
                     overflow: TextOverflow.ellipsis,
                     maxLines: 2,
                     style: TextStyle(
@@ -245,7 +245,7 @@ class ServiceDetailScreen extends StatelessWidget {
                         ),
                       ),
                       Text(
-                        serviceItem.destinationStart,
+                        serviceItem.destinationStart.city,
                         textAlign: TextAlign.left,
                         style: TextStyle(fontSize: context.sp(14)),
                       ),
