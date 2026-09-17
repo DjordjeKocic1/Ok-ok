@@ -40,6 +40,12 @@ dependencies:
   country_flags: ^4.1.2
   app_links: ^6.4.1
   intl: ^0.20.3
+  flutter_launcher_icons: ^0.14.4
+
+flutter_launcher_icons:
+  android: true
+  ios: true
+  image_path: "assets/images/icon.png"
 
 dev_dependencies:
   flutter_test:
