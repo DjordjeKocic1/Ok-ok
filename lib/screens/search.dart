@@ -262,7 +262,7 @@ class _SearchScreenState extends State<SearchScreen> {
             ),
           const SizedBox(height: 10),
           ElevatedButton(
-            onPressed: _filterData,
+            onPressed: () {},
             style: ElevatedButton.styleFrom(
               padding: EdgeInsets.symmetric(vertical: context.h(10)),
             ),
