@@ -205,7 +205,7 @@ class _SearchScreenState extends State<SearchScreen> {
               Text(
                 'Skorasnje pretrage',
                 style: TextStyle(
-                  fontSize: context.sp(18),
+                  fontSize: context.sp(16),
                   fontWeight: FontWeight.bold,
                 ),
               ),
@@ -225,7 +225,7 @@ class _SearchScreenState extends State<SearchScreen> {
           const SizedBox(height: 5),
           for (final historyDestination in serviceData[0].historyDestinations)
             Container(
-              margin: EdgeInsets.only(top: 10),
+              margin: EdgeInsets.only(top: 5),
               decoration: BoxDecoration(
                 color: AppColors.mainColor,
                 borderRadius: BorderRadius.circular(12),
