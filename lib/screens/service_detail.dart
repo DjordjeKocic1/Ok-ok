@@ -1,25 +1,26 @@
 import 'package:flutter/material.dart';
 import 'package:ok_ok/main.dart';
 import 'package:ok_ok/modal/service_item.dart';
-import 'package:ok_ok/utils/formatters.dart';
+import 'package:ok_ok/screens/request.dart';
 import 'package:ok_ok/utils/responsive.dart';
 import 'package:ok_ok/widgets/common/screen_padding.dart';
+import 'package:ok_ok/widgets/service_item_header.dart';
 
 class ServiceDetailScreen extends StatelessWidget {
   const ServiceDetailScreen({super.key, required this.serviceItem});
 
   final ServiceItem serviceItem;
 
+  void _goToRequest(BuildContext context) {
+    Navigator.of(context).push(
+      MaterialPageRoute(
+        builder: (ctx) => RequestScreen(serviceItem: serviceItem),
+      ),
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
-    final dateInfo = getDateTime(serviceItem.departureTime);
-    var departureDate = dateInfo.dayMonth;
-    var departureTime = dateInfo.time;
-    var departureYear = dateInfo.year;
-    var ratingText = getAverageRating(
-      serviceItem.ratingHistory,
-    ).toStringAsFixed(1);
-
     Widget restrictedContent(String restrictedItem) {
       var iconColor = AppColors.primary;
       var iconSize = context.w(25);
@@ -44,82 +45,21 @@ class ServiceDetailScreen extends StatelessWidget {
 
     return Scaffold(
       appBar: AppBar(
-        scrolledUnderElevation: 0,
-        title: Image.asset('assets/images/logo.png', width: context.w(100)),
+        title: Text(
+          'Detailji',
+          style: TextStyle(
+            fontSize: context.sp(18),
+            fontWeight: FontWeight.bold,
+          ),
+        ),
+        actions: [IconButton(onPressed: () {}, icon: const Icon(Icons.share))],
       ),
       body: ScreenPadding(
         extra: const EdgeInsets.only(bottom: 10),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Text(
-              serviceItem.firstName,
-              style: TextStyle(
-                fontSize: context.sp(16),
-                fontWeight: FontWeight.bold,
-              ),
-            ),
-            Row(
-              children: [
-                Icon(Icons.star, color: Colors.amber, size: 20),
-                const SizedBox(width: 4),
-                Text(ratingText, style: TextStyle(fontSize: context.sp(14))),
-                const SizedBox(width: 3),
-                Text(
-                  '(${serviceItem.ratingHistory.length.toString()})',
-                  style: TextStyle(fontSize: context.sp(14)),
-                ),
-              ],
-            ),
-            const SizedBox(height: 15),
-            Row(
-              children: [
-                Text(
-                  serviceItem.destinationStart.city,
-                  style: TextStyle(
-                    fontSize: context.sp(16),
-                    fontWeight: FontWeight.bold,
-                  ),
-                ),
-                const SizedBox(width: 5),
-                Icon(
-                  Icons.arrow_forward_sharp,
-                  size: 15,
-                  color: AppColors.primary,
-                ),
-                const SizedBox(width: 5),
-                Flexible(
-                  child: Text(
-                    serviceItem.destinationEnd.city,
-                    overflow: TextOverflow.ellipsis,
-                    maxLines: 2,
-                    style: TextStyle(
-                      fontSize: context.sp(16),
-                      fontWeight: FontWeight.bold,
-                    ),
-                  ),
-                ),
-              ],
-            ),
-            const SizedBox(height: 10),
-            Row(
-              children: [
-                Icon(Icons.calendar_today, size: context.w(20)),
-                const SizedBox(width: 5),
-                Text(
-                  '$departureDate $departureYear',
-                  style: TextStyle(fontSize: context.sp(14)),
-                ),
-                const SizedBox(width: 20),
-                Icon(
-                  Icons.timer_outlined,
-                  size: context.w(20),
-                  color: AppColors.primary,
-                ),
-                const SizedBox(width: 5),
-                Text(departureTime, style: TextStyle(fontSize: context.sp(14))),
-              ],
-            ),
+            ServiceItemHeader(serviceItem: serviceItem),
             const SizedBox(height: 10),
             Divider(color: Colors.grey.shade300, thickness: 1),
             const SizedBox(height: 10),
@@ -145,7 +85,11 @@ class ServiceDetailScreen extends StatelessWidget {
                       const SizedBox(height: 20),
                       Row(
                         children: [
-                          Icon(Icons.card_travel, size: context.w(20)),
+                          Icon(
+                            Icons.card_travel,
+                            size: context.w(20),
+                            color: AppColors.primary,
+                          ),
                           const SizedBox(width: 10),
                           Text(
                             'Slobodna mesta za paket(e): ${serviceItem.spotsAvailable}',
@@ -156,7 +100,11 @@ class ServiceDetailScreen extends StatelessWidget {
                       const SizedBox(height: 5),
                       Row(
                         children: [
-                          Icon(Icons.scale_outlined, size: context.w(20)),
+                          Icon(
+                            Icons.scale_outlined,
+                            size: context.w(20),
+                            color: AppColors.primary,
+                          ),
                           const SizedBox(width: 10),
                           Text(
                             'Maksimalna tezina po paketu: ${serviceItem.maxWeight} kg',
@@ -167,7 +115,11 @@ class ServiceDetailScreen extends StatelessWidget {
                       const SizedBox(height: 5),
                       Row(
                         children: [
-                          Icon(Icons.local_atm, size: context.w(20)),
+                          Icon(
+                            Icons.local_atm,
+                            size: context.w(20),
+                            color: AppColors.primary,
+                          ),
                           const SizedBox(width: 10),
                           Text(
                             'Cena po paketu: ${serviceItem.cost}',
@@ -233,22 +185,6 @@ class ServiceDetailScreen extends StatelessWidget {
                           ],
                         ),
                       ),
-                      const SizedBox(height: 10),
-                      Divider(color: Colors.grey.shade300, thickness: 1),
-                      const SizedBox(height: 10),
-                      Text(
-                        'Lokacija polaska',
-                        textAlign: TextAlign.left,
-                        style: TextStyle(
-                          fontSize: context.sp(14),
-                          fontWeight: FontWeight.bold,
-                        ),
-                      ),
-                      Text(
-                        serviceItem.destinationStart.city,
-                        textAlign: TextAlign.left,
-                        style: TextStyle(fontSize: context.sp(14)),
-                      ),
                     ],
                   ),
                 ),
@@ -256,16 +192,18 @@ class ServiceDetailScreen extends StatelessWidget {
             ),
             const SizedBox(height: 10),
             ElevatedButton(
-              onPressed: () {},
+              onPressed: () {
+                _goToRequest(context);
+              },
               style: ElevatedButton.styleFrom(
                 padding: EdgeInsets.symmetric(vertical: context.h(10)),
               ),
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  Icon(Icons.sms, size: context.w(25)),
+                  Icon(Icons.person_add, size: context.w(25)),
                   const SizedBox(width: 10),
-                  Text('Posalji poruku'),
+                  Text('Posalji zahtev'),
                 ],
               ),
             ),

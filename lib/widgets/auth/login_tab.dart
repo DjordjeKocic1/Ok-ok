@@ -48,7 +48,10 @@ class _LoginTabState extends ConsumerState<LoginTab> {
                 ),
                 label: Text(
                   lang.translate('loginEmailInput'),
-                  style: TextStyle(fontSize: context.sp(16)),
+                  style: TextStyle(
+                    fontSize: context.sp(16),
+                    color: AppColors.textSecondary,
+                  ),
                 ),
                 prefixIcon: const Icon(Icons.email_outlined),
               ),
@@ -63,7 +66,10 @@ class _LoginTabState extends ConsumerState<LoginTab> {
                 ),
                 label: Text(
                   lang.translate('loginPasswordInput'),
-                  style: TextStyle(fontSize: context.sp(16)),
+                  style: TextStyle(
+                    fontSize: context.sp(16),
+                    color: AppColors.textSecondary,
+                  ),
                 ),
                 prefixIcon: const Icon(Icons.lock_outline),
               ),

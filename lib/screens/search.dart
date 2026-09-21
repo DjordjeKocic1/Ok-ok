@@ -2,24 +2,26 @@ import 'package:flutter/material.dart';
 import 'package:ok_ok/data/service_data.dart';
 import 'package:ok_ok/main.dart';
 import 'package:ok_ok/modal/service_item.dart';
+import 'package:ok_ok/providers/language_provider.dart';
 import 'package:ok_ok/screens/home.dart';
 import 'package:ok_ok/utils/responsive.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-class SearchScreen extends StatefulWidget {
+class SearchScreen extends ConsumerStatefulWidget {
   const SearchScreen({super.key});
 
   @override
-  State<SearchScreen> createState() => _SearchScreenState();
+  ConsumerState<SearchScreen> createState() => _SearchScreenState();
 }
 
-class _SearchScreenState extends State<SearchScreen> {
+class _SearchScreenState extends ConsumerState<SearchScreen> {
   final _formKey = GlobalKey<FormState>();
   List<ServiceItem> _filteredData = [];
-  var _isFiltering = false;
   var _destinationStart = '';
   var _destinationEnd = '';
 
   void _filterData() {
+    final lang = ref.read(languageProvider.notifier);
     if (_formKey.currentState!.validate()) {
       _formKey.currentState!.save();
 
@@ -35,20 +37,37 @@ class _SearchScreenState extends State<SearchScreen> {
 
           return matchesStart && matchesEnd;
         }).toList();
-        _isFiltering = true;
       });
+
+      if (_filteredData.isEmpty) {
+        showDialog(
+          context: context,
+          builder: (ctx) => AlertDialog(
+            content: Text(
+              lang.translate('serviceDialog'),
+              style: TextStyle(fontSize: ctx.sp(14)),
+            ),
+            actions: [
+              TextButton(
+                onPressed: () => Navigator.pop(ctx),
+                child: const Text("OK"),
+              ),
+            ],
+          ),
+        );
+      }
     }
   }
 
   @override
   Widget build(BuildContext context) {
-    if (_isFiltering) {
+    final lang = ref.watch(languageProvider.notifier);
+    if (_filteredData.isNotEmpty) {
       return HomeScreen(
         filteredData: _filteredData,
         onBack: () {
           setState(() {
             _filteredData = [];
-            _isFiltering = false;
           });
         },
       );
@@ -58,7 +77,7 @@ class _SearchScreenState extends State<SearchScreen> {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Text(
-            'Pronadji nekog \nko ide tvojim putem',
+            lang.translate('foundSomeOne'),
             style: TextStyle(
               fontSize: context.sp(25),
               fontWeight: FontWeight.bold,
@@ -67,7 +86,7 @@ class _SearchScreenState extends State<SearchScreen> {
           ),
           const SizedBox(height: 8),
           Text(
-            'Unesi lokaciju odakle i do kuda ti treba usluga.',
+            lang.translate('enterLocationForService'),
             textWidthBasis: TextWidthBasis.longestLine,
             style: TextStyle(
               fontSize: context.sp(12),
@@ -95,7 +114,7 @@ class _SearchScreenState extends State<SearchScreen> {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Text(
-                    'Od',
+                    lang.translate('from'),
                     style: TextStyle(
                       fontSize: context.sp(12),
                       fontWeight: FontWeight.bold,
@@ -107,7 +126,7 @@ class _SearchScreenState extends State<SearchScreen> {
                       filled: true,
                       fillColor: AppColors.mainColor,
                       label: Text(
-                        'Polazna lokacija',
+                        lang.translate('inputStartLocation'),
                         style: TextStyle(
                           fontSize: context.sp(14),
                           color: AppColors.textSecondary,
@@ -125,7 +144,7 @@ class _SearchScreenState extends State<SearchScreen> {
                     ),
                     validator: (value) {
                       if (value == null || value.isEmpty) {
-                        return 'Ne moze da bude prazno';
+                        return lang.translate('inputNullError');
                       }
                       return null;
                     },
@@ -135,7 +154,7 @@ class _SearchScreenState extends State<SearchScreen> {
                   ),
                   const SizedBox(height: 10),
                   Text(
-                    'Do',
+                    lang.translate("to"),
                     style: TextStyle(
                       fontSize: context.sp(12),
                       fontWeight: FontWeight.bold,
@@ -147,7 +166,7 @@ class _SearchScreenState extends State<SearchScreen> {
                       filled: true,
                       fillColor: AppColors.mainColor,
                       label: Text(
-                        'Odredisna lokacija',
+                        lang.translate('inputEndLocation'),
                         style: TextStyle(
                           fontSize: context.sp(14),
                           color: AppColors.textSecondary,
@@ -165,7 +184,7 @@ class _SearchScreenState extends State<SearchScreen> {
                     ),
                     validator: (value) {
                       if (value == null || value.isEmpty) {
-                        return 'Ne moze da bude prazno';
+                        return lang.translate('inputNullError');
                       }
                       return null;
                     },
@@ -185,7 +204,7 @@ class _SearchScreenState extends State<SearchScreen> {
                         Icon(Icons.search, size: context.w(20)),
                         const SizedBox(width: 10),
                         Text(
-                          'Pretrazi',
+                          lang.translate('searchButton'),
                           style: TextStyle(
                             fontWeight: FontWeight.bold,
                             fontSize: context.sp(14),
@@ -203,7 +222,7 @@ class _SearchScreenState extends State<SearchScreen> {
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               Text(
-                'Skorasnje pretrage',
+                lang.translate('recentSearch'),
                 style: TextStyle(
                   fontSize: context.sp(16),
                   fontWeight: FontWeight.bold,
@@ -212,7 +231,7 @@ class _SearchScreenState extends State<SearchScreen> {
               InkWell(
                 onTap: () {},
                 child: Text(
-                  'Obrisi sve',
+                  lang.translate('removeAll'),
                   style: TextStyle(
                     fontSize: context.sp(14),
                     color: AppColors.primary,
@@ -272,7 +291,7 @@ class _SearchScreenState extends State<SearchScreen> {
                 Icon(Icons.add, size: context.w(20)),
                 const SizedBox(width: 10),
                 Text(
-                  'Dodaj uslugu',
+                  lang.translate('addService'),
                   style: TextStyle(
                     fontWeight: FontWeight.bold,
                     fontSize: context.sp(14),

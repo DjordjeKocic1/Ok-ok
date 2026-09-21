@@ -32,6 +32,17 @@ class ServicesList extends StatelessWidget {
           filteredData[index].ratingHistory,
         ).toStringAsFixed(1);
 
+        Widget transportModeContent(String transport) {
+          if (transport == 'Car') {
+            return Icon(
+              Icons.directions_car_outlined,
+              size: 20,
+              color: AppColors.primary,
+            );
+          }
+          return Icon(Icons.flight, size: 20, color: AppColors.primary);
+        }
+
         return Card(
           margin: const EdgeInsets.only(bottom: 15),
           shape: RoundedRectangleBorder(
@@ -147,6 +158,10 @@ class ServicesList extends StatelessWidget {
                               ),
                             ),
                           ),
+                          const SizedBox(width: 5),
+                          transportModeContent(
+                            filteredData[index].transportMode,
+                          ),
                         ],
                       ),
                       const SizedBox(height: 10),
@@ -180,6 +195,7 @@ class ServicesList extends StatelessWidget {
                     style: TextStyle(
                       fontWeight: FontWeight.bold,
                       fontSize: context.sp(16),
+                      color: AppColors.primary,
                     ),
                   ),
                 ),

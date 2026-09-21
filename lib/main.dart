@@ -35,7 +35,13 @@ void main() {
               primary: AppColors.primary,
               surface: AppColors.surface,
             ),
-            appBarTheme: AppBarThemeData(backgroundColor: AppColors.background),
+            appBarTheme: AppBarThemeData(
+              backgroundColor: AppColors.background,
+              scrolledUnderElevation: 0,
+              actionsPadding: const EdgeInsets.only(
+                right: 8,
+              ), // pomera actions ulevo
+            ),
             textTheme: GoogleFonts.latoTextTheme().apply(
               bodyColor: AppColors.primaryDark,
               displayColor: AppColors.primaryDark,

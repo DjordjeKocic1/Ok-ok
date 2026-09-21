@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:ok_ok/main.dart';
 import 'package:ok_ok/providers/language_provider.dart';
 import 'package:ok_ok/utils/responsive.dart';
 import 'package:ok_ok/widgets/auth/google_button.dart';
@@ -28,7 +29,10 @@ class _CreateAccountTabState extends ConsumerState<CreateAccountTab> {
               decoration: InputDecoration(
                 label: Text(
                   lang.translate('firstLastName'),
-                  style: TextStyle(fontSize: context.sp(16)),
+                  style: TextStyle(
+                    fontSize: context.sp(16),
+                    color: AppColors.textSecondary,
+                  ),
                 ),
                 prefixIcon: Icon(Icons.person),
               ),
@@ -43,7 +47,10 @@ class _CreateAccountTabState extends ConsumerState<CreateAccountTab> {
                 ),
                 label: Text(
                   lang.translate('loginEmailInput'),
-                  style: TextStyle(fontSize: context.sp(16)),
+                  style: TextStyle(
+                    fontSize: context.sp(16),
+                    color: AppColors.textSecondary,
+                  ),
                 ),
                 prefixIcon: Icon(Icons.email_outlined),
               ),
@@ -58,7 +65,10 @@ class _CreateAccountTabState extends ConsumerState<CreateAccountTab> {
                 ),
                 label: Text(
                   lang.translate('loginPasswordInput'),
-                  style: TextStyle(fontSize: context.sp(16)),
+                  style: TextStyle(
+                    fontSize: context.sp(16),
+                    color: AppColors.textSecondary,
+                  ),
                 ),
                 prefixIcon: Icon(Icons.lock_outline),
               ),
@@ -73,7 +83,10 @@ class _CreateAccountTabState extends ConsumerState<CreateAccountTab> {
                 ),
                 label: Text(
                   lang.translate('confirmPasswrod'),
-                  style: TextStyle(fontSize: context.sp(16)),
+                  style: TextStyle(
+                    fontSize: context.sp(16),
+                    color: AppColors.textSecondary,
+                  ),
                 ),
                 prefixIcon: Icon(Icons.lock_outline),
               ),
