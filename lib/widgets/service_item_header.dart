@@ -21,9 +21,13 @@ class ServiceItemHeader extends StatelessWidget {
 
     Widget transportModeContent(String transport) {
       if (transport == 'Car') {
-        return Icon(Icons.directions_car_outlined, size: 20);
+        return Icon(
+          Icons.directions_car_outlined,
+          size: 20,
+          color: AppColors.primary,
+        );
       }
-      return Icon(Icons.flight, size: 20);
+      return Icon(Icons.flight, size: 20, color: AppColors.primary);
     }
 
     return Column(
@@ -79,7 +83,11 @@ class ServiceItemHeader extends StatelessWidget {
         const SizedBox(height: 10),
         Row(
           children: [
-            Icon(Icons.calendar_today, size: context.w(20)),
+            Icon(
+              Icons.calendar_month_outlined,
+              size: context.w(20),
+              color: AppColors.primary,
+            ),
             const SizedBox(width: 5),
             Text(
               '$departureDate $departureYear',

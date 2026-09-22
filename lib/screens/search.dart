@@ -3,6 +3,7 @@ import 'package:ok_ok/data/service_data.dart';
 import 'package:ok_ok/main.dart';
 import 'package:ok_ok/modal/service_item.dart';
 import 'package:ok_ok/providers/language_provider.dart';
+import 'package:ok_ok/screens/add_service.dart';
 import 'package:ok_ok/screens/home.dart';
 import 'package:ok_ok/utils/responsive.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -57,6 +58,12 @@ class _SearchScreenState extends ConsumerState<SearchScreen> {
         );
       }
     }
+  }
+
+  void _goToAddService(BuildContext context) {
+    Navigator.of(
+      context,
+    ).push(MaterialPageRoute(builder: (ctx) => AddServiceScreen()));
   }
 
   @override
@@ -133,7 +140,7 @@ class _SearchScreenState extends ConsumerState<SearchScreen> {
                         ),
                       ),
                       prefixIcon: Icon(
-                        Icons.location_pin,
+                        Icons.place_outlined,
                         size: context.w(20),
                         color: AppColors.primary,
                       ),
@@ -173,7 +180,7 @@ class _SearchScreenState extends ConsumerState<SearchScreen> {
                         ),
                       ),
                       prefixIcon: Icon(
-                        Icons.location_pin,
+                        Icons.gps_fixed_outlined,
                         size: context.w(20),
                         color: AppColors.primary,
                       ),
@@ -218,33 +225,36 @@ class _SearchScreenState extends ConsumerState<SearchScreen> {
             ),
           ),
           const SizedBox(height: 15),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              Text(
-                lang.translate('recentSearch'),
-                style: TextStyle(
-                  fontSize: context.sp(16),
-                  fontWeight: FontWeight.bold,
-                ),
-              ),
-              InkWell(
-                onTap: () {},
-                child: Text(
-                  lang.translate('removeAll'),
+          Padding(
+            padding: EdgeInsets.symmetric(horizontal: 10),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                Text(
+                  lang.translate('recentSearch'),
                   style: TextStyle(
-                    fontSize: context.sp(14),
-                    color: AppColors.primary,
+                    fontSize: context.sp(16),
                     fontWeight: FontWeight.bold,
                   ),
                 ),
-              ),
-            ],
+                InkWell(
+                  onTap: () {},
+                  child: Text(
+                    lang.translate('removeAll'),
+                    style: TextStyle(
+                      fontSize: context.sp(14),
+                      color: AppColors.primary,
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ),
+                ),
+              ],
+            ),
           ),
           const SizedBox(height: 5),
           for (final historyDestination in serviceData[0].historyDestinations)
             Container(
-              margin: EdgeInsets.only(top: 5),
+              margin: EdgeInsets.symmetric(vertical: 5, horizontal: 10),
               decoration: BoxDecoration(
                 color: AppColors.mainColor,
                 borderRadius: BorderRadius.circular(12),
@@ -281,7 +291,9 @@ class _SearchScreenState extends ConsumerState<SearchScreen> {
             ),
           const SizedBox(height: 10),
           ElevatedButton(
-            onPressed: () {},
+            onPressed: () {
+              _goToAddService(context);
+            },
             style: ElevatedButton.styleFrom(
               padding: EdgeInsets.symmetric(vertical: context.h(10)),
             ),

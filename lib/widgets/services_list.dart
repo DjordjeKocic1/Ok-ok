@@ -167,7 +167,11 @@ class ServicesList extends StatelessWidget {
                       const SizedBox(height: 10),
                       Row(
                         children: [
-                          Icon(Icons.calendar_today, size: 15),
+                          Icon(
+                            Icons.calendar_month_outlined,
+                            size: 20,
+                            color: AppColors.primary,
+                          ),
                           const SizedBox(width: 5),
                           Text(
                             '$departureDate - $departureTime',

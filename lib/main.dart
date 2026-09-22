@@ -38,9 +38,7 @@ void main() {
             appBarTheme: AppBarThemeData(
               backgroundColor: AppColors.background,
               scrolledUnderElevation: 0,
-              actionsPadding: const EdgeInsets.only(
-                right: 8,
-              ), // pomera actions ulevo
+              actionsPadding: const EdgeInsets.only(right: 8),
             ),
             textTheme: GoogleFonts.latoTextTheme().apply(
               bodyColor: AppColors.primaryDark,
