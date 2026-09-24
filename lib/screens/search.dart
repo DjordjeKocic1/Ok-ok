@@ -69,6 +69,8 @@ class _SearchScreenState extends ConsumerState<SearchScreen> {
   @override
   Widget build(BuildContext context) {
     final lang = ref.watch(languageProvider.notifier);
+    ref.watch(languageProvider);
+
     if (_filteredData.isNotEmpty) {
       return HomeScreen(
         filteredData: _filteredData,

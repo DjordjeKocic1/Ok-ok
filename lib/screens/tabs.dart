@@ -35,6 +35,7 @@ class _TabsScreenState extends ConsumerState<TabsScreen> {
   @override
   Widget build(BuildContext context) {
     final lang = ref.watch(languageProvider.notifier);
+    ref.watch(languageProvider);
 
     return Scaffold(
       appBar: AppBar(title: Image.asset('assets/images/logo.png', width: 100)),

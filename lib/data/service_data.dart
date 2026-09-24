@@ -4,6 +4,7 @@ const serviceData = [
   ServiceItem(
     firstName: 'Djorde Kocic',
     email: 'kocic999@yahoo.com',
+    phone: '+381605252130',
     avatarImage: '',
     tripNote:
         "Putujem iz Novog Sada za Amsterdam. Imam 1 slobodno mesto za pakete, Mogu preuzeti paket u Novom Sadu, dogovor oko lokacije",
@@ -35,6 +36,7 @@ const serviceData = [
   ServiceItem(
     firstName: 'Kristina Kocic',
     email: 'kristinapaunovic1994@yahoo.com',
+    phone: '',
     avatarImage: '',
     tripNote:
         "Putujem iz Novog Sada za Amsterdam. Imam 1 slobodno mesto za pakete, Mogu preuzeti paket u Novom Sadu, dogovor oko lokacije",
@@ -57,6 +59,7 @@ const serviceData = [
   ServiceItem(
     firstName: 'Suki Sukic',
     email: 'suki@gmail.com',
+    phone: '',
     avatarImage: '',
     tripNote: "Putujem iz dzamiju",
     ratingHistory: ['4.8', '5.0', '4.9'],
@@ -78,6 +81,7 @@ const serviceData = [
   ServiceItem(
     firstName: 'Saska Sakic Sekana',
     email: 'saki94@gmail.com',
+    phone: '',
     avatarImage: '',
     tripNote: "Putujem iz crveni pevac i idem u Beograd centar",
     ratingHistory: ['4.8', '5.0', '4.9'],
@@ -99,6 +103,7 @@ const serviceData = [
   ServiceItem(
     firstName: 'Peka Porodilja Sukic',
     email: 'peka_sukic@yahoo.com',
+    phone: '',
     avatarImage: '',
     tripNote: "Putujem iz crveni pevac i idem u Beograd centar",
     ratingHistory: ['4.4', '4.2', '4.3'],

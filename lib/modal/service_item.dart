@@ -19,6 +19,7 @@ class ServiceItem {
   const ServiceItem({
     required this.firstName,
     required this.email,
+    required this.phone,
     required this.avatarImage,
     required this.tripNote,
     required this.ratingHistory,
@@ -35,6 +36,7 @@ class ServiceItem {
 
   final String firstName;
   final String email;
+  final String phone;
   final String avatarImage;
   final String tripNote;
   final List<String> ratingHistory;
