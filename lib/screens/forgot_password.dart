@@ -26,7 +26,7 @@ class _ForgotPasswordScreenState extends ConsumerState<ForgotPasswordScreen> {
 
   @override
   Widget build(BuildContext context) {
-    final lang = ref.watch(languageProvider.notifier);
+    final lang = ref.read(languageProvider.notifier);
     Widget content = Form(
       key: _formKey,
       child: Column(

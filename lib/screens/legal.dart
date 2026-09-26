@@ -41,7 +41,7 @@ class _LegalScreenState extends ConsumerState<LegalScreen> {
 
   @override
   Widget build(BuildContext context) {
-    final lang = ref.watch(languageProvider.notifier);
+    final lang = ref.read(languageProvider.notifier);
     return Scaffold(
       appBar: AppBar(title: Image.asset('assets/images/logo.png', width: 100)),
       body: ScreenPadding(

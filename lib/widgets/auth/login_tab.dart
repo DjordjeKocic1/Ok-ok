@@ -32,7 +32,7 @@ class _LoginTabState extends ConsumerState<LoginTab> {
 
   @override
   Widget build(BuildContext context) {
-    final lang = ref.watch(languageProvider.notifier);
+    final lang = ref.read(languageProvider.notifier);
     return SingleChildScrollView(
       child: Form(
         key: _formKey,

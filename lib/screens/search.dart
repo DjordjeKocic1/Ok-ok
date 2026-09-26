@@ -4,9 +4,9 @@ import 'package:ok_ok/main.dart';
 import 'package:ok_ok/modal/service_item.dart';
 import 'package:ok_ok/providers/language_provider.dart';
 import 'package:ok_ok/screens/add_service.dart';
-import 'package:ok_ok/screens/home.dart';
 import 'package:ok_ok/utils/responsive.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:ok_ok/widgets/services_list.dart';
 
 class SearchScreen extends ConsumerStatefulWidget {
   const SearchScreen({super.key});
@@ -68,11 +68,13 @@ class _SearchScreenState extends ConsumerState<SearchScreen> {
 
   @override
   Widget build(BuildContext context) {
-    final lang = ref.watch(languageProvider.notifier);
+    final lang = ref.read(languageProvider.notifier);
     ref.watch(languageProvider);
 
     if (_filteredData.isNotEmpty) {
-      return HomeScreen(
+      return ServicesList(
+        destinationStart: _destinationStart,
+        destinationEnd: _destinationEnd,
         filteredData: _filteredData,
         onBack: () {
           setState(() {
@@ -98,7 +100,7 @@ class _SearchScreenState extends ConsumerState<SearchScreen> {
             lang.translate('enterLocationForService'),
             textWidthBasis: TextWidthBasis.longestLine,
             style: TextStyle(
-              fontSize: context.sp(12),
+              fontSize: context.sp(14),
               fontWeight: FontWeight.bold,
               color: AppColors.textSecondary,
             ),

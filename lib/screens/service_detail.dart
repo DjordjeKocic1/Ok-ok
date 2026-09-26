@@ -1,21 +1,24 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:ok_ok/main.dart';
 import 'package:ok_ok/modal/service_item.dart';
+import 'package:ok_ok/providers/language_provider.dart';
 import 'package:ok_ok/screens/request.dart';
 import 'package:ok_ok/utils/responsive.dart';
 import 'package:ok_ok/widgets/common/screen_padding.dart';
 import 'package:ok_ok/widgets/service_item_header.dart';
 
-class ServiceDetailScreen extends StatefulWidget {
+class ServiceDetailScreen extends ConsumerStatefulWidget {
   const ServiceDetailScreen({super.key, required this.serviceItem});
 
   final ServiceItem serviceItem;
 
   @override
-  State<ServiceDetailScreen> createState() => _ServiceDetailScreenState();
+  ConsumerState<ServiceDetailScreen> createState() =>
+      _ServiceDetailScreenState();
 }
 
-class _ServiceDetailScreenState extends State<ServiceDetailScreen> {
+class _ServiceDetailScreenState extends ConsumerState<ServiceDetailScreen> {
   void _goToRequest(BuildContext context) {
     Navigator.of(context).push(
       MaterialPageRoute(
@@ -26,6 +29,7 @@ class _ServiceDetailScreenState extends State<ServiceDetailScreen> {
 
   @override
   Widget build(BuildContext context) {
+    final lang = ref.read(languageProvider.notifier);
     Widget restrictedContent(String restrictedItem) {
       var iconColor = AppColors.primary;
       var iconSize = context.w(25);
@@ -51,7 +55,7 @@ class _ServiceDetailScreenState extends State<ServiceDetailScreen> {
     return Scaffold(
       appBar: AppBar(
         title: Text(
-          'Detailji',
+          lang.translate('serviceDetails'),
           style: TextStyle(
             fontSize: context.sp(18),
             fontWeight: FontWeight.bold,
@@ -61,7 +65,6 @@ class _ServiceDetailScreenState extends State<ServiceDetailScreen> {
       ),
       body: SingleChildScrollView(
         child: ScreenPadding(
-          extra: const EdgeInsets.only(bottom: 10),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
@@ -73,7 +76,7 @@ class _ServiceDetailScreenState extends State<ServiceDetailScreen> {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Text(
-                    "Detalji",
+                    lang.translate('description'),
                     style: TextStyle(
                       fontSize: context.sp(14),
                       fontWeight: FontWeight.bold,
@@ -94,7 +97,7 @@ class _ServiceDetailScreenState extends State<ServiceDetailScreen> {
                       ),
                       const SizedBox(width: 10),
                       Text(
-                        'Slobodna mesta za paket(e): ${widget.serviceItem.spotsAvailable}',
+                        '${lang.translate('freeSpace')} ${widget.serviceItem.spotsAvailable}',
                         style: TextStyle(fontSize: context.sp(14)),
                       ),
                     ],
@@ -109,7 +112,7 @@ class _ServiceDetailScreenState extends State<ServiceDetailScreen> {
                       ),
                       const SizedBox(width: 10),
                       Text(
-                        'Maksimalna tezina po paketu: ${widget.serviceItem.maxWeight} kg',
+                        '${lang.translate('maxWeight')} ${widget.serviceItem.maxWeight} kg',
                         style: TextStyle(fontSize: context.sp(14)),
                       ),
                     ],
@@ -124,7 +127,7 @@ class _ServiceDetailScreenState extends State<ServiceDetailScreen> {
                       ),
                       const SizedBox(width: 10),
                       Text(
-                        'Cena po paketu: ${widget.serviceItem.cost}',
+                        '${lang.translate('pricePackage')} ${widget.serviceItem.cost}',
                         style: TextStyle(fontSize: context.sp(14)),
                       ),
                     ],
@@ -152,14 +155,14 @@ class _ServiceDetailScreenState extends State<ServiceDetailScreen> {
                                 crossAxisAlignment: CrossAxisAlignment.stretch,
                                 children: [
                                   Text(
-                                    'Ne prevozi',
+                                    lang.translate('dontTransport'),
                                     style: TextStyle(
                                       fontSize: context.sp(14),
                                       fontWeight: FontWeight.bold,
                                     ),
                                   ),
                                   Text(
-                                    'iz bezbednosnih razloga ne prevozi:',
+                                    lang.translate('fromSecurityReason'),
                                     style: TextStyle(
                                       fontSize: context.sp(10),
                                       color: AppColors.textSecondary,
@@ -198,7 +201,7 @@ class _ServiceDetailScreenState extends State<ServiceDetailScreen> {
                   children: [
                     Icon(Icons.person_add, size: context.w(25)),
                     const SizedBox(width: 10),
-                    Text('Posalji zahtev'),
+                    Text(lang.translate('sendRequest')),
                   ],
                 ),
               ),

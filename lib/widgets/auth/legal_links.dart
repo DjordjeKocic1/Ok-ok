@@ -17,7 +17,7 @@ class FormLigalLinks extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final lang = ref.watch(languageProvider.notifier);
+    final lang = ref.read(languageProvider.notifier);
     return Align(
       child: RichText(
         textAlign: TextAlign.center,

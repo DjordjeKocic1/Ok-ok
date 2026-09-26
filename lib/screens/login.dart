@@ -14,7 +14,7 @@ class LoginScreen extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final lang = ref.watch(languageProvider.notifier);
+    final lang = ref.read(languageProvider.notifier);
     final currentLang = ref.watch(languageProvider);
 
     return Scaffold(
@@ -37,7 +37,7 @@ class LoginScreen extends ConsumerWidget {
             ),
             child: SafeArea(
               child: ScreenPadding(
-                extra: const EdgeInsets.only(top: 20, bottom: 10),
+                extra: const EdgeInsets.only(top: 20),
                 child: Column(
                   children: [
                     Container(

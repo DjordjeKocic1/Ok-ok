@@ -1,24 +1,35 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:intl/intl.dart';
 import 'package:ok_ok/main.dart';
 import 'package:ok_ok/modal/enums.dart';
+import 'package:ok_ok/providers/language_provider.dart';
 import 'package:ok_ok/utils/responsive.dart';
 import 'package:ok_ok/widgets/common/screen_padding.dart';
 
-class AddServiceScreen extends StatefulWidget {
+class AddServiceScreen extends ConsumerStatefulWidget {
   const AddServiceScreen({super.key});
 
   @override
-  State<AddServiceScreen> createState() => _AddServiceScreenState();
+  ConsumerState<AddServiceScreen> createState() => _AddServiceScreenState();
 }
 
-class _AddServiceScreenState extends State<AddServiceScreen> {
+class _AddServiceScreenState extends ConsumerState<AddServiceScreen> {
   final _formKey = GlobalKey<FormState>();
   var _destinationStart = '';
   var _destinationEnd = '';
   var _tripNote = '';
   TransportType _selected = TransportType.car;
   var _spotsAvailable = 1;
+
+  final List<String> _restrictedItems = [
+    "Pets",
+    "Breaking Glass",
+    "Flammable materials",
+    "Alcohol",
+  ];
+
+  final List<String> _selectedRestrictedItems = [];
 
   DateTime? _date;
   TimeOfDay? _time;
@@ -75,6 +86,12 @@ class _AddServiceScreenState extends State<AddServiceScreen> {
     final picked = await showTimePicker(
       context: context,
       initialTime: _time ?? TimeOfDay.now(),
+      builder: (context, child) {
+        return MediaQuery(
+          data: MediaQuery.of(context).copyWith(alwaysUse24HourFormat: true),
+          child: child!,
+        );
+      },
     );
     if (picked != null) {
       setState(() => _time = picked);
@@ -106,16 +123,18 @@ class _AddServiceScreenState extends State<AddServiceScreen> {
         _destinationEnd,
         _tripNote,
         _spotsAvailable,
+        _selectedRestrictedItems,
       });
     }
   }
 
   @override
   Widget build(BuildContext context) {
+    final lang = ref.read(languageProvider.notifier);
     return Scaffold(
       appBar: AppBar(
         title: Text(
-          'Dodaj uslugu',
+          lang.translate('addService'),
           style: TextStyle(
             fontSize: context.sp(18),
             fontWeight: FontWeight.bold,
@@ -130,7 +149,7 @@ class _AddServiceScreenState extends State<AddServiceScreen> {
               crossAxisAlignment: CrossAxisAlignment.stretch,
               children: [
                 Text(
-                  'Podeli svoju rutu i pomogni nekome da posalje paket',
+                  lang.translate('shareRouteHelpSomeone'),
                   style: TextStyle(
                     fontSize: context.sp(14),
                     fontWeight: FontWeight.bold,
@@ -139,7 +158,7 @@ class _AddServiceScreenState extends State<AddServiceScreen> {
                 ),
                 const SizedBox(height: 20),
                 Text(
-                  'Tip transporta',
+                  lang.translate('transportType'),
                   style: TextStyle(
                     fontSize: context.sp(14),
                     fontWeight: FontWeight.bold,
@@ -157,22 +176,22 @@ class _AddServiceScreenState extends State<AddServiceScreen> {
                   ),
                   children: [
                     typeTile(
-                      'Automobil',
+                      lang.translate('car'),
                       Icons.directions_car_outlined,
                       TransportType.car,
                     ),
                     typeTile(
-                      'Avion',
+                      lang.translate('plane'),
                       Icons.flight_outlined,
                       TransportType.plane,
                     ),
                     typeTile(
-                      'Brod',
+                      lang.translate('ship'),
                       Icons.directions_boat_outlined,
                       TransportType.ship,
                     ),
                     typeTile(
-                      'Kamion',
+                      lang.translate('truck'),
                       Icons.local_shipping_outlined,
                       TransportType.truck,
                     ),
@@ -180,7 +199,7 @@ class _AddServiceScreenState extends State<AddServiceScreen> {
                 ),
                 const SizedBox(height: 20),
                 Text(
-                  'Ruta',
+                  lang.translate('route'),
                   style: TextStyle(
                     fontSize: context.sp(14),
                     fontWeight: FontWeight.bold,
@@ -188,16 +207,16 @@ class _AddServiceScreenState extends State<AddServiceScreen> {
                 ),
                 const SizedBox(height: 10),
                 Text(
-                  'Polazna lokacija',
+                  lang.translate('inputStartLocation'),
                   style: TextStyle(fontSize: context.sp(12)),
                 ),
                 const SizedBox(height: 5),
                 TextFormField(
                   decoration: InputDecoration(
                     label: Text(
-                      'npr. Beograd',
+                      lang.translate('e.gBelgrade'),
                       style: TextStyle(
-                        fontSize: context.sp(12),
+                        fontSize: context.sp(14),
                         color: AppColors.textSecondary,
                       ),
                     ),
@@ -209,7 +228,7 @@ class _AddServiceScreenState extends State<AddServiceScreen> {
                   ),
                   validator: (value) {
                     if (value == null || value.isEmpty) {
-                      return 'Ne može da bude prazno';
+                      return lang.translate('inputNullError');
                     }
                     return null;
                   },
@@ -218,14 +237,17 @@ class _AddServiceScreenState extends State<AddServiceScreen> {
                   },
                 ),
                 const SizedBox(height: 10),
-                Text('Odrediste', style: TextStyle(fontSize: context.sp(12))),
+                Text(
+                  lang.translate('inputEndLocation'),
+                  style: TextStyle(fontSize: context.sp(12)),
+                ),
                 const SizedBox(height: 5),
                 TextFormField(
                   decoration: InputDecoration(
                     label: Text(
-                      'npr. Rotterdam',
+                      lang.translate('e.gRotterdam'),
                       style: TextStyle(
-                        fontSize: context.sp(12),
+                        fontSize: context.sp(14),
                         color: AppColors.textSecondary,
                       ),
                     ),
@@ -237,7 +259,7 @@ class _AddServiceScreenState extends State<AddServiceScreen> {
                   ),
                   validator: (value) {
                     if (value == null || value.isEmpty) {
-                      return 'Ne može da bude prazno';
+                      return lang.translate('inputNullError');
                     }
                     return null;
                   },
@@ -247,7 +269,7 @@ class _AddServiceScreenState extends State<AddServiceScreen> {
                 ),
                 const SizedBox(height: 20),
                 Text(
-                  'Datum i vreme',
+                  lang.translate('dateAndTime'),
                   style: TextStyle(
                     fontSize: context.sp(14),
                     fontWeight: FontWeight.bold,
@@ -260,9 +282,9 @@ class _AddServiceScreenState extends State<AddServiceScreen> {
                   onTap: _pickDate,
                   decoration: InputDecoration(
                     label: Text(
-                      'Izaberi datum',
+                      lang.translate('selectDate'),
                       style: TextStyle(
-                        fontSize: context.sp(12),
+                        fontSize: context.sp(14),
                         color: AppColors.textSecondary,
                       ),
                     ),
@@ -277,7 +299,7 @@ class _AddServiceScreenState extends State<AddServiceScreen> {
                   ),
                   validator: (value) {
                     if (value == null || value.isEmpty) {
-                      return 'Ne može da bude prazno';
+                      return lang.translate('inputNullError');
                     }
                     return null;
                   },
@@ -289,9 +311,9 @@ class _AddServiceScreenState extends State<AddServiceScreen> {
                   onTap: _pickTime,
                   decoration: InputDecoration(
                     label: Text(
-                      'Izaberi vreme',
+                      lang.translate('selectTime'),
                       style: TextStyle(
-                        fontSize: context.sp(12),
+                        fontSize: context.sp(14),
                         color: AppColors.textSecondary,
                       ),
                     ),
@@ -306,14 +328,14 @@ class _AddServiceScreenState extends State<AddServiceScreen> {
                   ),
                   validator: (value) {
                     if (value == null || value.isEmpty) {
-                      return 'Ne može da bude prazno';
+                      return lang.translate('inputNullError');
                     }
                     return null;
                   },
                 ),
                 const SizedBox(height: 20),
                 Text(
-                  'Detalji usluge',
+                  lang.translate('serviceDetails'),
                   style: TextStyle(
                     fontSize: context.sp(14),
                     fontWeight: FontWeight.bold,
@@ -327,16 +349,16 @@ class _AddServiceScreenState extends State<AddServiceScreen> {
                   decoration: InputDecoration(
                     alignLabelWithHint: true,
                     label: Text(
-                      'Napisi dodatne informacije',
+                      lang.translate('writeAdditionalInformation'),
                       style: TextStyle(
-                        fontSize: context.sp(12),
+                        fontSize: context.sp(14),
                         color: AppColors.textSecondary,
                       ),
                     ),
                   ),
                   validator: (value) {
                     if (value == null || value.isEmpty) {
-                      return 'Ne može da bude prazno';
+                      return lang.translate('inputNullError');
                     }
                     return null;
                   },
@@ -347,9 +369,77 @@ class _AddServiceScreenState extends State<AddServiceScreen> {
                 const SizedBox(height: 20),
                 Row(
                   children: [
+                    Text(
+                      'What you will NOT transport',
+                      style: TextStyle(
+                        fontSize: context.sp(14),
+                        fontWeight: FontWeight.bold,
+                      ),
+                    ),
+                    const SizedBox(width: 10),
+                    Container(
+                      padding: const EdgeInsets.symmetric(
+                        horizontal: 8,
+                        vertical: 2,
+                      ),
+                      decoration: BoxDecoration(
+                        color: AppColors.primary.withValues(alpha: 0.1),
+                        borderRadius: BorderRadius.circular(12),
+                      ),
+                      child: Text(
+                        'Opcionalno',
+                        style: TextStyle(
+                          fontSize: context.sp(11),
+                          color: AppColors.primary,
+                        ),
+                      ),
+                    ),
+                  ],
+                ),
+                const SizedBox(height: 5),
+                Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    for (final item in _restrictedItems)
+                      GestureDetector(
+                        onTap: () => setState(() {
+                          _selectedRestrictedItems.contains(item)
+                              ? _selectedRestrictedItems.remove(item)
+                              : _selectedRestrictedItems.add(item);
+                        }),
+                        behavior: HitTestBehavior
+                            .opaque, // bitno! da i prazan prostor bude klikljiv
+                        child: Row(
+                          mainAxisSize: MainAxisSize.min,
+                          children: [
+                            Checkbox(
+                              visualDensity: VisualDensity.compact,
+                              value: _selectedRestrictedItems.contains(item),
+                              side: BorderSide(
+                                color: AppColors.primary,
+                                width: 1,
+                              ),
+                              onChanged: (checked) => setState(() {
+                                checked == true
+                                    ? _selectedRestrictedItems.add(item)
+                                    : _selectedRestrictedItems.remove(item);
+                              }),
+                            ),
+                            Text(
+                              item,
+                              style: TextStyle(fontSize: context.sp(14)),
+                            ),
+                          ],
+                        ),
+                      ),
+                  ],
+                ),
+                const SizedBox(height: 20),
+                Row(
+                  children: [
                     Expanded(
                       child: Text(
-                        'Slobodno mesta za paket(e)',
+                        lang.translate('freeSpace'),
                         style: TextStyle(fontSize: context.sp(14)),
                       ),
                     ),
@@ -387,7 +477,7 @@ class _AddServiceScreenState extends State<AddServiceScreen> {
                     padding: EdgeInsets.symmetric(vertical: context.h(10)),
                   ),
                   child: Text(
-                    'Objavi uslugu',
+                    lang.translate('publishService'),
                     style: TextStyle(
                       fontWeight: FontWeight.bold,
                       fontSize: context.sp(14),

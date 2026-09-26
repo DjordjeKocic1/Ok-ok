@@ -1,18 +1,23 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:ok_ok/main.dart';
 import 'package:ok_ok/modal/service_item.dart';
+import 'package:ok_ok/providers/language_provider.dart';
 import 'package:ok_ok/utils/formatters.dart';
 import 'package:ok_ok/utils/responsive.dart';
 
-class ServiceItemHeader extends StatelessWidget {
+class ServiceItemHeader extends ConsumerWidget {
   const ServiceItemHeader({super.key, required this.serviceItem});
 
   final ServiceItem serviceItem;
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
+    final lang = ref.read(languageProvider.notifier);
     final dateInfo = getDateTime(serviceItem.departureTime);
-    var departureDate = dateInfo.dayMonth;
+    var dayMonth = dateInfo.dayMonth.split(".");
+    var departureDate = dayMonth[0];
+    var departureMonth = dayMonth[1];
     var departureTime = dateInfo.time;
     var departureYear = dateInfo.year;
     var ratingText = getAverageRating(
@@ -90,7 +95,7 @@ class ServiceItemHeader extends StatelessWidget {
             ),
             const SizedBox(width: 5),
             Text(
-              '$departureDate $departureYear',
+              '$departureDate. ${lang.translate(departureMonth.trim())}  $departureYear',
               style: TextStyle(fontSize: context.sp(14)),
             ),
             const SizedBox(width: 20),

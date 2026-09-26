@@ -16,7 +16,7 @@ class _PersonalInformationState extends State<PersonalInformation> {
   @override
   Widget build(BuildContext context) {
     return ScreenPadding(
-      extra: EdgeInsets.symmetric(vertical: 20),
+      extra: EdgeInsets.only(top: 20),
       child: Column(
         mainAxisSize: MainAxisSize.min,
         crossAxisAlignment: CrossAxisAlignment.stretch,
@@ -82,20 +82,9 @@ class _PersonalInformationState extends State<PersonalInformation> {
             },
           ),
           EditableInfoTile(
-            name: 'email',
-            label: 'Email',
-            initialValue: serviceData[0].email,
-            validator: (value) {
-              if (value == null || value.isEmpty) {
-                return 'Ne može da bude prazno';
-              }
-              return null;
-            },
-          ),
-          EditableInfoTile(
             name: 'phone',
             label: 'Phone number',
-            initialValue: serviceData[1].phone,
+            initialValue: serviceData[0].phone,
             validator: (value) {
               if (value == null || value.isEmpty) {
                 return 'Ne može da bude prazno';

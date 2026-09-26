@@ -70,7 +70,7 @@ class _EditableInfoTileState extends State<EditableInfoTile> {
                   if (!_isEditing)
                     Text(
                       widget.initialValue.isEmpty ? '-' : widget.initialValue,
-                      style: TextStyle(fontSize: context.sp(12)),
+                      style: TextStyle(fontSize: context.sp(14)),
                     ),
                   if (_isEditing)
                     TextFormField(
@@ -79,7 +79,7 @@ class _EditableInfoTileState extends State<EditableInfoTile> {
                           widget.label,
                           style: TextStyle(
                             color: AppColors.textSecondary,
-                            fontSize: context.sp(12),
+                            fontSize: context.sp(14),
                           ),
                         ),
                         contentPadding: EdgeInsets.symmetric(

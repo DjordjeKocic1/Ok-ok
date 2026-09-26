@@ -28,7 +28,7 @@ class _PasswordState extends State<Password> {
   @override
   Widget build(BuildContext context) {
     return ScreenPadding(
-      extra: EdgeInsets.symmetric(vertical: 20),
+      extra: EdgeInsets.only(top: 20),
       child: Form(
         key: _formKey,
         child: Column(
@@ -89,10 +89,6 @@ class _PasswordState extends State<Password> {
               controller: _currentPasswordController,
               keyboardType: TextInputType.visiblePassword,
               decoration: InputDecoration(
-                contentPadding: EdgeInsets.symmetric(
-                  horizontal: context.w(12),
-                  vertical: context.h(12),
-                ),
                 label: Text(
                   'Enter current password',
                   style: TextStyle(fontSize: context.sp(14)),
@@ -112,10 +108,6 @@ class _PasswordState extends State<Password> {
             TextFormField(
               keyboardType: TextInputType.visiblePassword,
               decoration: InputDecoration(
-                contentPadding: EdgeInsets.symmetric(
-                  horizontal: context.w(12),
-                  vertical: context.h(12),
-                ),
                 label: Text(
                   'Enter new password',
                   style: TextStyle(fontSize: context.sp(14)),

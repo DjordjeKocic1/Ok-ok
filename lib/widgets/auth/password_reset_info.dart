@@ -8,7 +8,7 @@ class PasswordResetInfo extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final lang = ref.watch(languageProvider.notifier);
+    final lang = ref.read(languageProvider.notifier);
     return Column(
       mainAxisAlignment: MainAxisAlignment.center,
       children: [

@@ -1,20 +1,22 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:ok_ok/data/service_data.dart';
 import 'package:ok_ok/main.dart';
 import 'package:ok_ok/modal/enums.dart';
+import 'package:ok_ok/providers/language_provider.dart';
 import 'package:ok_ok/utils/responsive.dart';
 import 'package:ok_ok/widgets/profile/language.dart';
 import 'package:ok_ok/widgets/profile/password.dart';
 import 'package:ok_ok/widgets/profile/personal_information.dart';
 
-class ProfileScreen extends StatefulWidget {
+class ProfileScreen extends ConsumerStatefulWidget {
   const ProfileScreen({super.key});
 
   @override
-  State<ProfileScreen> createState() => _ProfileScreenState();
+  ConsumerState<ProfileScreen> createState() => _ProfileScreenState();
 }
 
-class _ProfileScreenState extends State<ProfileScreen> {
+class _ProfileScreenState extends ConsumerState<ProfileScreen> {
   ProfileTab? _selectedTab;
 
   void _openProfileTab() {
@@ -119,35 +121,37 @@ class _ProfileScreenState extends State<ProfileScreen> {
 
   @override
   Widget build(BuildContext context) {
+    final lang = ref.read(languageProvider.notifier);
+    ref.watch(languageProvider);
     final profileTabs = <Widget>[
       _profileTab(
         Icons.person_outline_outlined,
-        'Personal information',
-        'Personal information',
+        lang.translate('personalInfo'),
+        lang.translate('personalInfo'),
         ProfileTab.personal,
       ),
       _profileTab(
         Icons.admin_panel_settings_outlined,
-        'Security',
-        'Password',
+        lang.translate('security'),
+        lang.translate('loginPasswordInput'),
         ProfileTab.password,
       ),
       _profileTab(
         Icons.language_outlined,
-        'Language',
-        'Change app language',
+        lang.translate('language'),
+        lang.translate('chooseAppLanguage'),
         ProfileTab.language,
       ),
       _profileTab(
         Icons.support_outlined,
-        'Help & Support',
-        'Contact us, FAQs',
+        lang.translate('helpAndSupport'),
+        lang.translate('contactUs'),
         ProfileTab.help,
       ),
       _profileTab(
         Icons.info_outlined,
-        'About OKOK',
-        'Terms, Privacy Policy',
+        lang.translate('aboutOkok'),
+        lang.translate('termsAndPolicy'),
         ProfileTab.about,
       ),
     ];

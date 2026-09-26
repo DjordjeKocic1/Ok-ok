@@ -14,13 +14,18 @@ class Language extends ConsumerStatefulWidget {
 }
 
 class _LanguageState extends ConsumerState<Language> {
-  String _selectedLang = '';
+  late String _selectedLang = '';
+
+  @override
+  void initState() {
+    super.initState();
+    _selectedLang = ref.read(languageProvider);
+  }
 
   @override
   Widget build(BuildContext context) {
-    final currentLang = ref.watch(languageProvider);
     return ScreenPadding(
-      extra: EdgeInsets.symmetric(vertical: 20),
+      extra: EdgeInsets.only(top: 20),
       child: Column(
         mainAxisSize: MainAxisSize.min,
         crossAxisAlignment: CrossAxisAlignment.stretch,
@@ -67,8 +72,12 @@ class _LanguageState extends ConsumerState<Language> {
           ),
           const SizedBox(height: 20),
           RadioGroup(
-            groupValue: _selectedLang.isEmpty ? currentLang : _selectedLang,
-            onChanged: (value) => setState(() => _selectedLang = value!),
+            groupValue: _selectedLang,
+            onChanged: (value) {
+              setState(() {
+                _selectedLang = value!;
+              });
+            },
             child: Column(
               children: [
                 RadioListTile(
@@ -144,6 +153,7 @@ class _LanguageState extends ConsumerState<Language> {
           ElevatedButton(
             onPressed: () {
               ref.read(languageProvider.notifier).setLanguage(_selectedLang);
+              Navigator.pop(context);
             },
             style: ElevatedButton.styleFrom(
               padding: EdgeInsets.symmetric(vertical: context.h(10)),

@@ -17,7 +17,7 @@ class _CreateAccountTabState extends ConsumerState<CreateAccountTab> {
   final _formKey = GlobalKey<FormState>();
   @override
   Widget build(BuildContext context) {
-    final lang = ref.watch(languageProvider.notifier);
+    final lang = ref.read(languageProvider.notifier);
 
     return SingleChildScrollView(
       child: Form(
@@ -27,6 +27,10 @@ class _CreateAccountTabState extends ConsumerState<CreateAccountTab> {
             const SizedBox(height: 10),
             TextFormField(
               decoration: InputDecoration(
+                contentPadding: EdgeInsets.symmetric(
+                  horizontal: context.w(12),
+                  vertical: context.h(15),
+                ),
                 label: Text(
                   lang.translate('firstLastName'),
                   style: TextStyle(

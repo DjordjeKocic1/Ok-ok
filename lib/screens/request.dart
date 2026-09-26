@@ -213,7 +213,7 @@ class _RequestScreenState extends State<RequestScreen> {
                         label: Text(
                           'npr. lomljivo, hitno, usputna stanica...',
                           style: TextStyle(
-                            fontSize: context.sp(12),
+                            fontSize: context.sp(14),
                             color: AppColors.textSecondary,
                           ),
                         ),
