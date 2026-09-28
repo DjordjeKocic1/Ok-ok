@@ -145,7 +145,7 @@ class _ServicesListState extends ConsumerState<ServicesList> {
                                         overflow: TextOverflow.ellipsis,
                                         maxLines: 1,
                                         style: TextStyle(
-                                          fontSize: context.sp(15),
+                                          fontSize: context.sp(16),
                                           fontWeight: FontWeight.bold,
                                         ),
                                       ),
@@ -193,7 +193,7 @@ class _ServicesListState extends ConsumerState<ServicesList> {
                                     style: TextStyle(
                                       color: AppColors.successPrimary,
                                       fontWeight: FontWeight.bold,
-                                      fontSize: context.sp(10),
+                                      fontSize: context.sp(12),
                                     ),
                                   ),
                                 ),
@@ -243,7 +243,7 @@ class _ServicesListState extends ConsumerState<ServicesList> {
                                 const SizedBox(width: 5),
                                 Text(
                                   '$departureDate. ${lang.translate(departureMonth.trim())} - $departureTime',
-                                  style: TextStyle(fontSize: context.sp(12)),
+                                  style: TextStyle(fontSize: context.sp(14)),
                                 ),
                               ],
                             ),
@@ -252,7 +252,7 @@ class _ServicesListState extends ConsumerState<ServicesList> {
                               children: [
                                 Text(
                                   '${lang.translate('freeSpace')} ${service[index].spotsAvailable}',
-                                  style: TextStyle(fontSize: context.sp(12)),
+                                  style: TextStyle(fontSize: context.sp(14)),
                                 ),
                               ],
                             ),

@@ -117,7 +117,7 @@ class _SearchScreenState extends ConsumerState<SearchScreen> {
                   Text(
                     lang.translate('from'),
                     style: TextStyle(
-                      fontSize: context.sp(12),
+                      fontSize: context.sp(14),
                       fontWeight: FontWeight.bold,
                     ),
                   ),
@@ -157,7 +157,7 @@ class _SearchScreenState extends ConsumerState<SearchScreen> {
                   Text(
                     lang.translate("to"),
                     style: TextStyle(
-                      fontSize: context.sp(12),
+                      fontSize: context.sp(14),
                       fontWeight: FontWeight.bold,
                     ),
                   ),
@@ -208,7 +208,7 @@ class _SearchScreenState extends ConsumerState<SearchScreen> {
                           lang.translate('searchButton'),
                           style: TextStyle(
                             fontWeight: FontWeight.bold,
-                            fontSize: context.sp(14),
+                            fontSize: context.sp(15),
                           ),
                         ),
                       ],
@@ -227,7 +227,7 @@ class _SearchScreenState extends ConsumerState<SearchScreen> {
                 Text(
                   lang.translate('recentSearch'),
                   style: TextStyle(
-                    fontSize: context.sp(16),
+                    fontSize: context.sp(15),
                     fontWeight: FontWeight.bold,
                   ),
                 ),
@@ -236,7 +236,7 @@ class _SearchScreenState extends ConsumerState<SearchScreen> {
                   child: Text(
                     lang.translate('removeAll'),
                     style: TextStyle(
-                      fontSize: context.sp(14),
+                      fontSize: context.sp(15),
                       color: AppColors.primary,
                       fontWeight: FontWeight.bold,
                     ),
@@ -300,7 +300,7 @@ class _SearchScreenState extends ConsumerState<SearchScreen> {
                   lang.translate('addService'),
                   style: TextStyle(
                     fontWeight: FontWeight.bold,
-                    fontSize: context.sp(14),
+                    fontSize: context.sp(15),
                   ),
                 ),
               ],

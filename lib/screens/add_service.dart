@@ -151,7 +151,7 @@ class _AddServiceScreenState extends ConsumerState<AddServiceScreen> {
                 Text(
                   lang.translate('shareRouteHelpSomeone'),
                   style: TextStyle(
-                    fontSize: context.sp(14),
+                    fontSize: context.sp(15),
                     fontWeight: FontWeight.bold,
                     color: AppColors.textSecondary,
                   ),
@@ -160,7 +160,7 @@ class _AddServiceScreenState extends ConsumerState<AddServiceScreen> {
                 Text(
                   lang.translate('transportType'),
                   style: TextStyle(
-                    fontSize: context.sp(14),
+                    fontSize: context.sp(15),
                     fontWeight: FontWeight.bold,
                   ),
                 ),
@@ -201,14 +201,14 @@ class _AddServiceScreenState extends ConsumerState<AddServiceScreen> {
                 Text(
                   lang.translate('route'),
                   style: TextStyle(
-                    fontSize: context.sp(14),
+                    fontSize: context.sp(15),
                     fontWeight: FontWeight.bold,
                   ),
                 ),
                 const SizedBox(height: 10),
                 Text(
                   lang.translate('inputStartLocation'),
-                  style: TextStyle(fontSize: context.sp(12)),
+                  style: TextStyle(fontSize: context.sp(14)),
                 ),
                 const SizedBox(height: 5),
                 TextFormField(
@@ -239,7 +239,7 @@ class _AddServiceScreenState extends ConsumerState<AddServiceScreen> {
                 const SizedBox(height: 10),
                 Text(
                   lang.translate('inputEndLocation'),
-                  style: TextStyle(fontSize: context.sp(12)),
+                  style: TextStyle(fontSize: context.sp(14)),
                 ),
                 const SizedBox(height: 5),
                 TextFormField(
@@ -271,7 +271,7 @@ class _AddServiceScreenState extends ConsumerState<AddServiceScreen> {
                 Text(
                   lang.translate('dateAndTime'),
                   style: TextStyle(
-                    fontSize: context.sp(14),
+                    fontSize: context.sp(15),
                     fontWeight: FontWeight.bold,
                   ),
                 ),
@@ -337,7 +337,7 @@ class _AddServiceScreenState extends ConsumerState<AddServiceScreen> {
                 Text(
                   lang.translate('serviceDetails'),
                   style: TextStyle(
-                    fontSize: context.sp(14),
+                    fontSize: context.sp(15),
                     fontWeight: FontWeight.bold,
                   ),
                 ),
@@ -372,7 +372,7 @@ class _AddServiceScreenState extends ConsumerState<AddServiceScreen> {
                     Text(
                       'What you will NOT transport',
                       style: TextStyle(
-                        fontSize: context.sp(14),
+                        fontSize: context.sp(15),
                         fontWeight: FontWeight.bold,
                       ),
                     ),
@@ -389,7 +389,7 @@ class _AddServiceScreenState extends ConsumerState<AddServiceScreen> {
                       child: Text(
                         'Opcionalno',
                         style: TextStyle(
-                          fontSize: context.sp(11),
+                          fontSize: context.sp(12),
                           color: AppColors.primary,
                         ),
                       ),
@@ -407,8 +407,7 @@ class _AddServiceScreenState extends ConsumerState<AddServiceScreen> {
                               ? _selectedRestrictedItems.remove(item)
                               : _selectedRestrictedItems.add(item);
                         }),
-                        behavior: HitTestBehavior
-                            .opaque, // bitno! da i prazan prostor bude klikljiv
+                        behavior: HitTestBehavior.opaque,
                         child: Row(
                           mainAxisSize: MainAxisSize.min,
                           children: [
@@ -440,7 +439,7 @@ class _AddServiceScreenState extends ConsumerState<AddServiceScreen> {
                     Expanded(
                       child: Text(
                         lang.translate('freeSpace'),
-                        style: TextStyle(fontSize: context.sp(14)),
+                        style: TextStyle(fontSize: context.sp(15)),
                       ),
                     ),
                     IconButton.outlined(
@@ -480,7 +479,7 @@ class _AddServiceScreenState extends ConsumerState<AddServiceScreen> {
                     lang.translate('publishService'),
                     style: TextStyle(
                       fontWeight: FontWeight.bold,
-                      fontSize: context.sp(14),
+                      fontSize: context.sp(15),
                     ),
                   ),
                 ),

@@ -48,7 +48,7 @@ class _LanguageState extends ConsumerState<Language> {
                     Text(
                       'Select language',
                       style: TextStyle(
-                        fontSize: context.sp(14),
+                        fontSize: context.sp(16),
                         fontWeight: FontWeight.bold,
                       ),
                     ),
@@ -162,7 +162,7 @@ class _LanguageState extends ConsumerState<Language> {
               'Apply',
               style: TextStyle(
                 fontWeight: FontWeight.bold,
-                fontSize: context.sp(14),
+                fontSize: context.sp(15),
               ),
             ),
           ),

@@ -74,7 +74,7 @@ class _RequestScreenState extends State<RequestScreen> {
                         Text(
                           'Napisi sta staljes ili prevozis (npr. paket, dokumenta, licne stvari...).',
                           style: TextStyle(
-                            fontSize: context.sp(12),
+                            fontSize: context.sp(14),
                             color: AppColors.textSecondary,
                           ),
                         ),
@@ -128,7 +128,7 @@ class _RequestScreenState extends State<RequestScreen> {
                         Text(
                           'Unesi probliznu tezinu paketa.',
                           style: TextStyle(
-                            fontSize: context.sp(12),
+                            fontSize: context.sp(14),
                             color: AppColors.textSecondary,
                           ),
                         ),
@@ -165,7 +165,7 @@ class _RequestScreenState extends State<RequestScreen> {
                   ),
                 ),
               ),
-              const SizedBox(height: 10),
+              const SizedBox(height: 15),
               Container(
                 padding: EdgeInsets.symmetric(vertical: 10, horizontal: 15),
                 decoration: BoxDecoration(
@@ -193,7 +193,7 @@ class _RequestScreenState extends State<RequestScreen> {
                               Text(
                                 'Imas dodatne zahteve, ogranicenja ili nesto sto bi vozac trebao da zna? Napisi ovde.',
                                 style: TextStyle(
-                                  fontSize: context.sp(12),
+                                  fontSize: context.sp(14),
                                   color: AppColors.textSecondary,
                                 ),
                               ),
@@ -202,7 +202,7 @@ class _RequestScreenState extends State<RequestScreen> {
                         ),
                       ],
                     ),
-                    const SizedBox(height: 5),
+                    const SizedBox(height: 10),
                     TextFormField(
                       keyboardType: TextInputType.multiline,
                       minLines: 3,
@@ -219,7 +219,7 @@ class _RequestScreenState extends State<RequestScreen> {
                         ),
                       ),
                     ),
-                    const SizedBox(height: 5),
+                    const SizedBox(height: 10),
                     Row(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
@@ -261,7 +261,7 @@ class _RequestScreenState extends State<RequestScreen> {
                                         child: Text(
                                           'Opcionalno',
                                           style: TextStyle(
-                                            fontSize: context.sp(11),
+                                            fontSize: context.sp(12),
                                             color: AppColors.primary,
                                           ),
                                         ),
@@ -273,7 +273,7 @@ class _RequestScreenState extends State<RequestScreen> {
                               Text(
                                 'Ako zelis da ponudis vecu cenu za ovaj zahtev, upisi iznos koji si spreman da platis.',
                                 style: TextStyle(
-                                  fontSize: context.sp(12),
+                                  fontSize: context.sp(14),
                                   color: AppColors.textSecondary,
                                 ),
                               ),
@@ -282,7 +282,7 @@ class _RequestScreenState extends State<RequestScreen> {
                         ),
                       ],
                     ),
-                    const SizedBox(height: 5),
+                    const SizedBox(height: 10),
                     TextFormField(
                       keyboardType: TextInputType.number,
                       inputFormatters: [FilteringTextInputFormatter.digitsOnly],

@@ -39,7 +39,7 @@ class Ratings extends StatelessWidget {
                     Text(
                       'Ratings',
                       style: TextStyle(
-                        fontSize: context.sp(14),
+                        fontSize: context.sp(15),
                         fontWeight: FontWeight.bold,
                       ),
                     ),
@@ -68,7 +68,7 @@ class Ratings extends StatelessWidget {
                 child: Text(
                   'Your ratings',
                   style: TextStyle(
-                    fontSize: context.sp(14),
+                    fontSize: context.sp(15),
                     fontWeight: FontWeight.bold,
                   ),
                 ),
@@ -76,11 +76,11 @@ class Ratings extends StatelessWidget {
 
               Icon(Icons.star, color: AppColors.primary, size: context.w(20)),
               const SizedBox(width: 2),
-              Text(ratingText, style: TextStyle(fontSize: context.sp(14))),
+              Text(ratingText, style: TextStyle(fontSize: context.sp(15))),
               const SizedBox(width: 2),
               Text(
                 '(${userFakeData[0].ratingHistory.length.toString()})',
-                style: TextStyle(fontSize: context.sp(14)),
+                style: TextStyle(fontSize: context.sp(15)),
               ),
             ],
           ),
@@ -102,7 +102,7 @@ class Ratings extends StatelessWidget {
                         Text(
                           rating.firstName,
                           style: TextStyle(
-                            fontSize: context.sp(12),
+                            fontSize: context.sp(14),
                             fontWeight: FontWeight.bold,
                           ),
                         ),
@@ -117,7 +117,7 @@ class Ratings extends StatelessWidget {
                             Text(
                               rating.rating,
                               style: TextStyle(
-                                fontSize: context.sp(12),
+                                fontSize: context.sp(14),
                                 color: AppColors.textSecondary,
                               ),
                             ),
@@ -127,7 +127,7 @@ class Ratings extends StatelessWidget {
                         Text(
                           rating.comment,
                           style: TextStyle(
-                            fontSize: context.sp(12),
+                            fontSize: context.sp(14),
                             color: AppColors.textSecondary,
                           ),
                         ),

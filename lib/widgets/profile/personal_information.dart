@@ -39,7 +39,7 @@ class PersonalInformation extends ConsumerWidget {
                     Text(
                       'Personal information',
                       style: TextStyle(
-                        fontSize: context.sp(14),
+                        fontSize: context.sp(16),
                         fontWeight: FontWeight.bold,
                       ),
                     ),

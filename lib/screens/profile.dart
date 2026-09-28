@@ -101,11 +101,11 @@ class _ProfileScreenState extends ConsumerState<ProfileScreen> {
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    Text(title, style: TextStyle(fontSize: context.sp(14))),
+                    Text(title, style: TextStyle(fontSize: context.sp(15))),
                     Text(
                       subTitle,
                       style: TextStyle(
-                        fontSize: context.sp(12),
+                        fontSize: context.sp(14),
                         fontWeight: _selectedTab == id
                             ? FontWeight.bold
                             : FontWeight.normal,
@@ -230,7 +230,7 @@ class _ProfileScreenState extends ConsumerState<ProfileScreen> {
                   'Log out',
                   style: TextStyle(
                     fontWeight: FontWeight.bold,
-                    fontSize: context.sp(14),
+                    fontSize: context.sp(15),
                   ),
                 ),
               ],

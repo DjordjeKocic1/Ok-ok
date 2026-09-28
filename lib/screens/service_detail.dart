@@ -46,7 +46,7 @@ class _ServiceDetailScreenState extends ConsumerState<ServiceDetailScreen> {
           Text(
             restrictedItem.replaceAll(' ', '\n'),
             textAlign: TextAlign.center,
-            style: TextStyle(fontSize: context.sp(10)),
+            style: TextStyle(fontSize: context.sp(12)),
           ),
         ],
       );
@@ -78,14 +78,14 @@ class _ServiceDetailScreenState extends ConsumerState<ServiceDetailScreen> {
                   Text(
                     lang.translate('description'),
                     style: TextStyle(
-                      fontSize: context.sp(14),
+                      fontSize: context.sp(16),
                       fontWeight: FontWeight.bold,
                     ),
                   ),
                   const SizedBox(height: 5),
                   Text(
                     widget.serviceItem.tripNote,
-                    style: TextStyle(fontSize: context.sp(14)),
+                    style: TextStyle(fontSize: context.sp(15)),
                   ),
                   const SizedBox(height: 20),
                   Row(
@@ -98,7 +98,7 @@ class _ServiceDetailScreenState extends ConsumerState<ServiceDetailScreen> {
                       const SizedBox(width: 10),
                       Text(
                         '${lang.translate('freeSpace')} ${widget.serviceItem.spotsAvailable}',
-                        style: TextStyle(fontSize: context.sp(14)),
+                        style: TextStyle(fontSize: context.sp(15)),
                       ),
                     ],
                   ),
@@ -113,7 +113,7 @@ class _ServiceDetailScreenState extends ConsumerState<ServiceDetailScreen> {
                       const SizedBox(width: 10),
                       Text(
                         '${lang.translate('maxWeight')} ${widget.serviceItem.maxWeight} kg',
-                        style: TextStyle(fontSize: context.sp(14)),
+                        style: TextStyle(fontSize: context.sp(15)),
                       ),
                     ],
                   ),
@@ -128,7 +128,7 @@ class _ServiceDetailScreenState extends ConsumerState<ServiceDetailScreen> {
                       const SizedBox(width: 10),
                       Text(
                         '${lang.translate('pricePackage')} ${widget.serviceItem.cost}',
-                        style: TextStyle(fontSize: context.sp(14)),
+                        style: TextStyle(fontSize: context.sp(15)),
                       ),
                     ],
                   ),
@@ -157,14 +157,14 @@ class _ServiceDetailScreenState extends ConsumerState<ServiceDetailScreen> {
                                   Text(
                                     lang.translate('dontTransport'),
                                     style: TextStyle(
-                                      fontSize: context.sp(14),
+                                      fontSize: context.sp(16),
                                       fontWeight: FontWeight.bold,
                                     ),
                                   ),
                                   Text(
                                     lang.translate('fromSecurityReason'),
                                     style: TextStyle(
-                                      fontSize: context.sp(10),
+                                      fontSize: context.sp(14),
                                       color: AppColors.textSecondary,
                                     ),
                                   ),
@@ -201,7 +201,10 @@ class _ServiceDetailScreenState extends ConsumerState<ServiceDetailScreen> {
                   children: [
                     Icon(Icons.person_add, size: context.w(25)),
                     const SizedBox(width: 10),
-                    Text(lang.translate('sendRequest')),
+                    Text(
+                      lang.translate('sendRequest'),
+                      style: TextStyle(fontSize: context.sp(15)),
+                    ),
                   ],
                 ),
               ),

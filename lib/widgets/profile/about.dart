@@ -36,7 +36,7 @@ class About extends StatelessWidget {
                       Text(
                         'O OKOK-u',
                         style: TextStyle(
-                          fontSize: context.sp(14),
+                          fontSize: context.sp(16),
                           fontWeight: FontWeight.bold,
                         ),
                       ),
@@ -61,26 +61,26 @@ class About extends StatelessWidget {
             const SizedBox(height: 20),
             Text(
               'OKOK povezuje ljude koji treba da pošalju paket sa putnicima koji već idu u istom pravcu. Umesto plaćanja kurira, pošiljaoci pronalaze nekoga na svojoj ruti, a putnici svoje putovanje mogu da učine korisnijim.',
-              style: TextStyle(fontSize: context.sp(14)),
+              style: TextStyle(fontSize: context.sp(15)),
             ),
             const SizedBox(height: 10),
             Text(
               'Kako funkcioniše',
               style: TextStyle(
-                fontSize: context.sp(14),
+                fontSize: context.sp(15),
                 fontWeight: FontWeight.bold,
               ),
             ),
             const SizedBox(height: 5),
             Text(
               'Unesi odakle i dokle ide paket, pregledaj putnike na toj ruti i pošalji zahtev onome koga izabereš. Putnik pregleda podatke o paketu i prihvata ili odbija zahtev. Kad ga prihvati, dogovarate predaju, a paket putuje sa njim do odredišta.',
-              style: TextStyle(fontSize: context.sp(12)),
+              style: TextStyle(fontSize: context.sp(14)),
             ),
             const SizedBox(height: 10),
             Text(
               'Zasnovano na poverenju',
               style: TextStyle(
-                fontSize: context.sp(14),
+                fontSize: context.sp(15),
                 fontWeight: FontWeight.bold,
               ),
             ),
@@ -93,7 +93,7 @@ class About extends StatelessWidget {
             Text(
               'Šta OKOK jeste, a šta nije',
               style: TextStyle(
-                fontSize: context.sp(14),
+                fontSize: context.sp(15),
                 fontWeight: FontWeight.bold,
               ),
             ),
@@ -106,7 +106,7 @@ class About extends StatelessWidget {
             Text(
               'Treba ti pomoć?',
               style: TextStyle(
-                fontSize: context.sp(14),
+                fontSize: context.sp(15),
                 fontWeight: FontWeight.bold,
               ),
             ),

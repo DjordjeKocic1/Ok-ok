@@ -61,7 +61,7 @@ class _EditableInfoTileState extends State<EditableInfoTile> {
                     Text(
                       widget.label,
                       style: TextStyle(
-                        fontSize: context.sp(12),
+                        fontSize: context.sp(14),
                         color: AppColors.textSecondary,
                       ),
                     ),

@@ -110,7 +110,7 @@ class Faqs extends StatelessWidget {
                       Text(
                         'Cesto postavljena pitanja',
                         style: TextStyle(
-                          fontSize: context.sp(14),
+                          fontSize: context.sp(16),
                           fontWeight: FontWeight.bold,
                         ),
                       ),
@@ -147,7 +147,7 @@ class Faqs extends StatelessWidget {
                     faq.question,
                     style: TextStyle(
                       fontWeight: FontWeight.bold,
-                      fontSize: context.sp(14),
+                      fontSize: context.sp(15),
                     ),
                   ),
                   tilePadding: const EdgeInsets.symmetric(horizontal: 16),
@@ -157,7 +157,7 @@ class Faqs extends StatelessWidget {
                   children: [
                     Text(
                       faq.answer,
-                      style: TextStyle(fontSize: context.sp(12)),
+                      style: TextStyle(fontSize: context.sp(14)),
                     ),
                   ],
                 ),

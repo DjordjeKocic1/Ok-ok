@@ -93,7 +93,7 @@ class _PasswordState extends State<Password> {
                       Text(
                         'Security and Password',
                         style: TextStyle(
-                          fontSize: context.sp(14),
+                          fontSize: context.sp(16),
                           fontWeight: FontWeight.bold,
                         ),
                       ),
@@ -134,12 +134,12 @@ class _PasswordState extends State<Password> {
                       children: [
                         Text(
                           'Email',
-                          style: TextStyle(fontSize: context.sp(12)),
+                          style: TextStyle(fontSize: context.sp(14)),
                         ),
                         Text(
                           userFakeData[0].email,
                           style: TextStyle(
-                            fontSize: context.sp(12),
+                            fontSize: context.sp(14),
                             color: AppColors.textSecondary,
                           ),
                         ),
@@ -189,7 +189,7 @@ class _PasswordState extends State<Password> {
                       children: [
                         Text(
                           'ID document',
-                          style: TextStyle(fontSize: context.sp(12)),
+                          style: TextStyle(fontSize: context.sp(14)),
                         ),
                         if (!userFakeData[0].idVerified)
                           Text(
@@ -207,11 +207,17 @@ class _PasswordState extends State<Password> {
               ),
             ),
             const SizedBox(height: 20),
-            Text('Change password', style: TextStyle(fontSize: context.sp(14))),
+            Text(
+              'Change password',
+              style: TextStyle(
+                fontSize: context.sp(15),
+                fontWeight: FontWeight.bold,
+              ),
+            ),
             const SizedBox(height: 10),
             Text(
               'Current password',
-              style: TextStyle(fontSize: context.sp(12)),
+              style: TextStyle(fontSize: context.sp(14)),
             ),
             const SizedBox(height: 5),
             TextFormField(
@@ -232,7 +238,7 @@ class _PasswordState extends State<Password> {
               },
             ),
             const SizedBox(height: 10),
-            Text('New password', style: TextStyle(fontSize: context.sp(12))),
+            Text('New password', style: TextStyle(fontSize: context.sp(14))),
             const SizedBox(height: 5),
             TextFormField(
               keyboardType: TextInputType.visiblePassword,
@@ -269,7 +275,7 @@ class _PasswordState extends State<Password> {
                 'Apply',
                 style: TextStyle(
                   fontWeight: FontWeight.bold,
-                  fontSize: context.sp(14),
+                  fontSize: context.sp(15),
                 ),
               ),
             ),
