@@ -3,6 +3,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:ok_ok/main.dart';
 import 'package:ok_ok/modal/service_item.dart';
 import 'package:ok_ok/providers/language_provider.dart';
+import 'package:ok_ok/providers/service_provider.dart';
 import 'package:ok_ok/screens/service_detail.dart';
 import 'package:ok_ok/utils/formatters.dart';
 import 'package:ok_ok/utils/responsive.dart';
@@ -12,13 +13,11 @@ class ServicesList extends ConsumerStatefulWidget {
     super.key,
     required this.destinationStart,
     required this.destinationEnd,
-    required this.filteredData,
     required this.onBack,
   });
 
   final String destinationStart;
   final String destinationEnd;
-  final List<ServiceItem> filteredData;
   final VoidCallback onBack;
 
   @override
@@ -37,6 +36,7 @@ class _ServicesListState extends ConsumerState<ServicesList> {
   @override
   Widget build(BuildContext context) {
     final lang = ref.read(languageProvider.notifier);
+    final service = ref.read(serviceProvider);
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
@@ -88,11 +88,9 @@ class _ServicesListState extends ConsumerState<ServicesList> {
         const SizedBox(height: 20),
         Expanded(
           child: ListView.builder(
-            itemCount: widget.filteredData.length,
+            itemCount: service.length,
             itemBuilder: (ctx, index) {
-              final dateInfo = getDateTime(
-                widget.filteredData[index].departureTime,
-              );
+              final dateInfo = getDateTime(service[index].departureTime);
               var dayMonth = dateInfo.dayMonth.split(".");
               var departureDate = dayMonth[0];
               var departureMonth = dayMonth[1];
@@ -102,7 +100,7 @@ class _ServicesListState extends ConsumerState<ServicesList> {
                   ? lang.translate('goTomorrow')
                   : '${lang.translate('goes')} $departureDate . ${lang.translate(departureMonth.trim())}';
               var ratingText = getAverageRating(
-                widget.filteredData[index].ratingHistory,
+                service[index].ratingHistory,
               ).toStringAsFixed(1);
 
               Widget transportModeContent(String transport) {
@@ -126,7 +124,7 @@ class _ServicesListState extends ConsumerState<ServicesList> {
                 clipBehavior: Clip.hardEdge,
                 child: InkWell(
                   onTap: () {
-                    _goToDetails(context, widget.filteredData[index]);
+                    _goToDetails(context, service[index]);
                   },
                   child: Stack(
                     children: [
@@ -143,7 +141,7 @@ class _ServicesListState extends ConsumerState<ServicesList> {
                                         CrossAxisAlignment.start,
                                     children: [
                                       Text(
-                                        widget.filteredData[index].firstName,
+                                        service[index].firstName,
                                         overflow: TextOverflow.ellipsis,
                                         maxLines: 1,
                                         style: TextStyle(
@@ -167,7 +165,7 @@ class _ServicesListState extends ConsumerState<ServicesList> {
                                           ),
                                           const SizedBox(width: 2),
                                           Text(
-                                            '(${widget.filteredData[index].ratingHistory.length.toString()})',
+                                            '(${service[index].ratingHistory.length.toString()})',
                                             style: TextStyle(
                                               fontSize: context.sp(14),
                                             ),
@@ -204,10 +202,7 @@ class _ServicesListState extends ConsumerState<ServicesList> {
                             Row(
                               children: [
                                 Text(
-                                  widget
-                                      .filteredData[index]
-                                      .destinationStart
-                                      .city,
+                                  service[index].destinationStart.city,
                                   style: TextStyle(
                                     fontSize: context.sp(16),
                                     fontWeight: FontWeight.bold,
@@ -222,10 +217,7 @@ class _ServicesListState extends ConsumerState<ServicesList> {
                                 const SizedBox(width: 5),
                                 Flexible(
                                   child: Text(
-                                    widget
-                                        .filteredData[index]
-                                        .destinationEnd
-                                        .city,
+                                    service[index].destinationEnd.city,
                                     overflow: TextOverflow.ellipsis,
                                     maxLines: 2,
                                     style: TextStyle(
@@ -236,7 +228,7 @@ class _ServicesListState extends ConsumerState<ServicesList> {
                                 ),
                                 const SizedBox(width: 5),
                                 transportModeContent(
-                                  widget.filteredData[index].transportMode,
+                                  service[index].transportMode,
                                 ),
                               ],
                             ),
@@ -259,7 +251,7 @@ class _ServicesListState extends ConsumerState<ServicesList> {
                             Row(
                               children: [
                                 Text(
-                                  '${lang.translate('freeSpace')} ${widget.filteredData[index].spotsAvailable}',
+                                  '${lang.translate('freeSpace')} ${service[index].spotsAvailable}',
                                   style: TextStyle(fontSize: context.sp(12)),
                                 ),
                               ],
@@ -271,7 +263,7 @@ class _ServicesListState extends ConsumerState<ServicesList> {
                         bottom: 15,
                         right: 20,
                         child: Text(
-                          '\$${widget.filteredData[index].cost}',
+                          '\$${service[index].cost}',
                           style: TextStyle(
                             fontWeight: FontWeight.bold,
                             fontSize: context.sp(16),

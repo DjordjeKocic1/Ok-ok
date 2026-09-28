@@ -1,4 +1,46 @@
 import 'package:ok_ok/modal/service_item.dart';
+import 'package:ok_ok/modal/user.dart';
+
+final userFakeData = [
+  User(
+    firstName: 'Djorde Kocic',
+    email: 'kocic999@yahoo.com',
+    phone: '+381605252130',
+    idVerified: true,
+    avatarImage: '',
+    ratingHistory: [
+      RatingHistory(
+        firstName: 'Kristina K.',
+        rating: '3.2',
+        comment: 'Posvadjao se s ruke.',
+      ),
+      RatingHistory(
+        firstName: 'Rista K.',
+        rating: '4.7',
+        comment: 'Very reliable and friendly. Eveything went smoothly!',
+      ),
+      RatingHistory(
+        firstName: 'Suki J.',
+        rating: '5.0',
+        comment: 'Najbolji zet na svetu!',
+      ),
+    ],
+    historyDestinations: [
+      HistoryDestinations(
+        destinationStart: Location(country: 'Srbija', city: 'Nis'),
+        destinationEnd: Location(country: 'Srbija', city: 'Cacak'),
+      ),
+      HistoryDestinations(
+        destinationStart: Location(country: 'Srbija', city: 'Nis'),
+        destinationEnd: Location(country: 'Srbija', city: 'Beograd'),
+      ),
+      HistoryDestinations(
+        destinationStart: Location(country: 'Srbija', city: 'Nis'),
+        destinationEnd: Location(country: 'Srbija', city: 'Leskovac'),
+      ),
+    ],
+  ),
+];
 
 const serviceData = [
   ServiceItem(
@@ -11,16 +53,6 @@ const serviceData = [
     ratingHistory: ['3.8', '4.0', '3.6', '4.2'],
     destinationStart: Location(country: 'Srbija', city: 'Nis'),
     destinationEnd: Location(country: 'Srbija', city: 'Beograd'),
-    historyDestinations: [
-      HistoryDestinations(
-        destinationStart: Location(country: 'Srbija', city: 'Nis'),
-        destinationEnd: Location(country: 'Srbija', city: 'Cacak'),
-      ),
-      HistoryDestinations(
-        destinationStart: Location(country: 'Srbija', city: 'Nis'),
-        destinationEnd: Location(country: 'Srbija', city: 'Beograd'),
-      ),
-    ],
     departureTime: "2026-10-24T08:00:00",
     cost: 20,
     maxWeight: 10,
@@ -43,12 +75,6 @@ const serviceData = [
     ratingHistory: ['3.8', '4.0', '3.6', '4.2'],
     destinationStart: Location(country: 'Srbija', city: 'Novi Sad'),
     destinationEnd: Location(country: 'Netherlands', city: 'Amsterdam'),
-    historyDestinations: [
-      HistoryDestinations(
-        destinationStart: Location(country: 'Srbija', city: 'Novi Sad'),
-        destinationEnd: Location(country: 'Srbija', city: 'Nis'),
-      ),
-    ],
     departureTime: "2026-09-11T10:00:00",
     cost: 25,
     maxWeight: 5,
@@ -65,12 +91,6 @@ const serviceData = [
     ratingHistory: ['4.8', '5.0', '4.9'],
     destinationStart: Location(country: 'Srbija', city: 'Beograd'),
     destinationEnd: Location(country: 'Srbija', city: 'Kragujevac'),
-    historyDestinations: [
-      HistoryDestinations(
-        destinationStart: Location(country: 'Srbija', city: 'Nis'),
-        destinationEnd: Location(country: 'Srbija', city: 'Beograd'),
-      ),
-    ],
     departureTime: "2026-11-01T10:00:00",
     cost: 10,
     maxWeight: 3,
@@ -87,12 +107,6 @@ const serviceData = [
     ratingHistory: ['4.8', '5.0', '4.9'],
     destinationStart: Location(country: 'Srbija', city: 'Nis'),
     destinationEnd: Location(country: 'Srbija', city: 'Nozrina'),
-    historyDestinations: [
-      HistoryDestinations(
-        destinationStart: Location(country: 'Srbija', city: 'Nis'),
-        destinationEnd: Location(country: 'Srbija', city: 'Zitkovac'),
-      ),
-    ],
     departureTime: "2026-10-22T13:00:00",
     cost: 10,
     maxWeight: 5,
@@ -109,12 +123,6 @@ const serviceData = [
     ratingHistory: ['4.4', '4.2', '4.3'],
     destinationStart: Location(country: 'Srbija', city: 'Nis'),
     destinationEnd: Location(country: 'Srbija', city: 'Cukurevac'),
-    historyDestinations: [
-      HistoryDestinations(
-        destinationStart: Location(country: 'Srbija', city: 'Nis'),
-        destinationEnd: Location(country: 'Srbija', city: 'Gabrovacka Reka'),
-      ),
-    ],
     departureTime: "2026-09-12T13:00:00",
     cost: 40,
     maxWeight: 5,

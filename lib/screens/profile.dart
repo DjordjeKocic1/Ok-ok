@@ -5,9 +5,12 @@ import 'package:ok_ok/main.dart';
 import 'package:ok_ok/modal/enums.dart';
 import 'package:ok_ok/providers/language_provider.dart';
 import 'package:ok_ok/utils/responsive.dart';
+import 'package:ok_ok/widgets/profile/about.dart';
+import 'package:ok_ok/widgets/profile/faqs.dart';
 import 'package:ok_ok/widgets/profile/language.dart';
 import 'package:ok_ok/widgets/profile/password.dart';
 import 'package:ok_ok/widgets/profile/personal_information.dart';
+import 'package:ok_ok/widgets/profile/ratings.dart';
 
 class ProfileScreen extends ConsumerStatefulWidget {
   const ProfileScreen({super.key});
@@ -26,17 +29,20 @@ class _ProfileScreenState extends ConsumerState<ProfileScreen> {
       case ProfileTab.personal:
         tab = PersonalInformation();
         break;
+      case ProfileTab.rating:
+        tab = Ratings();
+        break;
       case ProfileTab.password:
         tab = Password();
         break;
       case ProfileTab.language:
         tab = Language();
         break;
-      case ProfileTab.help:
-        tab = const Text('TODO: Help & Support');
+      case ProfileTab.faqs:
+        tab = Faqs();
         break;
       case ProfileTab.about:
-        tab = const Text('TODO: About OKOK');
+        tab = About();
         break;
       case null:
         return;
@@ -131,9 +137,15 @@ class _ProfileScreenState extends ConsumerState<ProfileScreen> {
         ProfileTab.personal,
       ),
       _profileTab(
+        Icons.star_half_outlined,
+        lang.translate('rating'),
+        lang.translate('giveRating'),
+        ProfileTab.rating,
+      ),
+      _profileTab(
         Icons.admin_panel_settings_outlined,
         lang.translate('security'),
-        lang.translate('loginPasswordInput'),
+        lang.translate('security'),
         ProfileTab.password,
       ),
       _profileTab(
@@ -143,10 +155,10 @@ class _ProfileScreenState extends ConsumerState<ProfileScreen> {
         ProfileTab.language,
       ),
       _profileTab(
-        Icons.support_outlined,
+        Icons.quiz_outlined,
         lang.translate('helpAndSupport'),
         lang.translate('contactUs'),
-        ProfileTab.help,
+        ProfileTab.faqs,
       ),
       _profileTab(
         Icons.info_outlined,
@@ -161,14 +173,14 @@ class _ProfileScreenState extends ConsumerState<ProfileScreen> {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Text(
-            serviceData[0].firstName,
+            userFakeData[0].firstName,
             style: TextStyle(
               fontSize: context.sp(16),
               fontWeight: FontWeight.bold,
             ),
           ),
           Text(
-            serviceData[0].email,
+            userFakeData[0].email,
             style: TextStyle(
               fontSize: context.sp(14),
               color: AppColors.textSecondary,

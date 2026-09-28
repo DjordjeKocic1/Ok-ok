@@ -1,20 +1,16 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:ok_ok/data/service_data.dart';
 import 'package:ok_ok/main.dart';
 import 'package:ok_ok/utils/responsive.dart';
 import 'package:ok_ok/widgets/common/screen_padding.dart';
 import 'package:ok_ok/widgets/profile/editable_info_tile.dart';
 
-class PersonalInformation extends StatefulWidget {
+class PersonalInformation extends ConsumerWidget {
   const PersonalInformation({super.key});
 
   @override
-  State<PersonalInformation> createState() => _PersonalInformationState();
-}
-
-class _PersonalInformationState extends State<PersonalInformation> {
-  @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
     return ScreenPadding(
       extra: EdgeInsets.only(top: 20),
       child: Column(
@@ -69,7 +65,7 @@ class _PersonalInformationState extends State<PersonalInformation> {
           EditableInfoTile(
             name: 'firstName',
             label: 'Full name',
-            initialValue: serviceData[0].firstName,
+            initialValue: userFakeData[0].firstName,
             borderRadius: BorderRadius.only(
               topLeft: Radius.circular(12),
               topRight: Radius.circular(12),
@@ -84,7 +80,7 @@ class _PersonalInformationState extends State<PersonalInformation> {
           EditableInfoTile(
             name: 'phone',
             label: 'Phone number',
-            initialValue: serviceData[0].phone,
+            initialValue: userFakeData[0].phone,
             validator: (value) {
               if (value == null || value.isEmpty) {
                 return 'Ne može da bude prazno';

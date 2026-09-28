@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:ok_ok/data/service_data.dart';
 import 'package:ok_ok/main.dart';
-import 'package:ok_ok/modal/service_item.dart';
 import 'package:ok_ok/providers/language_provider.dart';
+import 'package:ok_ok/providers/service_provider.dart';
 import 'package:ok_ok/screens/add_service.dart';
 import 'package:ok_ok/utils/responsive.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -17,30 +17,20 @@ class SearchScreen extends ConsumerStatefulWidget {
 
 class _SearchScreenState extends ConsumerState<SearchScreen> {
   final _formKey = GlobalKey<FormState>();
-  List<ServiceItem> _filteredData = [];
   var _destinationStart = '';
   var _destinationEnd = '';
 
   void _filterData() {
     final lang = ref.read(languageProvider.notifier);
+    final userNotifier = ref.read(serviceProvider.notifier);
     if (_formKey.currentState!.validate()) {
       _formKey.currentState!.save();
 
-      setState(() {
-        _filteredData = serviceData.where((item) {
-          final matchesStart = item.destinationStart.city
-              .toLowerCase()
-              .contains(_destinationStart.toLowerCase());
+      userNotifier.filterByDate(_destinationStart, _destinationEnd);
 
-          final matchesEnd = item.destinationEnd.city.toLowerCase().contains(
-            _destinationEnd.toLowerCase(),
-          );
+      final userData = ref.read(serviceProvider);
 
-          return matchesStart && matchesEnd;
-        }).toList();
-      });
-
-      if (_filteredData.isEmpty) {
+      if (userData.isEmpty) {
         showDialog(
           context: context,
           builder: (ctx) => AlertDialog(
@@ -69,16 +59,16 @@ class _SearchScreenState extends ConsumerState<SearchScreen> {
   @override
   Widget build(BuildContext context) {
     final lang = ref.read(languageProvider.notifier);
+    final service = ref.watch(serviceProvider);
     ref.watch(languageProvider);
 
-    if (_filteredData.isNotEmpty) {
+    if (service.isNotEmpty) {
       return ServicesList(
         destinationStart: _destinationStart,
         destinationEnd: _destinationEnd,
-        filteredData: _filteredData,
         onBack: () {
           setState(() {
-            _filteredData = [];
+            ref.read(serviceProvider.notifier).clearFilter();
           });
         },
       );
@@ -256,7 +246,7 @@ class _SearchScreenState extends ConsumerState<SearchScreen> {
             ),
           ),
           const SizedBox(height: 5),
-          for (final historyDestination in serviceData[0].historyDestinations)
+          for (final historyDestination in userFakeData[0].historyDestinations)
             Container(
               margin: EdgeInsets.symmetric(vertical: 5, horizontal: 10),
               decoration: BoxDecoration(
