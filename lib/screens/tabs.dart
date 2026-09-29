@@ -50,10 +50,10 @@ class _TabsScreenState extends ConsumerState<TabsScreen> {
         selectedItemColor: AppColors.primary,
         unselectedItemColor: AppColors.textSecondary,
         selectedLabelStyle: TextStyle(
-          fontSize: context.sp(12),
+          fontSize: context.sp(14),
           fontWeight: FontWeight.w600,
         ),
-        unselectedLabelStyle: TextStyle(fontSize: context.sp(12)),
+        unselectedLabelStyle: TextStyle(fontSize: context.sp(14)),
         items: [
           BottomNavigationBarItem(
             icon: Icon(Icons.home_outlined),

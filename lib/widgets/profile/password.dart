@@ -57,11 +57,9 @@ class _PasswordState extends State<Password> {
       return TextButton(
         style: TextButton.styleFrom(backgroundColor: AppColors.mainColor),
         onPressed: () {},
-        child: Text('Verify'),
+        child: Text('Verify', style: TextStyle(fontSize: context.sp(14))),
       );
     }
-
-    ;
 
     return ScreenPadding(
       extra: EdgeInsets.only(top: 20),

@@ -39,6 +39,30 @@ final userFakeData = [
         destinationEnd: Location(country: 'Srbija', city: 'Leskovac'),
       ),
     ],
+    services: [
+      ServiceItem(
+        firstName: 'Djorde Kocic',
+        email: 'kocic999@yahoo.com',
+        phone: '+381605252130',
+        avatarImage: '',
+        tripNote:
+            "Putujem iz Novog Sada za Amsterdam. Imam 1 slobodno mesto za pakete, Mogu preuzeti paket u Novom Sadu, dogovor oko lokacije",
+        ratingHistory: ['3.8', '4.0', '3.6', '4.2'],
+        destinationStart: Location(country: 'Srbija', city: 'Nis'),
+        destinationEnd: Location(country: 'Srbija', city: 'Beograd'),
+        departureTime: "2026-10-24T08:00:00",
+        cost: 20,
+        maxWeight: 10,
+        restrictedItems: [
+          "Pets",
+          "Breaking Glass",
+          "Flammable materials",
+          "Alcohol",
+        ],
+        spotsAvailable: 2,
+        transportMode: "Truck",
+      ),
+    ],
   ),
 ];
 
@@ -63,7 +87,7 @@ const serviceData = [
       "Alcohol",
     ],
     spotsAvailable: 2,
-    transportMode: "Car",
+    transportMode: "Truck",
   ),
   ServiceItem(
     firstName: 'Kristina Kocic',

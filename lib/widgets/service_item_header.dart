@@ -5,6 +5,7 @@ import 'package:ok_ok/modal/service_item.dart';
 import 'package:ok_ok/providers/language_provider.dart';
 import 'package:ok_ok/utils/formatters.dart';
 import 'package:ok_ok/utils/responsive.dart';
+import 'package:ok_ok/widgets/transport_mode.dart';
 
 class ServiceItemHeader extends ConsumerWidget {
   const ServiceItemHeader({super.key, required this.serviceItem});
@@ -23,17 +24,6 @@ class ServiceItemHeader extends ConsumerWidget {
     var ratingText = getAverageRating(
       serviceItem.ratingHistory,
     ).toStringAsFixed(1);
-
-    Widget transportModeContent(String transport) {
-      if (transport == 'Car') {
-        return Icon(
-          Icons.directions_car_outlined,
-          size: 20,
-          color: AppColors.primary,
-        );
-      }
-      return Icon(Icons.flight, size: 20, color: AppColors.primary);
-    }
 
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
@@ -82,7 +72,7 @@ class ServiceItemHeader extends ConsumerWidget {
               ),
             ),
             const SizedBox(width: 5),
-            transportModeContent(serviceItem.transportMode),
+            TransportMode(transport: serviceItem.transportMode, iconSize: 20),
           ],
         ),
         const SizedBox(height: 10),

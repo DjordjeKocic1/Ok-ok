@@ -91,7 +91,7 @@ class _LoginTabState extends ConsumerState<LoginTab> {
               onPressed: _submit,
               child: Text(
                 lang.translate('signIn'),
-                style: TextStyle(fontSize: context.sp(14)),
+                style: TextStyle(fontSize: context.sp(15)),
               ),
             ),
             const SizedBox(height: 10),

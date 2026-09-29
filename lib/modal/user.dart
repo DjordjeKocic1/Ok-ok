@@ -31,6 +31,7 @@ class User {
     required this.avatarImage,
     required this.ratingHistory,
     required this.historyDestinations,
+    required this.services,
   });
 
   final String firstName;
@@ -40,4 +41,5 @@ class User {
   final String avatarImage;
   final List<RatingHistory> ratingHistory;
   final List<HistoryDestinations> historyDestinations;
+  final List<ServiceItem> services;
 }

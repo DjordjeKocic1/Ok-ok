@@ -100,7 +100,7 @@ class _CreateAccountTabState extends ConsumerState<CreateAccountTab> {
               onPressed: () {},
               child: Text(
                 lang.translate('createAccount'),
-                style: TextStyle(fontSize: context.sp(14)),
+                style: TextStyle(fontSize: context.sp(15)),
               ),
             ),
             const SizedBox(height: 10),

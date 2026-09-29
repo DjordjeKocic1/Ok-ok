@@ -131,6 +131,7 @@ class _ServicesListState extends ConsumerState<ServicesList> {
                       Padding(
                         padding: const EdgeInsets.all(15),
                         child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.stretch,
                           children: [
                             Row(
                               crossAxisAlignment: CrossAxisAlignment.start,
@@ -248,13 +249,9 @@ class _ServicesListState extends ConsumerState<ServicesList> {
                               ],
                             ),
                             const SizedBox(height: 10),
-                            Row(
-                              children: [
-                                Text(
-                                  '${lang.translate('freeSpace')} ${service[index].spotsAvailable}',
-                                  style: TextStyle(fontSize: context.sp(14)),
-                                ),
-                              ],
+                            Text(
+                              '${lang.translate('freeSpace')} ${service[index].spotsAvailable}',
+                              style: TextStyle(fontSize: context.sp(14)),
                             ),
                           ],
                         ),

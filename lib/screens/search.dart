@@ -50,7 +50,7 @@ class _SearchScreenState extends ConsumerState<SearchScreen> {
     }
   }
 
-  void _goToAddService(BuildContext context) {
+  void _goToAddService() {
     Navigator.of(
       context,
     ).push(MaterialPageRoute(builder: (ctx) => AddServiceScreen()));
@@ -285,9 +285,7 @@ class _SearchScreenState extends ConsumerState<SearchScreen> {
             ),
           const SizedBox(height: 10),
           ElevatedButton(
-            onPressed: () {
-              _goToAddService(context);
-            },
+            onPressed: _goToAddService,
             style: ElevatedButton.styleFrom(
               padding: EdgeInsets.symmetric(vertical: context.h(10)),
             ),
