@@ -17,6 +17,7 @@ class TabsScreen extends ConsumerStatefulWidget {
 
 class _TabsScreenState extends ConsumerState<TabsScreen> {
   int _selectedIndex = 0;
+  final Set<int> _visited = {0};
 
   final List<Widget> _screens = const [
     SearchScreen(),
@@ -27,6 +28,7 @@ class _TabsScreenState extends ConsumerState<TabsScreen> {
   void _onTap(int index) {
     setState(() {
       _selectedIndex = index;
+      _visited.add(index);
     });
   }
 
@@ -38,7 +40,13 @@ class _TabsScreenState extends ConsumerState<TabsScreen> {
     return Scaffold(
       appBar: AppBar(title: Image.asset('assets/images/logo.png', width: 100)),
       body: ScreenPadding(
-        child: IndexedStack(index: _selectedIndex, children: _screens),
+        child: IndexedStack(
+          index: _selectedIndex,
+          children: [
+            for (var i = 0; i < _screens.length; i++)
+              _visited.contains(i) ? _screens[i] : const SizedBox.shrink(),
+          ],
+        ),
       ),
       bottomNavigationBar: BottomNavigationBar(
         currentIndex: _selectedIndex,
@@ -54,18 +62,18 @@ class _TabsScreenState extends ConsumerState<TabsScreen> {
         unselectedLabelStyle: TextStyle(fontSize: context.sp(12)),
         items: [
           BottomNavigationBarItem(
-            icon: Icon(Icons.home_outlined),
-            activeIcon: Icon(Icons.home),
+            icon: const Icon(Icons.home_outlined),
+            activeIcon: const Icon(Icons.home),
             label: lang.translate('tabHome'),
           ),
           BottomNavigationBarItem(
-            icon: Icon(Icons.cases_outlined),
-            activeIcon: Icon(Icons.cases_rounded),
+            icon: const Icon(Icons.cases_outlined),
+            activeIcon: const Icon(Icons.cases_rounded),
             label: lang.translate('tabServices'),
           ),
           BottomNavigationBarItem(
-            icon: Icon(Icons.person_outline),
-            activeIcon: Icon(Icons.person),
+            icon: const Icon(Icons.person_outline),
+            activeIcon: const Icon(Icons.person),
             label: lang.translate('tabProfile'),
           ),
         ],

@@ -21,28 +21,28 @@ class ServiceItemHeader extends ConsumerWidget {
     var departureMonth = dayMonth[1];
     var departureTime = dateInfo.time;
     var departureYear = dateInfo.year;
-    var ratingText = getAverageRating(
-      serviceItem.ratingHistory,
-    ).toStringAsFixed(1);
 
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        // Text(
-        //   serviceItem.firstName,
-        //   style: TextStyle(
-        //     fontSize: context.sp(16),
-        //     fontWeight: FontWeight.bold,
-        //   ),
-        // ),
+        Text(
+          serviceItem.user!.firstName,
+          style: TextStyle(
+            fontSize: context.sp(16),
+            fontWeight: FontWeight.bold,
+          ),
+        ),
         Row(
           children: [
             Icon(Icons.star, color: Colors.amber, size: 20),
             const SizedBox(width: 4),
-            Text(ratingText, style: TextStyle(fontSize: context.sp(14))),
+            Text(
+              serviceItem.user!.ratingAverage.toStringAsFixed(1),
+              style: TextStyle(fontSize: context.sp(14)),
+            ),
             const SizedBox(width: 3),
             Text(
-              '(${serviceItem.ratingHistory.length.toString()})',
+              '(${serviceItem.user!.ratingCount.toString()})',
               style: TextStyle(fontSize: context.sp(14)),
             ),
           ],

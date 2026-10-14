@@ -6,6 +6,7 @@ import 'package:ok_ok/providers/language_provider.dart';
 import 'package:ok_ok/screens/service_detail.dart';
 import 'package:ok_ok/utils/formatters.dart';
 import 'package:ok_ok/utils/responsive.dart';
+import 'package:ok_ok/widgets/transport_mode.dart';
 
 class ServicesList extends ConsumerStatefulWidget {
   const ServicesList({
@@ -100,20 +101,6 @@ class _ServicesListState extends ConsumerState<ServicesList> {
               var badgeText = isTomorrow
                   ? lang.translate('goTomorrow')
                   : '${lang.translate('goes')} $departureDate . ${lang.translate(departureMonth.trim())}';
-              var ratingText = getAverageRating(
-                widget.services[index].ratingHistory,
-              ).toStringAsFixed(1);
-
-              Widget transportModeContent(String transport) {
-                if (transport == 'Car') {
-                  return Icon(
-                    Icons.directions_car_outlined,
-                    size: 20,
-                    color: AppColors.primary,
-                  );
-                }
-                return Icon(Icons.flight, size: 20, color: AppColors.primary);
-              }
 
               return Card(
                 margin: const EdgeInsets.only(bottom: 15),
@@ -142,15 +129,15 @@ class _ServicesListState extends ConsumerState<ServicesList> {
                                     crossAxisAlignment:
                                         CrossAxisAlignment.start,
                                     children: [
-                                      // Text(
-                                      //   widget.services[index].firstName,
-                                      //   overflow: TextOverflow.ellipsis,
-                                      //   maxLines: 1,
-                                      //   style: TextStyle(
-                                      //     fontSize: context.sp(16),
-                                      //     fontWeight: FontWeight.bold,
-                                      //   ),
-                                      // ),
+                                      Text(
+                                        widget.services[index].user!.firstName,
+                                        overflow: TextOverflow.ellipsis,
+                                        maxLines: 1,
+                                        style: TextStyle(
+                                          fontSize: context.sp(16),
+                                          fontWeight: FontWeight.bold,
+                                        ),
+                                      ),
                                       Row(
                                         children: [
                                           Icon(
@@ -160,14 +147,18 @@ class _ServicesListState extends ConsumerState<ServicesList> {
                                           ),
                                           const SizedBox(width: 2),
                                           Text(
-                                            ratingText,
+                                            widget
+                                                .services[index]
+                                                .user!
+                                                .ratingAverage
+                                                .toStringAsFixed(1),
                                             style: TextStyle(
                                               fontSize: context.sp(14),
                                             ),
                                           ),
                                           const SizedBox(width: 2),
                                           Text(
-                                            '(${widget.services[index].ratingHistory.length.toString()})',
+                                            '(${widget.services[index].user!.ratingCount.toString()})',
                                             style: TextStyle(
                                               fontSize: context.sp(14),
                                             ),
@@ -229,8 +220,10 @@ class _ServicesListState extends ConsumerState<ServicesList> {
                                   ),
                                 ),
                                 const SizedBox(width: 5),
-                                transportModeContent(
-                                  widget.services[index].transportMode,
+                                TransportMode(
+                                  transport:
+                                      widget.services[index].transportMode,
+                                  iconSize: 25,
                                 ),
                               ],
                             ),

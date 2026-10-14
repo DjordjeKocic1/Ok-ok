@@ -24,7 +24,6 @@ class ServiceItem {
     required String id,
     required this.status,
     required this.tripNote,
-    required this.ratingHistory,
     required this.destinationStart,
     required this.destinationEnd,
     required this.departureTime,
@@ -42,7 +41,6 @@ class ServiceItem {
 
   final ServiceStatus status;
   final String tripNote;
-  final List<String> ratingHistory;
   final Location destinationStart;
   final Location destinationEnd;
   final String departureTime;
@@ -61,7 +59,6 @@ class ServiceItem {
         orElse: () => ServiceStatus.values.first,
       ),
       tripNote: json['tripNote'] as String? ?? '',
-      ratingHistory: List<String>.from(json['ratingHistory'] ?? const []),
       destinationStart: Location.fromJson(
         json['destinationStart'] as Map<String, dynamic>,
       ),

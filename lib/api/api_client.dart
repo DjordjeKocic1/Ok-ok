@@ -15,7 +15,6 @@ class ApiClient {
   }
 
   static _handle(http.Response res, {required bool auth}) {
-    print(res.body);
     if (res.statusCode == 401 && auth) {
       onUnauthorized?.call();
       throw Exception(jsonDecode(res.body)['error']);
