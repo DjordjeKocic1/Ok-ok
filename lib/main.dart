@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:ok_ok/screens/login.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:ok_ok/screens/splash.dart';
 
 class AppColors {
   static const mainColor = Color(0xFFECE8FE);
@@ -28,6 +28,11 @@ void main() {
       ProviderScope(
         child: MaterialApp(
           title: 'Ok ok',
+          builder: (context, child) => GestureDetector(
+            onTap: () => FocusManager.instance.primaryFocus?.unfocus(),
+            behavior: HitTestBehavior.translucent,
+            child: child,
+          ),
           theme: ThemeData.light().copyWith(
             scaffoldBackgroundColor: AppColors.background,
             colorScheme: ColorScheme.fromSeed(
@@ -84,7 +89,7 @@ void main() {
               ),
             ),
           ),
-          home: const LoginScreen(),
+          home: const SplashScreen(),
         ),
       ),
     );

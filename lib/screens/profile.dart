@@ -1,9 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:ok_ok/data/service_data.dart';
 import 'package:ok_ok/main.dart';
 import 'package:ok_ok/modal/enums.dart';
 import 'package:ok_ok/providers/language_provider.dart';
+import 'package:ok_ok/providers/service_provider.dart';
+import 'package:ok_ok/providers/user_provider.dart';
+import 'package:ok_ok/screens/login.dart';
+import 'package:ok_ok/utils/error_message.dart';
 import 'package:ok_ok/utils/responsive.dart';
 import 'package:ok_ok/widgets/profile/about.dart';
 import 'package:ok_ok/widgets/profile/faqs.dart';
@@ -21,6 +24,27 @@ class ProfileScreen extends ConsumerStatefulWidget {
 
 class _ProfileScreenState extends ConsumerState<ProfileScreen> {
   ProfileTab? _selectedTab;
+  bool _isLoading = false;
+
+  Future<void> _signOut() async {
+    setState(() {
+      _isLoading = true;
+    });
+    try {
+      await ref.read(userProvider.notifier).signOut();
+      ref.invalidate(serviceProvider);
+      if (!mounted) return;
+      Navigator.of(context).pushAndRemoveUntil(
+        MaterialPageRoute(builder: (_) => const LoginScreen()),
+        (route) => false,
+      );
+    } catch (e) {
+      if (!mounted) return;
+      showErrorDialog(context, e, ref);
+    } finally {
+      if (mounted) setState(() => _isLoading = false);
+    }
+  }
 
   void _openProfileTab() {
     Widget tab = const SizedBox.shrink();
@@ -128,6 +152,7 @@ class _ProfileScreenState extends ConsumerState<ProfileScreen> {
   @override
   Widget build(BuildContext context) {
     final lang = ref.read(languageProvider.notifier);
+    final user = ref.watch(userProvider);
     ref.watch(languageProvider);
     final profileTabs = <Widget>[
       _profileTab(
@@ -173,14 +198,14 @@ class _ProfileScreenState extends ConsumerState<ProfileScreen> {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Text(
-            userFakeData[0].firstName,
+            user.value?.firstName ?? '',
             style: TextStyle(
               fontSize: context.sp(16),
               fontWeight: FontWeight.bold,
             ),
           ),
           Text(
-            userFakeData[0].email,
+            user.value?.email ?? '',
             style: TextStyle(
               fontSize: context.sp(14),
               color: AppColors.textSecondary,
@@ -217,7 +242,7 @@ class _ProfileScreenState extends ConsumerState<ProfileScreen> {
           for (final profileTab in profileTabs) profileTab,
           const SizedBox(height: 10),
           ElevatedButton(
-            onPressed: () {},
+            onPressed: _isLoading ? null : _signOut,
             style: ElevatedButton.styleFrom(
               padding: EdgeInsets.symmetric(vertical: context.h(10)),
             ),
@@ -226,13 +251,19 @@ class _ProfileScreenState extends ConsumerState<ProfileScreen> {
               children: [
                 Icon(Icons.logout_outlined, size: context.w(20)),
                 const SizedBox(width: 10),
-                Text(
-                  'Log out',
-                  style: TextStyle(
-                    fontWeight: FontWeight.bold,
-                    fontSize: context.sp(15),
-                  ),
-                ),
+                _isLoading
+                    ? SizedBox(
+                        width: context.w(20),
+                        height: context.w(20),
+                        child: const CircularProgressIndicator(strokeWidth: 2),
+                      )
+                    : Text(
+                        'Log out',
+                        style: TextStyle(
+                          fontWeight: FontWeight.bold,
+                          fontSize: context.sp(15),
+                        ),
+                      ),
               ],
             ),
           ),

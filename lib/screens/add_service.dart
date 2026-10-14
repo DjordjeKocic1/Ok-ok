@@ -1,10 +1,15 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:intl/intl.dart';
 import 'package:ok_ok/main.dart';
 import 'package:ok_ok/modal/enums.dart';
+import 'package:ok_ok/modal/service_item.dart';
 import 'package:ok_ok/providers/language_provider.dart';
+import 'package:ok_ok/providers/service_provider.dart';
+import 'package:ok_ok/utils/error_message.dart';
 import 'package:ok_ok/utils/responsive.dart';
+import 'package:ok_ok/utils/success_dialog.dart';
 import 'package:ok_ok/widgets/common/screen_padding.dart';
 
 class AddServiceScreen extends ConsumerStatefulWidget {
@@ -19,14 +24,18 @@ class _AddServiceScreenState extends ConsumerState<AddServiceScreen> {
   var _destinationStart = '';
   var _destinationEnd = '';
   var _tripNote = '';
-  TransportType _selected = TransportType.car;
+  var _maxWeight = 0;
+  var _cost = 0;
+  TransportType _selectedTransportType = TransportType.car;
   var _spotsAvailable = 1;
 
+  bool _isLoading = false;
+
   final List<String> _restrictedItems = [
-    "Pets",
-    "Breaking Glass",
-    "Flammable materials",
-    "Alcohol",
+    "pets",
+    "breakingGlass",
+    "flammableMaterials",
+    "alcohol",
   ];
 
   final List<String> _selectedRestrictedItems = [];
@@ -44,10 +53,10 @@ class _AddServiceScreenState extends ConsumerState<AddServiceScreen> {
   }
 
   Widget typeTile(String label, IconData icon, TransportType value) {
-    final selected = _selected == value;
+    final selected = _selectedTransportType == value;
 
     return GestureDetector(
-      onTap: () => setState(() => _selected = value),
+      onTap: () => setState(() => _selectedTransportType = value),
       child: Container(
         padding: const EdgeInsets.symmetric(horizontal: 16),
         decoration: BoxDecoration(
@@ -101,7 +110,7 @@ class _AddServiceScreenState extends ConsumerState<AddServiceScreen> {
     }
   }
 
-  void _onAddService() {
+  Future<void> _onAddService() async {
     if (_formKey.currentState!.validate()) {
       _formKey.currentState!.save();
       final departure = DateTime(
@@ -116,15 +125,42 @@ class _AddServiceScreenState extends ConsumerState<AddServiceScreen> {
         "yyyy-MM-dd'T'HH:mm:ss",
       ).format(departure);
 
-      print({
-        departureTime,
-        _selected,
-        _destinationStart,
-        _destinationEnd,
-        _tripNote,
-        _spotsAvailable,
-        _selectedRestrictedItems,
+      setState(() {
+        _isLoading = true;
       });
+      try {
+        await ref
+            .read(serviceProvider.notifier)
+            .create(
+              transportMode: _selectedTransportType,
+              destinationStart: Location(
+                country: "Serbia",
+                city: _destinationStart,
+              ),
+              destinationEnd: Location(
+                country: "Serbia",
+                city: _destinationEnd,
+              ),
+              departureTime: departureTime,
+              tripNote: _tripNote,
+              spotsAvailable: _spotsAvailable,
+              cost: _cost,
+              maxWeight: _maxWeight,
+              restrictedItems: _selectedRestrictedItems,
+            );
+
+        if (!mounted) return;
+        showSuccessDialog(
+          context,
+          'Usluga je uspešno dodata.',
+          onConfirm: () => Navigator.of(context).pop(),
+        );
+      } catch (e) {
+        if (!mounted) return;
+        showErrorDialog(context, e, ref);
+      } finally {
+        if (mounted) setState(() => _isLoading = false);
+      }
     }
   }
 
@@ -360,20 +396,100 @@ class _AddServiceScreenState extends ConsumerState<AddServiceScreen> {
                     if (value == null || value.isEmpty) {
                       return lang.translate('inputNullError');
                     }
+                    if (value.length <= 5) {
+                      return 'Polje mora imati bar 5 karaktera';
+                    }
                     return null;
                   },
                   onSaved: (value) {
                     _tripNote = value!;
                   },
                 ),
+                const SizedBox(height: 10),
+                Text(
+                  lang.translate('maxWeight'),
+                  style: TextStyle(fontSize: context.sp(14)),
+                ),
+                const SizedBox(height: 5),
+                TextFormField(
+                  keyboardType: TextInputType.number,
+                  inputFormatters: [FilteringTextInputFormatter.digitsOnly],
+                  decoration: InputDecoration(
+                    label: Text(
+                      'npr. 1',
+                      style: TextStyle(
+                        fontSize: context.sp(14),
+                        color: AppColors.textSecondary,
+                      ),
+                    ),
+                    suffixIcon: Padding(
+                      padding: const EdgeInsets.only(right: 12),
+                      child: Align(
+                        alignment: Alignment.centerRight,
+                        widthFactor: 1,
+                        child: Text(
+                          'Kg',
+                          style: TextStyle(
+                            fontSize: context.sp(12),
+                            color: AppColors.textSecondary,
+                          ),
+                        ),
+                      ),
+                    ),
+                  ),
+                  validator: (value) {
+                    if (value == null || value.isEmpty) {
+                      return lang.translate('inputNullError');
+                    }
+                    final weight = int.tryParse(value);
+                    if (weight == null || weight <= 0) {
+                      return lang.translate('inputNumberError');
+                    }
+                    return null;
+                  },
+                  onSaved: (value) {
+                    _maxWeight = int.parse(value!);
+                  },
+                ),
+
+                const SizedBox(height: 10),
+                Text(
+                  lang.translate('pricePackage'),
+                  style: TextStyle(fontSize: context.sp(14)),
+                ),
+                const SizedBox(height: 5),
+                TextFormField(
+                  keyboardType: TextInputType.number,
+                  inputFormatters: [FilteringTextInputFormatter.digitsOnly],
+                  decoration: InputDecoration(
+                    label: Text(
+                      'npr. 5',
+                      style: TextStyle(
+                        fontSize: context.sp(14),
+                        color: AppColors.textSecondary,
+                      ),
+                    ),
+                  ),
+                  validator: (value) {
+                    if (value == null || value.isEmpty) {
+                      return lang.translate('inputNullError');
+                    }
+                    return null;
+                  },
+                  onSaved: (value) {
+                    _cost = int.parse(value!);
+                  },
+                ),
                 const SizedBox(height: 20),
                 Row(
                   children: [
-                    Text(
-                      'What you will NOT transport',
-                      style: TextStyle(
-                        fontSize: context.sp(15),
-                        fontWeight: FontWeight.bold,
+                    Expanded(
+                      child: Text(
+                        'What you will NOT transport',
+                        style: TextStyle(
+                          fontSize: context.sp(15),
+                          fontWeight: FontWeight.bold,
+                        ),
                       ),
                     ),
                     const SizedBox(width: 10),
@@ -425,7 +541,7 @@ class _AddServiceScreenState extends ConsumerState<AddServiceScreen> {
                               }),
                             ),
                             Text(
-                              item,
+                              lang.translate(item),
                               style: TextStyle(fontSize: context.sp(14)),
                             ),
                           ],
@@ -471,17 +587,25 @@ class _AddServiceScreenState extends ConsumerState<AddServiceScreen> {
                 ),
                 const SizedBox(height: 10),
                 ElevatedButton(
-                  onPressed: _onAddService,
+                  onPressed: _isLoading ? null : _onAddService,
                   style: ElevatedButton.styleFrom(
                     padding: EdgeInsets.symmetric(vertical: context.h(10)),
                   ),
-                  child: Text(
-                    lang.translate('publishService'),
-                    style: TextStyle(
-                      fontWeight: FontWeight.bold,
-                      fontSize: context.sp(15),
-                    ),
-                  ),
+                  child: _isLoading
+                      ? SizedBox(
+                          width: context.w(20),
+                          height: context.w(20),
+                          child: const CircularProgressIndicator(
+                            strokeWidth: 2,
+                          ),
+                        )
+                      : Text(
+                          lang.translate('publishService'),
+                          style: TextStyle(
+                            fontWeight: FontWeight.bold,
+                            fontSize: context.sp(15),
+                          ),
+                        ),
                 ),
               ],
             ),

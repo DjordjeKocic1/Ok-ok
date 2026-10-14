@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:ok_ok/data/service_data.dart';
 import 'package:ok_ok/main.dart';
 import 'package:ok_ok/utils/responsive.dart';
 import 'package:ok_ok/widgets/common/screen_padding.dart';
@@ -62,32 +61,32 @@ class PersonalInformation extends ConsumerWidget {
             ],
           ),
           const SizedBox(height: 20),
-          EditableInfoTile(
-            name: 'firstName',
-            label: 'Full name',
-            initialValue: userFakeData[0].firstName,
-            borderRadius: BorderRadius.only(
-              topLeft: Radius.circular(12),
-              topRight: Radius.circular(12),
-            ),
-            validator: (value) {
-              if (value == null || value.isEmpty) {
-                return 'Ne može da bude prazno';
-              }
-              return null;
-            },
-          ),
-          EditableInfoTile(
-            name: 'phone',
-            label: 'Phone number',
-            initialValue: userFakeData[0].phone,
-            validator: (value) {
-              if (value == null || value.isEmpty) {
-                return 'Ne može da bude prazno';
-              }
-              return null;
-            },
-          ),
+          // EditableInfoTile(
+          //   name: 'firstName',
+          //   label: 'Full name',
+          //   initialValue: userFakeData[0].firstName,
+          //   borderRadius: BorderRadius.only(
+          //     topLeft: Radius.circular(12),
+          //     topRight: Radius.circular(12),
+          //   ),
+          //   validator: (value) {
+          //     if (value == null || value.isEmpty) {
+          //       return 'Ne može da bude prazno';
+          //     }
+          //     return null;
+          //   },
+          // ),
+          // EditableInfoTile(
+          //   name: 'phone',
+          //   label: 'Phone number',
+          //   initialValue: userFakeData[0].phone,
+          //   validator: (value) {
+          //     if (value == null || value.isEmpty) {
+          //       return 'Ne može da bude prazno';
+          //     }
+          //     return null;
+          //   },
+          // ),
         ],
       ),
     );

@@ -1,32 +1,40 @@
-import 'package:flutter_riverpod/legacy.dart';
-import 'package:ok_ok/data/service_data.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:ok_ok/api/services_api.dart';
+import 'package:ok_ok/modal/enums.dart';
 import 'package:ok_ok/modal/service_item.dart';
 
-class ServiceProviderNotifier extends StateNotifier<List<ServiceItem>> {
-  ServiceProviderNotifier() : super([]);
+class ServiceProviderNotifier extends AsyncNotifier<List<ServiceItem>> {
+  @override
+  Future<List<ServiceItem>> build() => ServicesApi.getMyServices();
 
-  void filterByDate(String start, String end) {
-    final filteredData = serviceData.where((item) {
-      final matchesStart = item.destinationStart.city.toLowerCase().contains(
-        start.toLowerCase(),
-      );
-
-      final matchesEnd = item.destinationEnd.city.toLowerCase().contains(
-        end.toLowerCase(),
-      );
-
-      return matchesStart && matchesEnd;
-    }).toList();
-
-    state = filteredData;
-  }
-
-  void clearFilter() {
-    state = [];
+  Future<void> create({
+    required TransportType transportMode,
+    required Location destinationStart,
+    required Location destinationEnd,
+    required String departureTime,
+    required String tripNote,
+    required int spotsAvailable,
+    required int cost,
+    required int maxWeight,
+    List<String>? restrictedItems,
+  }) async {
+    final createdService = await ServicesApi.createService(
+      transportMode: transportMode,
+      destinationStart: destinationStart,
+      destinationEnd: destinationEnd,
+      departureTime: departureTime,
+      tripNote: tripNote,
+      spotsAvailable: spotsAvailable,
+      cost: cost,
+      maxWeight: maxWeight,
+      restrictedItems: restrictedItems,
+    );
+    final currentState = state.value ?? const <ServiceItem>[];
+    state = AsyncData([...currentState, createdService]);
   }
 }
 
 final serviceProvider =
-    StateNotifierProvider<ServiceProviderNotifier, List<ServiceItem>>((ref) {
-      return ServiceProviderNotifier();
-    });
+    AsyncNotifierProvider<ServiceProviderNotifier, List<ServiceItem>>(
+      ServiceProviderNotifier.new,
+    );

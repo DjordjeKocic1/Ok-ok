@@ -28,13 +28,13 @@ class ServiceItemHeader extends ConsumerWidget {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Text(
-          serviceItem.firstName,
-          style: TextStyle(
-            fontSize: context.sp(16),
-            fontWeight: FontWeight.bold,
-          ),
-        ),
+        // Text(
+        //   serviceItem.firstName,
+        //   style: TextStyle(
+        //     fontSize: context.sp(16),
+        //     fontWeight: FontWeight.bold,
+        //   ),
+        // ),
         Row(
           children: [
             Icon(Icons.star, color: Colors.amber, size: 20),

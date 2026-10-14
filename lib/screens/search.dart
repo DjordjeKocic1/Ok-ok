@@ -1,9 +1,12 @@
 import 'package:flutter/material.dart';
-import 'package:ok_ok/data/service_data.dart';
+import 'package:ok_ok/api/services_api.dart';
 import 'package:ok_ok/main.dart';
+import 'package:ok_ok/modal/service_item.dart';
+import 'package:ok_ok/modal/user.dart';
 import 'package:ok_ok/providers/language_provider.dart';
-import 'package:ok_ok/providers/service_provider.dart';
+import 'package:ok_ok/providers/user_provider.dart';
 import 'package:ok_ok/screens/add_service.dart';
+import 'package:ok_ok/utils/error_message.dart';
 import 'package:ok_ok/utils/responsive.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:ok_ok/widgets/services_list.dart';
@@ -20,33 +23,87 @@ class _SearchScreenState extends ConsumerState<SearchScreen> {
   var _destinationStart = '';
   var _destinationEnd = '';
 
-  void _filterData() {
+  List<ServiceItem>? _services;
+  bool _isLoading = false;
+  bool _isClearing = false;
+
+  Future<void> _filterData() async {
     final lang = ref.read(languageProvider.notifier);
-    final userNotifier = ref.read(serviceProvider.notifier);
     if (_formKey.currentState!.validate()) {
       _formKey.currentState!.save();
+      setState(() {
+        _isLoading = true;
+      });
 
-      userNotifier.filterByDate(_destinationStart, _destinationEnd);
-
-      final userData = ref.read(serviceProvider);
-
-      if (userData.isEmpty) {
-        showDialog(
-          context: context,
-          builder: (ctx) => AlertDialog(
-            content: Text(
-              lang.translate('serviceDialog'),
-              style: TextStyle(fontSize: ctx.sp(14)),
-            ),
-            actions: [
-              TextButton(
-                onPressed: () => Navigator.pop(ctx),
-                child: const Text("OK"),
-              ),
-            ],
-          ),
+      try {
+        final result = await ServicesApi.getServicesByLocation(
+          _destinationStart,
+          _destinationEnd,
         );
+
+        if (!mounted) return;
+
+        if (result.isEmpty) {
+          showDialog(
+            context: context,
+            builder: (ctx) => AlertDialog(
+              content: Text(
+                lang.translate('serviceDialog'),
+                style: TextStyle(fontSize: ctx.sp(14)),
+              ),
+              actions: [
+                TextButton(
+                  onPressed: () => Navigator.pop(ctx),
+                  child: const Text("OK"),
+                ),
+              ],
+            ),
+          );
+          return;
+        }
+
+        setState(() {
+          _services = result;
+        });
+
+        await ref
+            .read(userProvider.notifier)
+            .updateUser(
+              searchedDestinations: [
+                SearchedDestinations(
+                  destinationStart: Location(
+                    country: "Nigeria",
+                    city: _destinationStart,
+                  ),
+                  destinationEnd: Location(
+                    country: "Nigeria",
+                    city: _destinationEnd,
+                  ),
+                ),
+              ],
+            );
+      } catch (e) {
+        if (!mounted) return;
+        showErrorDialog(context, e, ref);
+      } finally {
+        if (mounted) setState(() => _isLoading = false);
       }
+    }
+  }
+
+  Future<void> _clearSearches() async {
+    setState(() {
+      _isClearing = true;
+    });
+    try {
+      await ref
+          .read(userProvider.notifier)
+          .updateUser(searchedDestinations: const []);
+    } catch (e) {
+      if (!mounted) return;
+      showErrorDialog(context, e, ref);
+    } finally {
+      if (mounted) setState(() => _isClearing = false);
     }
   }
 
@@ -59,18 +116,19 @@ class _SearchScreenState extends ConsumerState<SearchScreen> {
   @override
   Widget build(BuildContext context) {
     final lang = ref.read(languageProvider.notifier);
-    final service = ref.watch(serviceProvider);
+    final user = ref.watch(userProvider);
+    final searched =
+        user.value?.searchedDestinations ?? const <SearchedDestinations>[];
+    final services = _services;
+    final hasResults = services != null && services.isNotEmpty;
     ref.watch(languageProvider);
 
-    if (service.isNotEmpty) {
+    if (hasResults) {
       return ServicesList(
         destinationStart: _destinationStart,
         destinationEnd: _destinationEnd,
-        onBack: () {
-          setState(() {
-            ref.read(serviceProvider.notifier).clearFilter();
-          });
-        },
+        services: services,
+        onBack: () => setState(() => _services = null),
       );
     }
     return SingleChildScrollView(
@@ -195,7 +253,7 @@ class _SearchScreenState extends ConsumerState<SearchScreen> {
                   ),
                   const SizedBox(height: 15),
                   ElevatedButton(
-                    onPressed: _filterData,
+                    onPressed: _isLoading ? null : _filterData,
                     style: ElevatedButton.styleFrom(
                       padding: EdgeInsets.symmetric(vertical: context.h(10)),
                     ),
@@ -204,13 +262,21 @@ class _SearchScreenState extends ConsumerState<SearchScreen> {
                       children: [
                         Icon(Icons.search, size: context.w(20)),
                         const SizedBox(width: 10),
-                        Text(
-                          lang.translate('searchButton'),
-                          style: TextStyle(
-                            fontWeight: FontWeight.bold,
-                            fontSize: context.sp(15),
-                          ),
-                        ),
+                        _isLoading
+                            ? SizedBox(
+                                width: context.w(20),
+                                height: context.w(20),
+                                child: const CircularProgressIndicator(
+                                  strokeWidth: 2,
+                                ),
+                              )
+                            : Text(
+                                lang.translate('searchButton'),
+                                style: TextStyle(
+                                  fontWeight: FontWeight.bold,
+                                  fontSize: context.sp(15),
+                                ),
+                              ),
                       ],
                     ),
                   ),
@@ -231,58 +297,78 @@ class _SearchScreenState extends ConsumerState<SearchScreen> {
                     fontWeight: FontWeight.bold,
                   ),
                 ),
-                InkWell(
-                  onTap: () {},
-                  child: Text(
-                    lang.translate('removeAll'),
-                    style: TextStyle(
-                      fontSize: context.sp(15),
-                      color: AppColors.primary,
-                      fontWeight: FontWeight.bold,
-                    ),
-                  ),
-                ),
+                _isClearing
+                    ? SizedBox(
+                        width: context.w(16),
+                        height: context.w(16),
+                        child: const CircularProgressIndicator(strokeWidth: 2),
+                      )
+                    : InkWell(
+                        onTap: _clearSearches,
+                        child: Text(
+                          lang.translate('removeAll'),
+                          style: TextStyle(
+                            fontSize: context.sp(15),
+                            color: AppColors.primary,
+                            fontWeight: FontWeight.bold,
+                          ),
+                        ),
+                      ),
               ],
             ),
           ),
           const SizedBox(height: 5),
-          for (final historyDestination in userFakeData[0].historyDestinations)
-            Container(
-              margin: EdgeInsets.symmetric(vertical: 5, horizontal: 10),
-              decoration: BoxDecoration(
-                color: AppColors.mainColor,
-                borderRadius: BorderRadius.circular(12),
+          if (searched.isEmpty)
+            Padding(
+              padding: const EdgeInsets.symmetric(vertical: 10),
+              child: Center(
+                child: Text(
+                  lang.translate('noSearchedDestinations'),
+                  style: TextStyle(
+                    fontSize: context.sp(12),
+                    color: AppColors.textSecondary,
+                  ),
+                ),
               ),
-              padding: EdgeInsets.symmetric(vertical: 8, horizontal: 15),
-              child: Row(
-                children: [
-                  Container(
-                    padding: EdgeInsets.all(4),
-                    decoration: BoxDecoration(
-                      color: AppColors.secondaryMainColor,
-                      shape: BoxShape.circle,
+            )
+          else
+            for (final searchedDestinations in searched)
+              Container(
+                margin: EdgeInsets.symmetric(vertical: 5, horizontal: 10),
+                decoration: BoxDecoration(
+                  color: AppColors.mainColor,
+                  borderRadius: BorderRadius.circular(12),
+                ),
+                padding: EdgeInsets.symmetric(vertical: 8, horizontal: 15),
+                child: Row(
+                  children: [
+                    Container(
+                      padding: EdgeInsets.all(4),
+                      decoration: BoxDecoration(
+                        color: AppColors.secondaryMainColor,
+                        shape: BoxShape.circle,
+                      ),
+                      child: Icon(Icons.history, color: AppColors.primary),
                     ),
-                    child: Icon(Icons.history, color: AppColors.primary),
-                  ),
-                  const SizedBox(width: 10),
-                  Text(
-                    historyDestination.destinationStart.city.toString(),
-                    style: TextStyle(fontSize: context.sp(14)),
-                  ),
-                  const SizedBox(width: 5),
-                  Icon(
-                    Icons.arrow_forward_sharp,
-                    size: 15,
-                    color: AppColors.primary,
-                  ),
-                  const SizedBox(width: 5),
-                  Text(
-                    historyDestination.destinationEnd.city.toString(),
-                    style: TextStyle(fontSize: context.sp(14)),
-                  ),
-                ],
+                    const SizedBox(width: 10),
+                    Text(
+                      searchedDestinations.destinationStart.city.toString(),
+                      style: TextStyle(fontSize: context.sp(14)),
+                    ),
+                    const SizedBox(width: 5),
+                    Icon(
+                      Icons.arrow_forward_sharp,
+                      size: 15,
+                      color: AppColors.primary,
+                    ),
+                    const SizedBox(width: 5),
+                    Text(
+                      searchedDestinations.destinationEnd.city.toString(),
+                      style: TextStyle(fontSize: context.sp(14)),
+                    ),
+                  ],
+                ),
               ),
-            ),
           const SizedBox(height: 10),
           ElevatedButton(
             onPressed: _goToAddService,

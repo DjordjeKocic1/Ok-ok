@@ -3,7 +3,6 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:ok_ok/main.dart';
 import 'package:ok_ok/modal/service_item.dart';
 import 'package:ok_ok/providers/language_provider.dart';
-import 'package:ok_ok/providers/service_provider.dart';
 import 'package:ok_ok/screens/service_detail.dart';
 import 'package:ok_ok/utils/formatters.dart';
 import 'package:ok_ok/utils/responsive.dart';
@@ -11,11 +10,12 @@ import 'package:ok_ok/utils/responsive.dart';
 class ServicesList extends ConsumerStatefulWidget {
   const ServicesList({
     super.key,
+    required this.services,
     required this.destinationStart,
     required this.destinationEnd,
     required this.onBack,
   });
-
+  final List<ServiceItem> services;
   final String destinationStart;
   final String destinationEnd;
   final VoidCallback onBack;
@@ -36,7 +36,6 @@ class _ServicesListState extends ConsumerState<ServicesList> {
   @override
   Widget build(BuildContext context) {
     final lang = ref.read(languageProvider.notifier);
-    final service = ref.read(serviceProvider);
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
@@ -88,9 +87,11 @@ class _ServicesListState extends ConsumerState<ServicesList> {
         const SizedBox(height: 20),
         Expanded(
           child: ListView.builder(
-            itemCount: service.length,
+            itemCount: widget.services.length,
             itemBuilder: (ctx, index) {
-              final dateInfo = getDateTime(service[index].departureTime);
+              final dateInfo = getDateTime(
+                widget.services[index].departureTime,
+              );
               var dayMonth = dateInfo.dayMonth.split(".");
               var departureDate = dayMonth[0];
               var departureMonth = dayMonth[1];
@@ -100,7 +101,7 @@ class _ServicesListState extends ConsumerState<ServicesList> {
                   ? lang.translate('goTomorrow')
                   : '${lang.translate('goes')} $departureDate . ${lang.translate(departureMonth.trim())}';
               var ratingText = getAverageRating(
-                service[index].ratingHistory,
+                widget.services[index].ratingHistory,
               ).toStringAsFixed(1);
 
               Widget transportModeContent(String transport) {
@@ -124,7 +125,7 @@ class _ServicesListState extends ConsumerState<ServicesList> {
                 clipBehavior: Clip.hardEdge,
                 child: InkWell(
                   onTap: () {
-                    _goToDetails(context, service[index]);
+                    _goToDetails(context, widget.services[index]);
                   },
                   child: Stack(
                     children: [
@@ -141,15 +142,15 @@ class _ServicesListState extends ConsumerState<ServicesList> {
                                     crossAxisAlignment:
                                         CrossAxisAlignment.start,
                                     children: [
-                                      Text(
-                                        service[index].firstName,
-                                        overflow: TextOverflow.ellipsis,
-                                        maxLines: 1,
-                                        style: TextStyle(
-                                          fontSize: context.sp(16),
-                                          fontWeight: FontWeight.bold,
-                                        ),
-                                      ),
+                                      // Text(
+                                      //   widget.services[index].firstName,
+                                      //   overflow: TextOverflow.ellipsis,
+                                      //   maxLines: 1,
+                                      //   style: TextStyle(
+                                      //     fontSize: context.sp(16),
+                                      //     fontWeight: FontWeight.bold,
+                                      //   ),
+                                      // ),
                                       Row(
                                         children: [
                                           Icon(
@@ -166,7 +167,7 @@ class _ServicesListState extends ConsumerState<ServicesList> {
                                           ),
                                           const SizedBox(width: 2),
                                           Text(
-                                            '(${service[index].ratingHistory.length.toString()})',
+                                            '(${widget.services[index].ratingHistory.length.toString()})',
                                             style: TextStyle(
                                               fontSize: context.sp(14),
                                             ),
@@ -203,7 +204,7 @@ class _ServicesListState extends ConsumerState<ServicesList> {
                             Row(
                               children: [
                                 Text(
-                                  service[index].destinationStart.city,
+                                  widget.services[index].destinationStart.city,
                                   style: TextStyle(
                                     fontSize: context.sp(16),
                                     fontWeight: FontWeight.bold,
@@ -218,7 +219,7 @@ class _ServicesListState extends ConsumerState<ServicesList> {
                                 const SizedBox(width: 5),
                                 Flexible(
                                   child: Text(
-                                    service[index].destinationEnd.city,
+                                    widget.services[index].destinationEnd.city,
                                     overflow: TextOverflow.ellipsis,
                                     maxLines: 2,
                                     style: TextStyle(
@@ -229,7 +230,7 @@ class _ServicesListState extends ConsumerState<ServicesList> {
                                 ),
                                 const SizedBox(width: 5),
                                 transportModeContent(
-                                  service[index].transportMode,
+                                  widget.services[index].transportMode,
                                 ),
                               ],
                             ),
@@ -250,7 +251,7 @@ class _ServicesListState extends ConsumerState<ServicesList> {
                             ),
                             const SizedBox(height: 10),
                             Text(
-                              '${lang.translate('freeSpace')} ${service[index].spotsAvailable}',
+                              '${lang.translate('freeSpace')} ${widget.services[index].spotsAvailable}',
                               style: TextStyle(fontSize: context.sp(14)),
                             ),
                           ],
@@ -260,7 +261,7 @@ class _ServicesListState extends ConsumerState<ServicesList> {
                         bottom: 15,
                         right: 20,
                         child: Text(
-                          '\$${service[index].cost}',
+                          '\$${widget.services[index].cost}',
                           style: TextStyle(
                             fontWeight: FontWeight.bold,
                             fontSize: context.sp(16),

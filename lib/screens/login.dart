@@ -78,6 +78,8 @@ class LoginScreen extends ConsumerWidget {
                         child: Column(
                           children: [
                             TabBar(
+                              onTap: (_) =>
+                                  FocusManager.instance.primaryFocus?.unfocus(),
                               tabAlignment: TabAlignment.fill,
                               labelColor: AppColors.primaryDark,
                               unselectedLabelColor: AppColors.textSecondary,

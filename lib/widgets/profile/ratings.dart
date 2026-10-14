@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:ok_ok/data/service_data.dart';
 import 'package:ok_ok/main.dart';
 import 'package:ok_ok/utils/formatters.dart';
 import 'package:ok_ok/utils/responsive.dart';
@@ -11,10 +10,6 @@ class Ratings extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    var ratingText = getAverageRating(
-      userFakeData[0].ratingHistory.map((rt) => rt.rating).toList(),
-    ).toStringAsFixed(1);
-
     return ScreenPadding(
       extra: EdgeInsets.only(top: 20),
       child: Column(
@@ -76,67 +71,67 @@ class Ratings extends StatelessWidget {
 
               Icon(Icons.star, color: AppColors.primary, size: context.w(20)),
               const SizedBox(width: 2),
-              Text(ratingText, style: TextStyle(fontSize: context.sp(15))),
+              // Text(ratingText, style: TextStyle(fontSize: context.sp(15))),
               const SizedBox(width: 2),
-              Text(
-                '(${userFakeData[0].ratingHistory.length.toString()})',
-                style: TextStyle(fontSize: context.sp(15)),
-              ),
+              // Text(
+              //   '(${userFakeData[0].ratingHistory.length.toString()})',
+              //   style: TextStyle(fontSize: context.sp(15)),
+              // ),
             ],
           ),
           const SizedBox(height: 10),
-          for (final rating in userFakeData[0].ratingHistory)
-            Container(
-              padding: const EdgeInsets.all(10),
-              margin: EdgeInsets.only(top: 5),
-              decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(12),
-                border: Border.all(color: AppColors.border),
-              ),
-              child: Row(
-                children: [
-                  Expanded(
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.stretch,
-                      children: [
-                        Text(
-                          rating.firstName,
-                          style: TextStyle(
-                            fontSize: context.sp(14),
-                            fontWeight: FontWeight.bold,
-                          ),
-                        ),
-                        Row(
-                          children: [
-                            StarRating(
-                              rating: double.parse(rating.rating),
-                              size: context.w(16),
-                              filledColor: Colors.amber,
-                            ),
-                            const SizedBox(width: 3),
-                            Text(
-                              rating.rating,
-                              style: TextStyle(
-                                fontSize: context.sp(14),
-                                color: AppColors.textSecondary,
-                              ),
-                            ),
-                          ],
-                        ),
-                        const SizedBox(height: 5),
-                        Text(
-                          rating.comment,
-                          style: TextStyle(
-                            fontSize: context.sp(14),
-                            color: AppColors.textSecondary,
-                          ),
-                        ),
-                      ],
-                    ),
-                  ),
-                ],
-              ),
-            ),
+          // for (final rating in userFakeData[0].ratingHistory)
+          //   Container(
+          //     padding: const EdgeInsets.all(10),
+          //     margin: EdgeInsets.only(top: 5),
+          //     decoration: BoxDecoration(
+          //       borderRadius: BorderRadius.circular(12),
+          //       border: Border.all(color: AppColors.border),
+          //     ),
+          //     child: Row(
+          //       children: [
+          //         Expanded(
+          //           child: Column(
+          //             crossAxisAlignment: CrossAxisAlignment.stretch,
+          //             children: [
+          //               Text(
+          //                 rating.firstName,
+          //                 style: TextStyle(
+          //                   fontSize: context.sp(14),
+          //                   fontWeight: FontWeight.bold,
+          //                 ),
+          //               ),
+          //               Row(
+          //                 children: [
+          //                   StarRating(
+          //                     rating: double.parse(rating.rating),
+          //                     size: context.w(16),
+          //                     filledColor: Colors.amber,
+          //                   ),
+          //                   const SizedBox(width: 3),
+          //                   Text(
+          //                     rating.rating,
+          //                     style: TextStyle(
+          //                       fontSize: context.sp(14),
+          //                       color: AppColors.textSecondary,
+          //                     ),
+          //                   ),
+          //                 ],
+          //               ),
+          //               const SizedBox(height: 5),
+          //               Text(
+          //                 rating.comment,
+          //                 style: TextStyle(
+          //                   fontSize: context.sp(14),
+          //                   color: AppColors.textSecondary,
+          //                 ),
+          //               ),
+          //             ],
+          //           ),
+          //         ),
+          //       ],
+          //     ),
+          //   ),
         ],
       ),
     );

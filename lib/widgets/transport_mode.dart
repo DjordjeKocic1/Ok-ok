@@ -14,27 +14,36 @@ class TransportMode extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     Widget transportContent() {
-      if (transport == 'Car') {
+      if (transport == 'car') {
         return Icon(
           Icons.directions_car_outlined,
           size: iconSize,
           color: AppColors.primary,
         );
       }
-      if (transport == 'Airplan') {
+
+      if (transport == 'bus') {
+        return Icon(
+          Icons.directions_bus_outlined,
+          size: iconSize,
+          color: AppColors.primary,
+        );
+      }
+
+      if (transport == 'plane') {
         return Icon(Icons.flight, size: iconSize, color: AppColors.primary);
       }
 
-      if (transport == 'Truck') {
+      if (transport == 'train') {
         return Icon(
-          Icons.local_shipping_outlined,
+          Icons.train_outlined,
           size: iconSize,
           color: AppColors.primary,
         );
       }
 
       return Icon(
-        Icons.directions_boat_outlined,
+        Icons.local_shipping_outlined,
         size: iconSize,
         color: AppColors.primary,
       );

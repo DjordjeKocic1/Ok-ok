@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:ok_ok/data/service_data.dart';
 import 'package:ok_ok/main.dart';
 import 'package:ok_ok/utils/responsive.dart';
 import 'package:ok_ok/widgets/common/screen_padding.dart';
@@ -29,30 +28,30 @@ class _PasswordState extends State<Password> {
   @override
   Widget build(BuildContext context) {
     Widget idDocumentVerifyContent() {
-      if (userFakeData[0].idVerified) {
-        return Container(
-          padding: EdgeInsets.symmetric(vertical: 5, horizontal: 10),
-          decoration: BoxDecoration(
-            color: AppColors.fadeSuccess,
-            borderRadius: BorderRadius.circular(20),
-          ),
-          child: Row(
-            mainAxisSize: MainAxisSize.min,
-            children: [
-              Icon(Icons.check, color: AppColors.successPrimary, size: 15),
-              const SizedBox(width: 3),
-              Text(
-                'Verified',
-                style: TextStyle(
-                  fontSize: context.sp(12),
-                  color: AppColors.successPrimary,
-                  fontWeight: FontWeight.bold,
-                ),
-              ),
-            ],
-          ),
-        );
-      }
+      // if (userFakeData[0].idVerified) {
+      //   return Container(
+      //     padding: EdgeInsets.symmetric(vertical: 5, horizontal: 10),
+      //     decoration: BoxDecoration(
+      //       color: AppColors.fadeSuccess,
+      //       borderRadius: BorderRadius.circular(20),
+      //     ),
+      //     child: Row(
+      //       mainAxisSize: MainAxisSize.min,
+      //       children: [
+      //         Icon(Icons.check, color: AppColors.successPrimary, size: 15),
+      //         const SizedBox(width: 3),
+      //         Text(
+      //           'Verified',
+      //           style: TextStyle(
+      //             fontSize: context.sp(12),
+      //             color: AppColors.successPrimary,
+      //             fontWeight: FontWeight.bold,
+      //           ),
+      //         ),
+      //       ],
+      //     ),
+      //   );
+      // }
 
       return TextButton(
         style: TextButton.styleFrom(backgroundColor: AppColors.mainColor),
@@ -134,13 +133,13 @@ class _PasswordState extends State<Password> {
                           'Email',
                           style: TextStyle(fontSize: context.sp(14)),
                         ),
-                        Text(
-                          userFakeData[0].email,
-                          style: TextStyle(
-                            fontSize: context.sp(14),
-                            color: AppColors.textSecondary,
-                          ),
-                        ),
+                        // Text(
+                        //   userFakeData[0].email,
+                        //   style: TextStyle(
+                        //     fontSize: context.sp(14),
+                        //     color: AppColors.textSecondary,
+                        //   ),
+                        // ),
                       ],
                     ),
                   ),
@@ -189,14 +188,14 @@ class _PasswordState extends State<Password> {
                           'ID document',
                           style: TextStyle(fontSize: context.sp(14)),
                         ),
-                        if (!userFakeData[0].idVerified)
-                          Text(
-                            'Not verified',
-                            style: TextStyle(
-                              fontSize: context.sp(12),
-                              color: AppColors.textSecondary,
-                            ),
-                          ),
+                        // if (!userFakeData[0].idVerified)
+                        //   Text(
+                        //     'Not verified',
+                        //     style: TextStyle(
+                        //       fontSize: context.sp(12),
+                        //       color: AppColors.textSecondary,
+                        //     ),
+                        //   ),
                       ],
                     ),
                   ),
@@ -254,7 +253,7 @@ class _PasswordState extends State<Password> {
                 if (value == _currentPasswordController.text) {
                   return 'Nova lozinka mora biti drugačija od stare';
                 }
-                if (value.length >= 5) {
+                if (value.length < 5) {
                   return 'Lozinka mora imati bar 5 karaktera';
                 }
                 return null;

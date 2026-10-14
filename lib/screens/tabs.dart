@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:ok_ok/main.dart';
 import 'package:ok_ok/providers/language_provider.dart';
-import 'package:ok_ok/screens/message.dart';
 import 'package:ok_ok/screens/my_services.dart';
 import 'package:ok_ok/screens/profile.dart';
 import 'package:ok_ok/screens/search.dart';
@@ -21,7 +20,6 @@ class _TabsScreenState extends ConsumerState<TabsScreen> {
 
   final List<Widget> _screens = const [
     SearchScreen(),
-    MessageScreen(),
     MyServicesScreen(),
     ProfileScreen(),
   ];
@@ -50,20 +48,15 @@ class _TabsScreenState extends ConsumerState<TabsScreen> {
         selectedItemColor: AppColors.primary,
         unselectedItemColor: AppColors.textSecondary,
         selectedLabelStyle: TextStyle(
-          fontSize: context.sp(14),
+          fontSize: context.sp(12),
           fontWeight: FontWeight.w600,
         ),
-        unselectedLabelStyle: TextStyle(fontSize: context.sp(14)),
+        unselectedLabelStyle: TextStyle(fontSize: context.sp(12)),
         items: [
           BottomNavigationBarItem(
             icon: Icon(Icons.home_outlined),
             activeIcon: Icon(Icons.home),
             label: lang.translate('tabHome'),
-          ),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.chat_bubble_outline),
-            activeIcon: Icon(Icons.chat_bubble),
-            label: lang.translate('tabMessage'),
           ),
           BottomNavigationBarItem(
             icon: Icon(Icons.cases_outlined),
