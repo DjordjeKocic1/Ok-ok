@@ -1,4 +1,5 @@
 import 'package:ok_ok/modal/enums.dart';
+import 'package:ok_ok/modal/request.dart';
 import 'package:ok_ok/modal/user.dart';
 
 class Location {
@@ -32,6 +33,7 @@ class ServiceItem {
     required this.restrictedItems,
     required this.spotsAvailable,
     required this.transportMode,
+    required this.requests,
     this.user,
   }) : _id = id;
 
@@ -50,6 +52,7 @@ class ServiceItem {
   final int spotsAvailable;
   final String transportMode;
   final User? user;
+  final List<Request> requests;
 
   factory ServiceItem.fromJson(Map<String, dynamic> json) {
     return ServiceItem(
@@ -74,6 +77,9 @@ class ServiceItem {
       user: json['user'] is Map<String, dynamic>
           ? User.fromJson(json['user'] as Map<String, dynamic>)
           : null,
+      requests: (json['requests'] as List<dynamic>? ?? const [])
+          .map((e) => Request.fromJson(e as Map<String, dynamic>))
+          .toList(),
     );
   }
 }

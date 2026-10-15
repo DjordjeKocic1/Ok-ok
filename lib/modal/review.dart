@@ -7,6 +7,7 @@ class Review {
     required this.toUser,
     required this.rating,
     required this.comment,
+    required this.createdAt,
   }) : _id = id;
 
   final String _id;
@@ -16,6 +17,7 @@ class Review {
   final String toUser;
   final double rating;
   final String comment;
+  final String createdAt;
 
   factory Review.fromJson(Map<String, dynamic> json) {
     final from = json['fromUser'];
@@ -29,6 +31,7 @@ class Review {
           : (to as String? ?? ''),
       rating: (json['rating'] as num? ?? 0).toDouble(),
       comment: json['comment'] as String? ?? '',
+      createdAt: json['createdAt'] as String? ?? '',
     );
   }
 }

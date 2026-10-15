@@ -6,6 +6,7 @@ import 'package:ok_ok/providers/language_provider.dart';
 import 'package:ok_ok/screens/request.dart';
 import 'package:ok_ok/utils/responsive.dart';
 import 'package:ok_ok/widgets/common/screen_padding.dart';
+import 'package:ok_ok/widgets/profile/review_item.dart';
 import 'package:ok_ok/widgets/service_item_header.dart';
 
 class ServiceDetailScreen extends ConsumerStatefulWidget {
@@ -27,24 +28,76 @@ class _ServiceDetailScreenState extends ConsumerState<ServiceDetailScreen> {
     );
   }
 
+  void _viewReviews() {
+    showModalBottomSheet(
+      context: context,
+      isScrollControlled: true,
+      shape: const RoundedRectangleBorder(
+        borderRadius: BorderRadius.vertical(top: Radius.circular(20)),
+      ),
+      builder: (ctx) => SizedBox(
+        width: double.infinity,
+        child: ScreenPadding(
+          extra: EdgeInsets.only(top: 20),
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
+            crossAxisAlignment: CrossAxisAlignment.stretch,
+            children: [
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Text(
+                    'Komentari i ocene',
+                    style: TextStyle(
+                      fontSize: context.sp(16),
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ),
+                  IconButton.outlined(
+                    onPressed: () {
+                      Navigator.pop(context);
+                    },
+                    icon: Icon(Icons.close_outlined),
+                  ),
+                ],
+              ),
+              const SizedBox(height: 10),
+              Flexible(
+                child: ListView.builder(
+                  shrinkWrap: true,
+                  itemCount: widget.serviceItem.user?.reviews.length,
+                  itemBuilder: (ctx, index) {
+                    final review = widget.serviceItem.user?.reviews[index];
+                    return ReviewItem(review: review!);
+                  },
+                ),
+              ),
+            ],
+          ),
+        ),
+      ),
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     final lang = ref.read(languageProvider.notifier);
+    final reviews = widget.serviceItem.user?.reviews ?? const [];
     Widget restrictedContent(String restrictedItem) {
       var iconColor = AppColors.primary;
       var iconSize = context.w(25);
       return Column(
         children: [
-          if (restrictedItem == 'Pets')
+          if (restrictedItem == 'pets')
             Icon(Icons.pets_outlined, color: iconColor, size: iconSize),
-          if (restrictedItem == 'Breaking Glass')
+          if (restrictedItem == 'breakingGlass')
             Icon(Icons.wine_bar_outlined, color: iconColor, size: iconSize),
-          if (restrictedItem == 'Flammable materials')
+          if (restrictedItem == 'flammableMaterials')
             Icon(Icons.eco_outlined, color: iconColor, size: iconSize),
-          if (restrictedItem == 'Alcohol')
+          if (restrictedItem == 'alcohol')
             Icon(Icons.liquor_outlined, color: iconColor, size: iconSize),
           Text(
-            restrictedItem.replaceAll(' ', '\n'),
+            lang.translate(restrictedItem),
             textAlign: TextAlign.center,
             style: TextStyle(fontSize: context.sp(12)),
           ),
@@ -189,6 +242,43 @@ class _ServiceDetailScreenState extends ConsumerState<ServiceDetailScreen> {
                 ],
               ),
               const SizedBox(height: 10),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Text(
+                    'Komentari i ocene',
+                    style: TextStyle(
+                      fontSize: context.sp(16),
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ),
+                  TextButton(
+                    onPressed: reviews.isEmpty ? null : _viewReviews,
+                    child: Text(
+                      'Pogledaj sve (${reviews.length})',
+                      style: TextStyle(
+                        fontSize: context.sp(14),
+                        color: AppColors.primary,
+                      ),
+                    ),
+                  ),
+                ],
+              ),
+              if (reviews.isEmpty)
+                Center(
+                  child: Text(
+                    'Nema komentara i ocena',
+                    style: TextStyle(
+                      fontSize: context.sp(12),
+                      color: AppColors.textSecondary,
+                    ),
+                  ),
+                )
+              else
+                ...reviews.take(3).map((review) {
+                  return ReviewItem(review: review);
+                }),
+              const SizedBox(height: 15),
               ElevatedButton(
                 onPressed: () {
                   _goToRequest(context);

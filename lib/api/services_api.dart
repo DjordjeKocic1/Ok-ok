@@ -45,8 +45,6 @@ class ServicesApi {
       "restrictedItems": restrictedItems,
     });
 
-    print(data['service']);
-
     return ServiceItem.fromJson(data['service'] as Map<String, dynamic>);
   }
 }

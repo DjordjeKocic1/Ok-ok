@@ -167,6 +167,46 @@ class MyServicesScreen extends ConsumerWidget {
                               ),
                             ],
                           ),
+                          const SizedBox(height: 15),
+                          Container(
+                            padding: const EdgeInsets.all(10),
+                            decoration: BoxDecoration(
+                              color: AppColors.mainColor,
+                              borderRadius: BorderRadius.circular(12),
+                            ),
+                            child: Row(
+                              children: [
+                                Container(
+                                  padding: const EdgeInsets.all(6),
+                                  decoration: const BoxDecoration(
+                                    color: AppColors.secondaryMainColor,
+                                    shape: BoxShape.circle,
+                                  ),
+                                  child: Icon(
+                                    Icons.person_2_rounded,
+                                    size: context.w(20),
+                                    color: AppColors.primary,
+                                  ),
+                                ),
+                                const SizedBox(width: 10),
+                                Text.rich(
+                                  TextSpan(
+                                    style: TextStyle(fontSize: context.sp(12)),
+                                    children: [
+                                      TextSpan(
+                                        text:
+                                            '${services[index].requests.length} zahtev(a)',
+                                        style: const TextStyle(
+                                          fontWeight: FontWeight.bold,
+                                        ),
+                                      ),
+                                      const TextSpan(text: ' za ovu uslugu'),
+                                    ],
+                                  ),
+                                ),
+                              ],
+                            ),
+                          ),
                         ],
                       ),
                     ),

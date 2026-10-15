@@ -19,12 +19,14 @@ import 'package:intl/intl.dart';
   return (dayMonth: dayMonth, time: time, isTomorrow: isTomorrow, year: year);
 }
 
-double getAverageRating(List<String> ratingHistory) {
-  if (ratingHistory.isEmpty) return 0.0;
+String formatDate(String isoString, {String? format = 'dd.MM.yyyy.'}) {
+  final date = DateTime.parse(isoString).toLocal();
+  return DateFormat(format).format(date);
+}
 
-  final sum = ratingHistory
-      .map((r) => double.tryParse(r) ?? 0.0)
-      .reduce((a, b) => a + b);
-
-  return sum / ratingHistory.length;
+String initial(String? text) {
+  if (text == null) return '';
+  final trimmed = text.trim();
+  if (trimmed.isEmpty) return '';
+  return '${trimmed[0].toUpperCase()}.';
 }
